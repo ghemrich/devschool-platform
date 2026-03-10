@@ -88,8 +88,12 @@ Az OpenSchool nem egy hagyományos e-learning platform. A diákok **ugyanazokkal
 | PR sablon | ✅ |
 | README.md | ✅ |
 | Makefile | ✅ |
-| pre-commit + ruff | ✅ |
-
+| pre-commit + ruff | ✅ || Architektúra dokumentáció | ✅ |
+| Telepítési útmutató | ✅ |
+| Fejlesztői környezet útmutató | ✅ |
+| Felhasználói útmutató (UI/domain) | ✅ |
+| GitHub Classroom integrációs útmutató | ✅ |
+| Dokumentumok közötti navigáció | ✅ |
 ### ✅ Tesztek
 
 | Teszt | Állapot |
@@ -215,7 +219,7 @@ A kurzuskeretrendszer (`../testing/`) több külső eszközt tartalmaz, amelyek 
 
 1. **VPS telepítés** (az éles rendszer felállítása a saját domainnel) ← **KÖVETKEZŐ LÉPÉS**
 2. **Discord integráció** — a közösségi kommunikáció
-3. **Tanári eszközök** — jegykalkulátor, haladás összeszítés
+3. **Tanári eszközök** — jegykalkulátor, haladás összeszítés, automatikus assignment szinkronizálás
 4. **Haladó funkciók** — PR-ek, Issues, csapatmunka
 5. **Platform érettség** — monitoring, analitika, teljesítmény
 
@@ -223,6 +227,6 @@ A kurzuskeretrendszer (`../testing/`) több külső eszközt tartalmaz, amelyek 
 
 ## Összefoglalás
 
-A platform alapjai **készen állnak**: backend API (auth, kurzusok, haladás, tanúsítványok), frontend (6 oldal), infrastruktúra (Docker, CI/CD, nginx), közösségi fájlok (LICENSE, CONTRIBUTING, sablonok).
+A platform alapjai **készen állnak**: backend API (auth, kurzusok, haladás, tanúsítványok, admin), frontend (9 oldal), infrastruktúra (Docker, CI/CD, nginx), GitHub Classroom integráció (repo_prefix, webhook, sync), admin panel, és 7 dokumentum navigációval összekötve.
 
-A következő nagy lépés a **VPS telepítés**, majd a **GitHub Classroom** és **Discord** integráció, amelyek a platform valódi értékét adják — összekapcsolják a tantermi munkát az ipari eszközökkel.
+A következő nagy lépés a **VPS telepítés**, majd a **Discord integráció** és **tanári eszközök bővítése** (automatikus Classroom szinkronizálás, jegykalkulátor), amelyek a platform valódi értékét tovább növelik.
