@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page {
+            size: A4 landscape;
+            margin: 0;
+        }
+        body {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            margin: 0;
+            padding: 40px 60px;
+            background: #fff;
+            color: #333;
+        }
+        .certificate {
+            border: 8px double #2c3e50;
+            padding: 50px;
+            text-align: center;
+            min-height: 400px;
+            position: relative;
+        }
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+        }
+        .recipient {
+            font-size: 28px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 20px 0;
+        }
+        .course-name {
+            font-size: 22px;
+            color: #2c3e50;
+            margin: 10px 0 30px;
+        }
+        .details {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-top: 30px;
+        }
+        .qr-section {
+            margin-top: 20px;
+        }
+        .qr-section img {
+            width: 100px;
+            height: 100px;
+        }
+        .cert-id {
+            font-size: 11px;
+            color: #bdc3c7;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate">
+        <div class="title">DevSchool Certificate</div>
+        <div class="subtitle">Certificate of Completion</div>
+        <p>This certifies that</p>
+        <div class="recipient">{{name}}</div>
+        <p>has successfully completed the course</p>
+        <div class="course-name">{{course_name}}</div>
+        <div class="details">
+            Issued on: {{issued_date}}
+        </div>
+        <div class="qr-section">
+            <img src="data:image/png;base64,{{qr_base64}}" alt="Verification QR Code">
+            <p class="cert-id">Verify at: {{verify_url}}</p>
+            <p class="cert-id">Certificate ID: {{cert_id}}</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -27,9 +27,7 @@ async def update_progress_for_user(db: Session, user: User, github_token: str, o
                 )
 
                 progress = (
-                    db.query(Progress)
-                    .filter(Progress.user_id == user.id, Progress.exercise_id == exercise.id)
-                    .first()
+                    db.query(Progress).filter(Progress.user_id == user.id, Progress.exercise_id == exercise.id).first()
                 )
 
                 if progress is None:

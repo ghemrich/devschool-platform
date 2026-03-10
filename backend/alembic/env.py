@@ -11,6 +11,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from app.config import settings
 from app.database import Base
+from app.models.certificate import Certificate  # noqa: F401
 from app.models.course import Course, Enrollment, Exercise, Module, Progress  # noqa: F401
 from app.models.user import User  # noqa: F401 — needed for autogenerate
 

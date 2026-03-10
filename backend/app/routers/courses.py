@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
@@ -63,8 +63,7 @@ def get_course(course_id: int, db: Session = Depends(get_db)):
                 "name": m.name,
                 "order": m.order,
                 "exercises": [
-                    {"id": e.id, "name": e.name, "repo_prefix": e.repo_prefix, "order": e.order}
-                    for e in m.exercises
+                    {"id": e.id, "name": e.name, "repo_prefix": e.repo_prefix, "order": e.order} for e in m.exercises
                 ],
             }
             for m in course.modules
@@ -149,9 +148,7 @@ def enroll(course_id: int, db: Session = Depends(get_db), current_user: User = D
         raise HTTPException(status_code=404, detail="Course not found")
 
     existing = (
-        db.query(Enrollment)
-        .filter(Enrollment.user_id == current_user.id, Enrollment.course_id == course_id)
-        .first()
+        db.query(Enrollment).filter(Enrollment.user_id == current_user.id, Enrollment.course_id == course_id).first()
     )
     if existing:
         raise HTTPException(status_code=409, detail="Already enrolled")
@@ -165,9 +162,7 @@ def enroll(course_id: int, db: Session = Depends(get_db), current_user: User = D
 @router.post("/{course_id}/unenroll")
 def unenroll(course_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     enrollment = (
-        db.query(Enrollment)
-        .filter(Enrollment.user_id == current_user.id, Enrollment.course_id == course_id)
-        .first()
+        db.query(Enrollment).filter(Enrollment.user_id == current_user.id, Enrollment.course_id == course_id).first()
     )
     if not enrollment:
         raise HTTPException(status_code=404, detail="Not enrolled")

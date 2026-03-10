@@ -40,9 +40,7 @@ def dashboard(db: Session = Depends(get_db), current_user: User = Depends(get_cu
 
 
 @router.get("/courses/{course_id}/progress")
-def course_progress(
-    course_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
-):
+def course_progress(course_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     """Detailed progress for a specific course."""
     modules = db.query(Module).filter(Module.course_id == course_id).order_by(Module.order).all()
     result = []
@@ -78,9 +76,7 @@ def _count_progress(db: Session, user_id: int, course_id: int) -> tuple[int, int
         db.query(Progress)
         .filter(
             Progress.user_id == user_id,
-            Progress.exercise_id.in_(
-                db.query(Exercise.id).filter(Exercise.module_id.in_(module_ids))
-            ),
+            Progress.exercise_id.in_(db.query(Exercise.id).filter(Exercise.module_id.in_(module_ids))),
             Progress.status == ProgressStatus.completed,
         )
         .count()

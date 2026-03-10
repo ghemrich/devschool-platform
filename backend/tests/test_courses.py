@@ -1,18 +1,17 @@
+import pytest
+from fastapi.testclient import TestClient
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
 from app.auth.jwt import create_access_token
 from app.database import Base, get_db
 from app.main import app
 from app.models.course import Course, Enrollment, Exercise, Module, Progress, ProgressStatus
 from app.models.user import User, UserRole
-from fastapi.testclient import TestClient
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 
 SQLALCHEMY_TEST_URL = "sqlite:///./test_courses.db"
 engine = create_engine(SQLALCHEMY_TEST_URL, connect_args={"check_same_thread": False})
 TestingSessionLocal = sessionmaker(bind=engine)
-
-
-import pytest
 
 
 @pytest.fixture(autouse=True)
@@ -130,27 +129,21 @@ def test_enroll_requires_auth(client):
 
 def test_enroll_success(client, student, sample_course):
     token = create_access_token(student.id)
-    response = client.post(
-        f"/api/courses/{sample_course.id}/enroll", headers={"Authorization": f"Bearer {token}"}
-    )
+    response = client.post(f"/api/courses/{sample_course.id}/enroll", headers={"Authorization": f"Bearer {token}"})
     assert response.status_code == 201
 
 
 def test_enroll_duplicate(client, student, sample_course):
     token = create_access_token(student.id)
     client.post(f"/api/courses/{sample_course.id}/enroll", headers={"Authorization": f"Bearer {token}"})
-    response = client.post(
-        f"/api/courses/{sample_course.id}/enroll", headers={"Authorization": f"Bearer {token}"}
-    )
+    response = client.post(f"/api/courses/{sample_course.id}/enroll", headers={"Authorization": f"Bearer {token}"})
     assert response.status_code == 409
 
 
 def test_unenroll(client, student, sample_course):
     token = create_access_token(student.id)
     client.post(f"/api/courses/{sample_course.id}/enroll", headers={"Authorization": f"Bearer {token}"})
-    response = client.post(
-        f"/api/courses/{sample_course.id}/unenroll", headers={"Authorization": f"Bearer {token}"}
-    )
+    response = client.post(f"/api/courses/{sample_course.id}/unenroll", headers={"Authorization": f"Bearer {token}"})
     assert response.status_code == 200
 
 
