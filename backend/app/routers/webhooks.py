@@ -77,9 +77,7 @@ async def github_webhook(
         if not user:
             continue
 
-        progress = (
-            db.query(Progress).filter(Progress.user_id == user.id, Progress.exercise_id == exercise.id).first()
-        )
+        progress = db.query(Progress).filter(Progress.user_id == user.id, Progress.exercise_id == exercise.id).first()
 
         if progress is None:
             progress = Progress(

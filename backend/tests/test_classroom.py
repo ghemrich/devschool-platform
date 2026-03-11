@@ -1,5 +1,3 @@
-import json
-
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
@@ -48,8 +46,11 @@ def client(db_session):
 @pytest.fixture
 def student(db_session):
     user = User(
-        github_id=11111, username="student1", email="s@example.com",
-        role=UserRole.student, github_token="ghp_fake_token"
+        github_id=11111,
+        username="student1",
+        email="s@example.com",
+        role=UserRole.student,
+        github_token="ghp_fake_token",
     )
     db_session.add(user)
     db_session.commit()
@@ -84,13 +85,13 @@ def course_with_exercises(db_session):
     db_session.add(module)
     db_session.flush()
     ex1 = Exercise(
-        module_id=module.id, name="Hello World", order=1,
-        repo_prefix="het01-hello", classroom_url="https://classroom.github.com/a/abc123"
+        module_id=module.id,
+        name="Hello World",
+        order=1,
+        repo_prefix="het01-hello",
+        classroom_url="https://classroom.github.com/a/abc123",
     )
-    ex2 = Exercise(
-        module_id=module.id, name="Variables", order=2,
-        repo_prefix="het02-variables"
-    )
+    ex2 = Exercise(module_id=module.id, name="Variables", order=2, repo_prefix="het02-variables")
     db_session.add_all([ex1, ex2])
     db_session.commit()
     db_session.refresh(course)
@@ -231,9 +232,7 @@ def test_webhook_updates_progress(client, db_session, student, course_with_exerc
     assert response.json()["updated"] is True
 
     ex = db_session.query(Exercise).filter(Exercise.name == "Hello World").first()
-    progress = db_session.query(Progress).filter(
-        Progress.user_id == student.id, Progress.exercise_id == ex.id
-    ).first()
+    progress = db_session.query(Progress).filter(Progress.user_id == student.id, Progress.exercise_id == ex.id).first()
     assert progress is not None
     assert progress.status == ProgressStatus.completed
 

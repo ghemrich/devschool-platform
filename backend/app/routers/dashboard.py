@@ -104,9 +104,7 @@ def update_exercise_progress(
     """Mark an exercise as completed (or in_progress)."""
     # Verify enrollment
     enrollment = (
-        db.query(Enrollment)
-        .filter(Enrollment.user_id == current_user.id, Enrollment.course_id == course_id)
-        .first()
+        db.query(Enrollment).filter(Enrollment.user_id == current_user.id, Enrollment.course_id == course_id).first()
     )
     if not enrollment:
         raise HTTPException(status_code=400, detail="Not enrolled in this course")
@@ -122,9 +120,7 @@ def update_exercise_progress(
 
     # Create or update progress
     progress = (
-        db.query(Progress)
-        .filter(Progress.user_id == current_user.id, Progress.exercise_id == data.exercise_id)
-        .first()
+        db.query(Progress).filter(Progress.user_id == current_user.id, Progress.exercise_id == data.exercise_id).first()
     )
 
     status_value = ProgressStatus.completed if data.status == "completed" else ProgressStatus.in_progress

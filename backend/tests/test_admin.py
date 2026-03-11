@@ -6,8 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from app.auth.jwt import create_access_token
 from app.database import Base, get_db
 from app.main import app
-from app.models.certificate import Certificate
-from app.models.course import Course, Enrollment, Exercise, Module, Progress, ProgressStatus
+from app.models.course import Course, Exercise, Module
 from app.models.user import User, UserRole
 
 SQLALCHEMY_TEST_URL = "sqlite:///./test_admin.db"

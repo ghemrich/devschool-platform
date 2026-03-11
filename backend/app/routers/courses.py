@@ -65,7 +65,14 @@ def get_course(course_id: int, db: Session = Depends(get_db)):
                 "name": m.name,
                 "order": m.order,
                 "exercises": [
-                    {"id": e.id, "name": e.name, "repo_prefix": e.repo_prefix, "classroom_url": e.classroom_url or "", "order": e.order} for e in m.exercises
+                    {
+                        "id": e.id,
+                        "name": e.name,
+                        "repo_prefix": e.repo_prefix,
+                        "classroom_url": e.classroom_url or "",
+                        "order": e.order,
+                    }
+                    for e in m.exercises
                 ],
             }
             for m in course.modules
@@ -133,7 +140,14 @@ def add_exercise(
     module = db.query(Module).filter(Module.id == module_id, Module.course_id == course_id).first()
     if not module:
         raise HTTPException(status_code=404, detail="Module not found")
-    exercise = Exercise(module_id=module_id, name=data.name, repo_prefix=data.repo_prefix, classroom_url=data.classroom_url, order=data.order, required=data.required)
+    exercise = Exercise(
+        module_id=module_id,
+        name=data.name,
+        repo_prefix=data.repo_prefix,
+        classroom_url=data.classroom_url,
+        order=data.order,
+        required=data.required,
+    )
     db.add(exercise)
     db.commit()
     db.refresh(exercise)

@@ -1,9 +1,6 @@
-import base64
-import io
-
 import qrcode
-from qrcode.constants import ERROR_CORRECT_M
 from fpdf import FPDF
+from qrcode.constants import ERROR_CORRECT_M
 
 
 def _draw_qr(pdf: FPDF, url: str, x: float, y: float, size: float) -> None:
