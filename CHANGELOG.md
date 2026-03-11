@@ -2,6 +2,7 @@
 
 ### 🚀 Features
 
+- Add automated mentor and developer onboarding pipeline to roadmap
 - Add Module 3 - courses, progress tracking, and dashboard
 - Add Module 4 - certificate system
 - Add Module 5 - frontend with Astro
@@ -35,6 +36,7 @@
 
 ### 📚 Documentation
 
+- Add growth model vision and mentor pipeline phases to roadmap
 - Magyar nyelvű dokumentáció (telepítés, architektúra, jövőkép)
 - Fejlesztői környezet útmutató és dev tooling
 - Rewrite README as introductory page with philosophy

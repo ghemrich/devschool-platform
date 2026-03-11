@@ -21,6 +21,41 @@ Az OpenSchool nem egy hagyományos e-learning platform. A diákok **ugyanazokkal
 
 ---
 
+## A növekedési modell — Diákból mentor, mentorból fejlesztő
+
+Az OpenSchool hosszú távú víziója egy **önfenntartó közösség**: a diákok, akik elvégzik a kurzusokat, nem csak tanúsítványt kapnak — **lehetőséget kapnak a platform fejlesztésében és az oktatásban való részvételre**.
+
+Ez a modell három szintet tartalmaz:
+
+| Szint | Ki? | Hogyan kerül ide? | Mit csinálhat? |
+|-------|-----|-------------------|----------------|
+| **Diák** | Bárki, aki regisztrál | GitHub OAuth bejelentkezés | Kurzusok elvégzése, tanúsítvány igénylése |
+| **Mentor** | Tanúsítvánnyal rendelkező diák | Automatikus előléptetés meghatározott tanúsítványok alapján | Diákok haladásának követése, visszajelzés, mentorálás |
+| **Platform fejlesztő** | Tapasztalt mentor | "Platform Development" kurzus elvégzése | Kurzusok létrehozása, platform fejlesztés, code review |
+
+### Miért működik?
+
+- A **tanúsítványok már bizonyítják a kompetenciát** — nem szubjektív döntés, hanem automatikus
+- A diákok valódi eszközökkel dolgoznak (GitHub, CI, PR-ek) — **pontosan azokkal, amikkel a platformot is fejlesztjük**
+- Az új mentorok motiváltak, mert éppen most végezték el a kurzust — **friss tapasztalattal rendelkeznek**
+- A platform fejlesztése maga is tananyag — **hozzájárulás = tanulás**
+
+### Automatikus előléptetés logikája
+
+```
+Diák elvégzi a kurzusokat → Tanúsítvány(ok) kiállítása
+       ↓
+Promotion szabály ellenőrzés (pl. "Python Haladó" + "Mentor Képzés" tanúsítványok)
+       ↓
+Automatikus szerepkör váltás: student → mentor
+       ↓
+Discord értesítés + privát csatorna hozzáférés
+       ↓
+Mentor dashboard megnyitása
+```
+
+---
+
 ## Kurzus beállítása
 
 Egy új kurzus indításához a GitHub Classroom-ban és az OpenSchool admin panelen is konfigurálni kell. A teljes lépésről lépésre útmutatót lásd: **[GitHub Classroom integráció](integrations/github-classroom-integraciot.md)**.
@@ -173,14 +208,49 @@ A kurzuskeretrendszer Discord szervert használ a kommunikációhoz, heti szála
 - [ ] Discord szerver meghívó link a felületen
 - [ ] Közlemények kezelése a platformon belül (admin felület)
 
-### 🟠 2. fázis — Tanári eszközök
+### 🟠 2. fázis — Automatikus mentor és fejlesztő pipeline
+
+A platform növekedési motorja: tanúsítvány-alapú automatikus előléptetés és mentor onboarding.
+
+**Előléptetési rendszer:**
+
+- [ ] Promotion szabályok adatmodell: tanúsítvány-kombinációk → célszerepkör (pl. "Python Haladó" + "Mentor Képzés" → `mentor`)
+- [ ] Automatikus szerepkör-váltás tanúsítvány kiállításakor (szabály-motor a certificate service-ben)
+- [ ] Discord értesítés előléptetéskor (pl. "🎓 @username mentorrá vált!")
+- [ ] Discord szerepkör szinkronizáció (platform szerepkör → Discord role)
+
+**Mentor onboarding kurzus:**
+
+- [ ] "Legyél mentor!" meta-kurzus létrehozása — a platform használatáról, kódbázisról, mentori eszközökről
+- [ ] Meta-kurzus gyakorlatai szintén GitHub Classroom-mal értékelve (ugyanaz az infra)
+- [ ] Kurzus elvégzése → automatikus `mentor` szerepkör
+
+**Platform fejlesztő track:**
+
+- [ ] "Platform Development" kurzus, ahol a gyakorlatok = valódi platform hozzájárulások
+  - Gyakorlat 1: `good-first-issue` javítása a platform repóban
+  - Gyakorlat 2: Teszt hozzáadása a platform tesztcsomaghoz
+  - Gyakorlat 3: Új gyakorlat létrehozása egy meglévő kurzushoz
+  - Gyakorlat 4: Dokumentáció írása
+- [ ] CI-alapú értékelés a platform repóban (PR merge = completed)
+- [ ] Elvégzett fejlesztők automatikus meghívása a GitHub org teambe
+- [ ] `teacher` szerepkör bevezetése (kurzus létrehozási jogosultsággal)
+
+**Mentor dashboard:**
+
+- [ ] Mentorált diákok listája és haladásuk
+- [ ] Visszajelzés lehetőség (kommentek a haladáshoz)
+- [ ] Kurzus létrehozási felület (mentor/teacher jogosultsággal)
+- [ ] Publikus "Közreműködők" oldal a tanúsított fejlesztőkkel
+
+### 🟠 3. fázis — Tanári eszközök
 
 - [ ] Tanári dashboard: összes diák haladása egy helyen
 - [ ] GitHub Classroom eredmények megjelenítése
 - [ ] Házi feladatok határidejének kezelése
 - [ ] Exportálás: haladás CSV-be
 
-### 🟠 3. fázis — Haladó funkciók
+### 🟠 4. fázis — Haladó funkciók
 
 - [ ] Pull Request alapú beadás (branch-elés, review)
 - [ ] GitHub Issues használata feladatkezeléshez
@@ -188,7 +258,7 @@ A kurzuskeretrendszer Discord szervert használ a kommunikációhoz, heti szála
 - [ ] Csapatmunka támogatás (közös repók, konfliktuskezelés)
 - [ ] Értesítési rendszer (email vagy push notification)
 
-### 🟢 4. fázis — Platform érettség
+### 🟢 5. fázis — Platform érettség
 
 - [ ] Reszponzív design finomhangolás (mobil, tablet, desktop)
 - [ ] Sötét mód
@@ -209,6 +279,9 @@ A platform fejlesztése során a következő külső eszközök integrálása te
 | GitHub Classroom | Feladatkiadás és autograding | ✅ Webhook + repo_prefix + sync |
 | Discord értesítések (CI/CD + ops) | CI/CD és VPS monitoring értesítések | ✅ Működik |
 | Discord értesítések (platform) | Platform → Discord (beiratkozás, tanúsítvány) | 🔴 Tervezett |
+| Automatikus előléptetés | Tanúsítvány-alapú szerepkör váltás | 🔴 Tervezett |
+| GitHub org team meghívás | Fejlesztők automatikus meghívása | 🔴 Tervezett |
+| Discord szerepkör szinkronizáció | Platform → Discord role szinkron | 🔴 Tervezett |
 
 ---
 
@@ -216,14 +289,18 @@ A platform fejlesztése során a következő külső eszközök integrálása te
 
 1. **VPS telepítés** (az éles rendszer felállítása a saját domainnel — automatizáló szkriptek készen: `bootstrap-vps.sh`, `provision.sh`) ← **KÖVETKEZŐ LÉPÉS**
 2. **Discord integráció** — platform → Discord értesítések (CI/CD + ops monitoring már kész)
-3. **Tanári eszközök** — haladás összeszítés, automatikus assignment szinkronizálás
-4. **Haladó funkciók** — PR-ek, Issues, csapatmunka
-5. **Platform érettség** — monitoring, analitika, teljesítmény
+3. **Automatikus mentor pipeline** — előléptetési szabályok, mentor kurzus, mentor dashboard
+4. **Tanári eszközök** — haladás összesítés, Classroom szinkronizálás
+5. **Platform fejlesztő track** — meta-kurzus valódi platform hozzájárulásokkal
+6. **Haladó funkciók** — PR-ek, Issues, csapatmunka
+7. **Platform érettség** — monitoring, analitika, teljesítmény
 
 ---
 
 ## Összefoglalás
 
-A platform alapjai **készen állnak**: backend API (auth, kurzusok, haladás, tanúsítványok, admin), frontend (9 oldal), infrastruktúra (Docker, CI/CD, nginx, automatizált karbantartás, Discord CI/CD értesítések), GitHub Classroom integráció (repo_prefix, webhook, sync), admin panel, és 16 dokumentum navigációval összekötve.
+A platform alapjai **készen állnak**: backend API (auth, kurzusok, haladás, tanúsítványok, admin), frontend (9 oldal), infrastruktúra (Docker, CI/CD, nginx, automatizált karbantartás, Discord CI/CD értesítések), GitHub Classroom integráció (repo_prefix, webhook, sync), admin panel, és átfogó dokumentáció.
 
-Az automatizáció szintén kész: VPS bootstrap szkript, cron job-ok, biztonsági audit, ops monitoring Discord értesítésekkel. A következő nagy lépés a **VPS telepítés** (a szkriptek készen állnak), majd a **platform → Discord értesítések** és **tanári eszközök bővítése** (automatikus Classroom szinkronizálás, tanári dashboard), amelyek a platform valódi értékét tovább növelik.
+A hosszú távú vízió egy **önfenntartó közösség** kiépítése: a diákok tanúsítványok megszerzésével automatikusan mentorrá válhatnak, majd a platform fejlesztésébe is bekapcsolódhatnak. Ez a modell lehetővé teszi, hogy a platform organikusan növekedjen — minden új mentor egyben új tanár és potenciális fejlesztő is.
+
+A következő lépések: **VPS telepítés**, **Discord értesítések**, majd az **automatikus mentor pipeline** kiépítése (előléptetési szabályok, meta-kurzusok, mentor dashboard). Az automatizáció infrastruktúrája (CI, webhook, tanúsítványok) már készen áll — a pipeline erre épít.
