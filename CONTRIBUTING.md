@@ -1,6 +1,6 @@
 # Hozzájárulás az OpenSchool Platformhoz
 
-> 📖 **Dokumentáció:** [Főoldal](README.md) · [Architektúra](docs/architektura.md) · [Telepítés](docs/telepitesi-utmutato.md) · [Fejlesztői útmutató](docs/fejlesztoi-utmutato.md) · [Roadmap](docs/jovokep-es-fejlesztesi-terv.md) · [Felhasználói útmutató](docs/felhasznaloi-utmutato.md) · [GitHub Classroom](docs/github-classroom-integraciot.md) · **Hozzájárulás**
+> 📖 **Dokumentáció:** [Főoldal](README.md) · [Architektúra](docs/architektura.md) · [Telepítés](docs/telepitesi-utmutato.md) · [Fejlesztői útmutató](docs/fejlesztoi-utmutato.md) · [Roadmap](docs/jovokep-es-fejlesztesi-terv.md) · [Felhasználói útmutató](docs/felhasznaloi-utmutato.md) · [GitHub Classroom](docs/github-classroom-integraciot.md) · [Karbantartás](docs/karbantartas-utmutato.md) · **Hozzájárulás**
 
 Köszönjük, hogy hozzá szeretnél járulni az OpenSchool fejlesztéséhez! Ez az útmutató segít az indulásban.
 

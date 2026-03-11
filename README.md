@@ -112,6 +112,7 @@ Szívesen fogadjuk a hozzájárulásokat! Olvasd el a [CONTRIBUTING.md](CONTRIBU
 | [Jövőkép és fejlesztési terv](docs/jovokep-es-fejlesztesi-terv.md) | Kurzusok, megvalósított funkciók, roadmap |
 | [Felhasználói útmutató](docs/felhasznaloi-utmutato.md) | Oldalak, gombok, felhasználói folyamatok, admin panel |
 | [GitHub Classroom integráció](docs/github-classroom-integraciot.md) | Feladatok összekötése, repo_prefix, webhook, tanári útmutató |
+| [Karbantartás](docs/karbantartas-utmutato.md) | Függőségkezelés, monitoring, backup, biztonsági audit, incidenskezelés |
 | [Hozzájárulás](CONTRIBUTING.md) | Fork, branch stratégia, PR küldés, kódstílus |
 
 A `good first issue` címkéjű [issue-k](../../issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) ideálisak kezdőknek.

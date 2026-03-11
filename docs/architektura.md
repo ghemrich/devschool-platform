@@ -1,6 +1,6 @@
 # OpenSchool Platform — Architektúra
 
-> 📖 **Dokumentáció:** [Főoldal](../README.md) · **Architektúra** · [Telepítés](telepitesi-utmutato.md) · [Fejlesztői útmutató](fejlesztoi-utmutato.md) · [Roadmap](jovokep-es-fejlesztesi-terv.md) · [Felhasználói útmutató](felhasznaloi-utmutato.md) · [GitHub Classroom](github-classroom-integraciot.md) · [Hozzájárulás](../CONTRIBUTING.md)
+> 📖 **Dokumentáció:** [Főoldal](../README.md) · **Architektúra** · [Telepítés](telepitesi-utmutato.md) · [Fejlesztői útmutató](fejlesztoi-utmutato.md) · [Roadmap](jovokep-es-fejlesztesi-terv.md) · [Felhasználói útmutató](felhasznaloi-utmutato.md) · [GitHub Classroom](github-classroom-integraciot.md) · [Karbantartás](karbantartas-utmutato.md) · [Hozzájárulás](../CONTRIBUTING.md)
 
 ## Rendszer áttekintés
 
