@@ -69,7 +69,8 @@ pip-audit
 
 # Frissítés
 pip install --upgrade <csomag>
-pip freeze | grep -v "^-" > requirements.txt
+# Produkciós csomag → requirements.txt kézzel frissítsd
+# Fejlesztői csomag → requirements-dev.txt kézzel frissítsd
 
 # Tesztek futtatása frissítés után (kötelező!)
 pytest

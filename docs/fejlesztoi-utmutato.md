@@ -77,11 +77,19 @@ source .venv/bin/activate
 
 # Függőségek telepítése
 pip install --upgrade pip
-pip install -r backend/requirements.txt
-
-# Pre-commit telepítése
-pip install pre-commit
+pip install -r backend/requirements-dev.txt
 ```
+
+### Függőségek struktúra
+
+A Python függőségek két fájlra vannak bontva:
+
+| Fájl | Tartalom | Használat |
+|------|----------|-----------|
+| `requirements.txt` | Produkciós csomagok (FastAPI, SQLAlchemy, stb.) | Docker build, éles deploy |
+| `requirements-dev.txt` | Fejlesztői eszközök (pytest, ruff, git-cliff) | Lokális fejlesztés, CI |
+
+A `requirements-dev.txt` első sora `-r requirements.txt`, ami automatikusan telepíti a produkciós csomagokat is. Ez a `package.json` `dependencies`/`devDependencies` megfelelője.
 
 > **Tipp:** A `.venv/` mappa a projekt gyökerében van, nem a `backend/`-ben. A VS Code automatikusan felismeri.
 
@@ -497,7 +505,8 @@ openschool-platform/
 │   ├── tests/                 # Pytest tesztek
 │   │   └── conftest.py        # Közös test fixture-ök
 │   ├── pyproject.toml         # Ruff + pytest konfig
-│   └── requirements.txt       # Python függőségek
+│   ├── requirements.txt       # Produkciós Python függőségek
+│   └── requirements-dev.txt   # Fejlesztői függőségek (teszt, lint)
 │
 ├── frontend/
 │   ├── src/

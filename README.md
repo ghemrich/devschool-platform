@@ -43,7 +43,7 @@ curl http://localhost:8000/health
 cd backend
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 
 # Tesztek futtatása
 pytest -v
@@ -73,6 +73,7 @@ openschool-platform/
 ├── backend/
 │   ├── Dockerfile
 │   ├── requirements.txt
+│   ├── requirements-dev.txt
 │   ├── alembic.ini
 │   ├── alembic/
 │   ├── app/

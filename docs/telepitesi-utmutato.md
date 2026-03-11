@@ -91,8 +91,10 @@ python -m venv .venv
 source .venv/bin/activate  # Linux/macOS
 # .venv\Scripts\activate   # Windows
 
-# Függőségek telepítése
+# Függőségek telepítése (produkció)
 pip install -r requirements.txt
+# Vagy fejlesztéshez (teszt, lint eszközökkel):
+# pip install -r requirements-dev.txt
 
 # Környezeti változók beállítása (vagy .env fájl a backend/ könyvtárban)
 export DATABASE_URL="postgresql://openschool:openschool@localhost:5432/openschool"
