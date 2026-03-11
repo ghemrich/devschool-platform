@@ -36,22 +36,6 @@ docker compose up --build -d
 curl http://localhost:8000/health
 ```
 
-### Lokális fejlesztés
-
-```bash
-# Virtuális környezet
-cd backend
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements-dev.txt
-
-# Tesztek futtatása
-pytest -v
-
-# Linter
-ruff check . && ruff format --check .
-```
-
 ### Makefile parancsok
 
 ```bash
