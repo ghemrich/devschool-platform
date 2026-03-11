@@ -1,6 +1,6 @@
 # Karbantartás és minőségbiztosítás
 
-> 📖 **Dokumentáció:** [Főoldal](../README.md) · [Architektúra](architektura.md) · [Telepítés](telepitesi-utmutato.md) · [Fejlesztői útmutató](fejlesztoi-utmutato.md) · [Backend](backend-fejlesztes.md) · [Frontend](frontend-fejlesztes.md) · [Roadmap](jovokep-es-fejlesztesi-terv.md) · [Felhasználói útmutató](felhasznaloi-utmutato.md) · [GitHub Classroom](github-classroom-integraciot.md) · **Karbantartás** · [Automatizálás](automatizalas-beallitas.md) · [Discord](discord-integracio.md) · [Dokumentálás](dokumentacios-utmutato.md) · [Hozzájárulás](../CONTRIBUTING.md)
+> 📖 **Dokumentáció:** [Főoldal](../../README.md) · [Architektúra](../getting-started/architektura.md) · [Telepítés](../getting-started/telepitesi-utmutato.md) · [Környezeti változók](../getting-started/kornyezeti-valtozok.md) · [Fejlesztői útmutató](../development/fejlesztoi-utmutato.md) · [Backend](../development/backend-fejlesztes.md) · [Frontend](../development/frontend-fejlesztes.md) · [Tesztelés](../development/tesztelesi-utmutato.md) · [API referencia](../reference/api-referencia.md) · [Adatbázis](../reference/adatbazis-sema.md) · **Karbantartás** · [Automatizálás](automatizalas-beallitas.md) · [GitHub Classroom](../integrations/github-classroom-integraciot.md) · [Discord](../integrations/discord-integracio.md) · [Felhasználói útmutató](../guides/felhasznaloi-utmutato.md) · [Dokumentálás](../guides/dokumentacios-utmutato.md) · [Roadmap](../jovokep-es-fejlesztesi-terv.md) · [Hozzájárulás](../../CONTRIBUTING.md)
 
 Ez az útmutató a OpenSchool Platform hosszú távú karbantartásához, minőségbiztosításához és üzemeltetéséhez szükséges folyamatokat és gyakorlatokat írja le.
 
@@ -40,7 +40,7 @@ test: teszt hozzáadás/módosítás
 security: biztonsági javítás
 ```
 
-> **Fontos:** Ezeket a prefixeket a `git-cliff` eszköz használja a `CHANGELOG.md` automatikus generálásához. Részletek: [Fejlesztői útmutató — 8. Változásnapló](fejlesztoi-utmutato.md#8-változásnapló-git-cliff)
+> **Fontos:** Ezeket a prefixeket a `git-cliff` eszköz használja a `CHANGELOG.md` automatikus generálásához. Részletek: [Fejlesztői útmutató — 8. Változásnapló](../development/fejlesztoi-utmutato.md#8-változásnapló-git-cliff)
 
 ## 2. Függőségkezelés
 

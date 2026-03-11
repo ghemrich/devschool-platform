@@ -53,6 +53,20 @@
 - Add git-cliff changelog automation and update project structure
 - Fix content inconsistencies across all documentation
 - Restructure into separate backend/frontend guides
+- Add Discord integration guide, documentation guide, and CI notify script
+- Update roadmap to reflect current state
+- Regenerate CHANGELOG.md
+- Add API reference, database schema, testing guide, and env vars reference
+- Regenerate CHANGELOG.md
+- Add question and documentation issue templates
+- Regenerate CHANGELOG.md
+- Restructure docs/ into categorized subfolders
+- Regenerate CHANGELOG.md
+- Remove redundant API endpoints and project structure from README
+- Remove redundant local dev section from README
+- Remove redundant Makefile section from README
+- Regenerate CHANGELOG.md
+- Remove duplicate Discord channel structure from roadmap
 
 ### ⚙️ Miscellaneous Tasks
 
@@ -63,6 +77,7 @@
 - Split requirements into prod and dev
 - Add automated maintenance scripts and documentation
 - Automate VPS setup and security checklist
+- Add Discord notifications to CI/CD workflows
 
 ### 🛡️ Security
 

@@ -1,6 +1,6 @@
 # Fejlesztői útmutató
 
-> 📖 **Dokumentáció:** [Főoldal](../README.md) · [Architektúra](architektura.md) · [Telepítés](telepitesi-utmutato.md) · **Fejlesztői útmutató** · [Backend](backend-fejlesztes.md) · [Frontend](frontend-fejlesztes.md) · [Roadmap](jovokep-es-fejlesztesi-terv.md) · [Felhasználói útmutató](felhasznaloi-utmutato.md) · [GitHub Classroom](github-classroom-integraciot.md) · [Karbantartás](karbantartas-utmutato.md) · [Automatizálás](automatizalas-beallitas.md) · [Discord](discord-integracio.md) · [Dokumentálás](dokumentacios-utmutato.md) · [Hozzájárulás](../CONTRIBUTING.md)
+> 📖 **Dokumentáció:** [Főoldal](../../README.md) · [Architektúra](../getting-started/architektura.md) · [Telepítés](../getting-started/telepitesi-utmutato.md) · [Környezeti változók](../getting-started/kornyezeti-valtozok.md) · **Fejlesztői útmutató** · [Backend](backend-fejlesztes.md) · [Frontend](frontend-fejlesztes.md) · [Tesztelés](tesztelesi-utmutato.md) · [API referencia](../reference/api-referencia.md) · [Adatbázis](../reference/adatbazis-sema.md) · [Karbantartás](../operations/karbantartas-utmutato.md) · [Automatizálás](../operations/automatizalas-beallitas.md) · [GitHub Classroom](../integrations/github-classroom-integraciot.md) · [Discord](../integrations/discord-integracio.md) · [Felhasználói útmutató](../guides/felhasznaloi-utmutato.md) · [Dokumentálás](../guides/dokumentacios-utmutato.md) · [Roadmap](../jovokep-es-fejlesztesi-terv.md) · [Hozzájárulás](../../CONTRIBUTING.md)
 
 Ez az útmutató a közös fejlesztői környezet felállítását és a megosztott eszközöket írja le. A backend és frontend specifikus részletekért lásd:
 
@@ -267,7 +267,7 @@ git-cliff --unreleased
 
 A `CHANGELOG.md`-t **nem kell minden commitnál** frissíteni. Az ajánlott munkafolyamat:
 
-1. Fejlesztés során használj conventional commit prefixeket (lásd [Karbantartás — Commit konvenciók](karbantartas-utmutato.md))
+1. Fejlesztés során használj conventional commit prefixeket (lásd [Karbantartás — Commit konvenciók](../operations/karbantartas-utmutato.md))
 2. Release előtt futtasd: `git-cliff -o CHANGELOG.md`
 3. Commitold a frissített CHANGELOG-ot a release commit részeként
 4. Tageld a release-t: `git tag v1.0.0`
@@ -403,18 +403,13 @@ openschool-platform/
 │   └── modul-01..07/
 │
 └── docs/
-    ├── architektura.md               # Rendszer architektúra
-    ├── automatizalas-beallitas.md     # Automatizálás beállítása
-    ├── backend-fejlesztes.md         # Backend fejlesztői útmutató
-    ├── discord-integracio.md         # Discord szerver és webhook integráció
-    ├── dokumentacios-utmutato.md     # Dokumentálási útmutató
-    ├── fejlesztoi-utmutato.md        # ← Ez a dokumentum
-    ├── felhasznaloi-utmutato.md      # Felhasználói útmutató
-    ├── frontend-fejlesztes.md        # Frontend fejlesztői útmutató
-    ├── github-classroom-integraciot.md # GitHub Classroom integráció
-    ├── jovokep-es-fejlesztesi-terv.md # Jövőkép és fejlesztési terv
-    ├── karbantartas-utmutato.md      # Karbantartási útmutató
-    └── telepitesi-utmutato.md        # Üzemeltetési útmutató
+    ├── getting-started/               # Architektúra, telepítés, env változók
+    ├── development/                   # Fejlesztői, backend, frontend, tesztelés
+    ├── reference/                     # API referencia, adatbázis séma
+    ├── operations/                    # Karbantartás, automatizálás
+    ├── integrations/                  # GitHub Classroom, Discord
+    ├── guides/                        # Felhasználói útm., dokumentálás
+    └── jovokep-es-fejlesztesi-terv.md # Roadmap
 ```
 
 ---
@@ -449,9 +444,8 @@ alembic revision --autogenerate -m "add user profile fields"
 
 # 8. Dokumentáció frissítése
 #    → docstring-ek az új függvényekhez
-#    → README.md API tábla frissítése (ha új végpont)
-#    → docs/ releváns fájlok frissítése
-#    Lásd: docs/dokumentacios-utmutato.md
+#    → docs/ releváns fájlok frissítése (api-referencia.md, stb.)
+#    Lásd: docs/guides/dokumentacios-utmutato.md
 
 # 9. Ellenőrzés
 pytest -v                          # tesztek
@@ -608,7 +602,7 @@ make clean         # __pycache__, .pytest_cache, *.pyc törlése
 make logs          # Docker logok követése (tail=100)
 make changelog     # CHANGELOG.md generálása (git-cliff)
 
-# Karbantartás (lásd: automatizalas-beallitas.md)
+# Karbantartás (lásd: ../operations/automatizalas-beallitas.md)
 make maintenance-health   # Health check
 make maintenance-backup   # Adatbázis mentés
 make maintenance-daily    # Teljes napi karbantartás

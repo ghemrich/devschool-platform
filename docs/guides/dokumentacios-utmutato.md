@@ -1,6 +1,6 @@
 # OpenSchool Platform — Dokumentálási útmutató
 
-> 📖 **Dokumentáció:** [Főoldal](../README.md) · [Architektúra](architektura.md) · [Telepítés](telepitesi-utmutato.md) · [Fejlesztői útmutató](fejlesztoi-utmutato.md) · [Backend](backend-fejlesztes.md) · [Frontend](frontend-fejlesztes.md) · [Roadmap](jovokep-es-fejlesztesi-terv.md) · [Felhasználói útmutató](felhasznaloi-utmutato.md) · [GitHub Classroom](github-classroom-integraciot.md) · [Karbantartás](karbantartas-utmutato.md) · [Automatizálás](automatizalas-beallitas.md) · [Discord](discord-integracio.md) · **Dokumentálás** · [Hozzájárulás](../CONTRIBUTING.md)
+> 📖 **Dokumentáció:** [Főoldal](../../README.md) · [Architektúra](../getting-started/architektura.md) · [Telepítés](../getting-started/telepitesi-utmutato.md) · [Környezeti változók](../getting-started/kornyezeti-valtozok.md) · [Fejlesztői útmutató](../development/fejlesztoi-utmutato.md) · [Backend](../development/backend-fejlesztes.md) · [Frontend](../development/frontend-fejlesztes.md) · [Tesztelés](../development/tesztelesi-utmutato.md) · [API referencia](../reference/api-referencia.md) · [Adatbázis](../reference/adatbazis-sema.md) · [Karbantartás](../operations/karbantartas-utmutato.md) · [Automatizálás](../operations/automatizalas-beallitas.md) · [GitHub Classroom](../integrations/github-classroom-integraciot.md) · [Discord](../integrations/discord-integracio.md) · [Felhasználói útmutató](felhasznaloi-utmutato.md) · **Dokumentálás** · [Roadmap](../jovokep-es-fejlesztesi-terv.md) · [Hozzájárulás](../../CONTRIBUTING.md)
 
 Ez az útmutató leírja, hogyan kell dokumentálni a kódot és a projektet. Minden fejlesztő felelős azért, hogy a változtatásai dokumentáltak legyenek — a kódban és a docs mappában egyaránt.
 
@@ -27,13 +27,14 @@ Ez az útmutató leírja, hogyan kell dokumentálni a kódot és a projektet. Mi
 
 | Változtatás típusa | Szükséges dokumentáció |
 |---------------------|------------------------|
-| Új API végpont | Docstring + README API tábla + backend-fejlesztes.md |
+| Új API végpont | Docstring + api-referencia.md |
 | Új oldal (frontend) | frontend-fejlesztes.md oldalak szekció |
-| Új modell/tábla | Docstring + backend-fejlesztes.md adatmodell |
-| Konfiguráció változás | `.env.example` + telepitesi-utmutato.md |
+| Új modell/tábla | Docstring + adatbazis-sema.md |
+| Konfiguráció változás | `.env.example` + kornyezeti-valtozok.md |
 | Új szkript | Szkript fejléc komment + README vagy releváns doc |
 | Új Makefile target | fejlesztoi-utmutato.md Makefile szekció |
 | Architekturális döntés | architektura.md |
+| Új/módosított teszt | tesztelesi-utmutato.md (ha minta vagy fixture változik) |
 | Bug fix | Csak ha a viselkedés dokumentálva volt és változott |
 
 ---
@@ -166,9 +167,9 @@ async def get_course(course_id: int, db: Session = Depends(get_db)):
     """
 ```
 
-### README API tábla
+### API referencia frissítése
 
-Amikor új végpontot adsz hozzá, frissítsd a `README.md` API végpontok táblázatát is:
+Amikor új végpontot adsz hozzá, frissítsd az [API referenciát](../reference/api-referencia.md):
 
 ```markdown
 | Metódus | Útvonal | Leírás |
@@ -184,39 +185,53 @@ Amikor új végpontot adsz hozzá, frissítsd a `README.md` API végpontok tábl
 
 ```
 docs/
-├── architektura.md            # Rendszer architektúra, adatmodell
-├── automatizalas-beallitas.md  # VPS automatizálás, cron, monitoring
-├── backend-fejlesztes.md      # Backend fejlesztői útmutató
-├── discord-integracio.md       # Discord szerver, webhook, bot
-├── dokumentacios-utmutato.md  # ← Ez a dokumentum
-├── fejlesztoi-utmutato.md     # Közös fejlesztői útmutató (Docker, CI/CD, stb.)
-├── felhasznaloi-utmutato.md   # Felhasználói útmutató (UI, funkciók)
-├── frontend-fejlesztes.md     # Frontend fejlesztői útmutató
-├── github-classroom-integraciot.md  # GitHub Classroom tanári útmutató
-├── jovokep-es-fejlesztesi-terv.md  # Roadmap és fejlesztési terv
-├── karbantartas-utmutato.md   # Karbantartási eljárások
-└── telepitesi-utmutato.md     # Telepítés (lokális, staging, éles)
+├── getting-started/
+│   ├── architektura.md             # Rendszer architektúra, adatmodell
+│   ├── telepitesi-utmutato.md      # Telepítés (lokális, staging, éles)
+│   └── kornyezeti-valtozok.md      # Környezeti változók referencia
+├── development/
+│   ├── fejlesztoi-utmutato.md      # Közös fejlesztői útmutató (Docker, CI/CD, stb.)
+│   ├── backend-fejlesztes.md       # Backend fejlesztői útmutató
+│   ├── frontend-fejlesztes.md      # Frontend fejlesztői útmutató
+│   └── tesztelesi-utmutato.md      # Tesztelés, fixture-ök, CI integráció
+├── reference/
+│   ├── api-referencia.md           # API végpontok, kérés/válasz sémák
+│   └── adatbazis-sema.md           # Adatbázis séma, táblák, kapcsolatok
+├── operations/
+│   ├── karbantartas-utmutato.md    # Karbantartási eljárások
+│   └── automatizalas-beallitas.md  # VPS automatizálás, cron, monitoring
+├── integrations/
+│   ├── github-classroom-integraciot.md  # GitHub Classroom tanári útmutató
+│   └── discord-integracio.md       # Discord szerver, webhook, bot
+├── guides/
+│   ├── felhasznaloi-utmutato.md    # Felhasználói útmutató (UI, funkciók)
+│   └── dokumentacios-utmutato.md   # ← Ez a dokumentum
+└── jovokep-es-fejlesztesi-terv.md   # Roadmap és fejlesztési terv
 ```
 
 ### Melyik dokumentumot szerkesszem?
 
 | Kérdés | Dokumentum |
 |--------|-----------|
-| Hogyan fut az alkalmazás? Mi kommunikál mivel? | `architektura.md` |
-| Hogyan telepítem lokálisan / VPS-en? | `telepitesi-utmutato.md` |
-| Hogyan írok backend kódot? | `backend-fejlesztes.md` |
-| Hogyan írok frontend kódot? | `frontend-fejlesztes.md` |
-| Docker, VS Code, Makefile, CI/CD kérdések? | `fejlesztoi-utmutato.md` |
-| Hogyan működik a UI a felhasználó szemszögéből? | `felhasznaloi-utmutato.md` |
-| Hogyan dokumentáljam a kódomat? | `dokumentacios-utmutato.md` |
-| Hogyan tartom karban a prod rendszert? | `karbantartas-utmutato.md` |
+| Hogyan fut az alkalmazás? Mi kommunikál mivel? | `getting-started/architektura.md` |
+| Hogyan telepítem lokálisan / VPS-en? | `getting-started/telepitesi-utmutato.md` |
+| Hogyan írok backend kódot? | `development/backend-fejlesztes.md` |
+| Hogyan írok frontend kódot? | `development/frontend-fejlesztes.md` |
+| Docker, VS Code, Makefile, CI/CD kérdések? | `development/fejlesztoi-utmutato.md` |
+| Hogyan működik a UI a felhasználó szemáből? | `guides/felhasznaloi-utmutato.md` |
+| Hogyan dokumentáljam a kódomat? | `guides/dokumentacios-utmutato.md` |
+| Hogyan tartom karban a prod rendszert? | `operations/karbantartas-utmutato.md` |
 | Mi a tervünk a jövőre? | `jovokep-es-fejlesztesi-terv.md` |
+| Milyen API végpontok vannak? | `reference/api-referencia.md` |
+| Milyen táblák vannak az adatbázisban? | `reference/adatbazis-sema.md` |
+| Hogyan futtatok/írok teszteket? | `development/tesztelesi-utmutato.md` |
+| Milyen környezeti változók kellenek? | `getting-started/kornyezeti-valtozok.md` |
 
 ### Új dokumentum létrehozása
 
 Ha teljesen új téma kerül a projektbe (pl. egy új integráció), amelyik nem fér bele a meglévő fájlokba:
 
-1. Hozz létre egy fájlt a `docs/` mappában: `docs/uj-tema.md`
+1. Hozz létre egy fájlt a megfelelő almappában: `docs/<kategória>/uj-tema.md`
 2. Add hozzá a navigációs sávot (lásd [7. szekció](#7-navigációs-sáv-karbantartása))
 3. Frissítsd a `README.md` dokumentáció táblázatát
 4. Frissítsd az összes többi dokumentum navigációs sávját
@@ -240,14 +255,17 @@ Ha teljesen új téma kerül a projektbe (pl. egy új integráció), amelyik nem
 ### Link konvenciók
 
 ```markdown
-# Ugyanabban a mappában lévő doc
+# Ugyanabban az almappában lévő doc
 [Backend útmutató](backend-fejlesztes.md)
 
-# Szülő mappából (CONTRIBUTING.md → docs/)
-[Backend útmutató](docs/backend-fejlesztes.md)
+# Másik almappában lévő doc
+[Karbantartás](../operations/karbantartas-utmutato.md)
 
-# Docs mappából a gyökérbe
-[README](../README.md)
+# Szülő mappából (CONTRIBUTING.md → docs/)
+[Backend útmutató](docs/development/backend-fejlesztes.md)
+
+# Docs almappából a gyökérbe
+[README](../../README.md)
 
 # Szekció hivatkozás (anchor)
 [Lásd: 3. fejezet](fejlesztoi-utmutato.md#3-python-és-frontend-telepítés)
@@ -271,21 +289,25 @@ Példa: `## 8. Változásnapló (git-cliff)` → `#8-változásnapló-git-cliff`
 Minden dokumentum tetején van egy navigációs sáv a többi dokumentumra. Az aktuális oldal **félkövér** (link nélkül):
 
 ```markdown
-> 📖 **Dokumentáció:** [Főoldal](../README.md) · [Architektúra](architektura.md) · ... · **Aktuális oldal** · ... · [Hozzájárulás](../CONTRIBUTING.md)
+> 📖 **Dokumentáció:** [Főoldal](../../README.md) · [Architektúra](../getting-started/architektura.md) · ... · **Aktuális oldal** · ... · [Hozzájárulás](../../CONTRIBUTING.md)
 ```
 
 ### Ha új dokumentumot adsz hozzá
 
 1. Írd meg az új dokumentum navigációs sávját (az aktuális oldal félkövér)
 2. Frissítsd az **összes többi dokumentum** navigációs sávját az új linkkel
-3. Ügyelj arra, hogy a `CONTRIBUTING.md` és `README.md` eltérő relatív útvonalakat használ (`docs/...` prefix)
+3. Ügyelj arra, hogy a relatív útvonalak a fájl almappájától függnek (`../`, `../../` prefix)
 
 ### Navigációs sáv sorrend
 
 ```
-Főoldal · Architektúra · Telepítés · Fejlesztői útmutató · Backend · Frontend ·
-Roadmap · Felhasználói útmutató · GitHub Classroom · Karbantartás · Automatizálás ·
-Discord · Dokumentálás · Hozzájárulás
+Főoldal · Architektúra · Telepítés · Környezeti változók ·
+Fejlesztői útmutató · Backend · Frontend · Tesztelés ·
+API referencia · Adatbázis ·
+Karbantartás · Automatizálás ·
+GitHub Classroom · Discord ·
+Felhasználói útmutató · Dokumentálás ·
+Roadmap · Hozzájárulás
 ```
 
 ---
@@ -320,7 +342,7 @@ git cliff -o CHANGELOG.md
 git cliff --latest
 ```
 
-Részletek: [Fejlesztői útmutató — 8. Változásnapló](fejlesztoi-utmutato.md#8-változásnapló-git-cliff)
+Részletek: [Fejlesztői útmutató — 8. Változásnapló](../development/fejlesztoi-utmutato.md#8-változásnapló-git-cliff)
 
 ---
 
@@ -339,7 +361,6 @@ A `README.md` a projekt belépési pontja. Tartalmazza:
 
 | Változás | README szekció |
 |----------|----------------|
-| Új API végpont | API végpontok tábla |
 | Új Makefile target | Makefile parancsok tábla |
 | Új dokumentum a `docs/`-ban | Dokumentáció tábla |
 | Új technológia a stackben | Technológiai verem |
@@ -351,8 +372,7 @@ A `README.md` a projekt belépési pontja. Tartalmazza:
 Mentsd el ezt a listát, és futtasd végig minden PR előtt:
 
 - [ ] Új publikus függvényeknek van docstring-jük?
-- [ ] Új API végpont megjelenik a Swagger-ben (docstring + summary)?
-- [ ] A `README.md` API táblázata frissítve van?
+- [ ] Új API végpont megjelenik a Swagger-ben (docstring + summary) és az api-referencia.md-ban?
 - [ ] A `docs/` mappában az érintett dokumentumok frissítve vannak?
 - [ ] Ha új dokumentum született, az összes navigációs sáv frissítve van?
 - [ ] A `.env.example` tartalmazza az új környezeti változókat?
@@ -362,7 +382,7 @@ Mentsd el ezt a listát, és futtasd végig minden PR előtt:
 ---
 
 > **Kapcsolódó dokumentáció:**
-> - [Fejlesztői útmutató](fejlesztoi-utmutato.md) — Közös fejlesztői környezet, CI/CD
-> - [Backend fejlesztés](backend-fejlesztes.md) — Python/FastAPI specifikus fejlesztés
-> - [Frontend fejlesztés](frontend-fejlesztes.md) — Astro/JS specifikus fejlesztés
-> - [Hozzájárulás](../CONTRIBUTING.md) — PR folyamat, kódstílus
+> - [Fejlesztői útmutató](../development/fejlesztoi-utmutato.md) — Közös fejlesztői környezet, CI/CD
+> - [Backend fejlesztés](../development/backend-fejlesztes.md) — Python/FastAPI specifikus fejlesztés
+> - [Frontend fejlesztés](../development/frontend-fejlesztes.md) — Astro/JS specifikus fejlesztés
+> - [Hozzájárulás](../../CONTRIBUTING.md) — PR folyamat, kódstílus

@@ -1,11 +1,11 @@
 # Backend fejlesztés (FastAPI)
 
-> 📖 **Dokumentáció:** [Főoldal](../README.md) · [Architektúra](architektura.md) · [Telepítés](telepitesi-utmutato.md) · [Fejlesztői útmutató](fejlesztoi-utmutato.md) · **Backend** · [Frontend](frontend-fejlesztes.md) · [Roadmap](jovokep-es-fejlesztesi-terv.md) · [Felhasználói útmutató](felhasznaloi-utmutato.md) · [GitHub Classroom](github-classroom-integraciot.md) · [Karbantartás](karbantartas-utmutato.md) · [Automatizálás](automatizalas-beallitas.md) · [Discord](discord-integracio.md) · [Dokumentálás](dokumentacios-utmutato.md) · [Hozzájárulás](../CONTRIBUTING.md)
+> 📖 **Dokumentáció:** [Főoldal](../../README.md) · [Architektúra](../getting-started/architektura.md) · [Telepítés](../getting-started/telepitesi-utmutato.md) · [Környezeti változók](../getting-started/kornyezeti-valtozok.md) · [Fejlesztői útmutató](fejlesztoi-utmutato.md) · **Backend** · [Frontend](frontend-fejlesztes.md) · [Tesztelés](tesztelesi-utmutato.md) · [API referencia](../reference/api-referencia.md) · [Adatbázis](../reference/adatbazis-sema.md) · [Karbantartás](../operations/karbantartas-utmutato.md) · [Automatizálás](../operations/automatizalas-beallitas.md) · [GitHub Classroom](../integrations/github-classroom-integraciot.md) · [Discord](../integrations/discord-integracio.md) · [Felhasználói útmutató](../guides/felhasznaloi-utmutato.md) · [Dokumentálás](../guides/dokumentacios-utmutato.md) · [Roadmap](../jovokep-es-fejlesztesi-terv.md) · [Hozzájárulás](../../CONTRIBUTING.md)
 
 Ez az útmutató a backend fejlesztéséhez tartalmaz mindent: Python környezet, FastAPI szerkezet, modellek, routerek, szolgáltatások, tesztelés, migráció és linter beállítás.
 
 > **Általános fejlesztői útmutató** (Docker, pre-commit, VS Code, Git, CI/CD, Makefile): [fejlesztoi-utmutato.md](fejlesztoi-utmutato.md)
-> **Dokumentálási útmutató** (docstring-ek, API docs, README karbantartás): [dokumentacios-utmutato.md](dokumentacios-utmutato.md)
+> **Dokumentálási útmutató** (docstring-ek, API docs, README karbantartás): [dokumentacios-utmutato.md](../guides/dokumentacios-utmutato.md)
 
 ---
 

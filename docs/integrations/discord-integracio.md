@@ -1,6 +1,6 @@
 # OpenSchool Platform — Discord integráció
 
-> 📖 **Dokumentáció:** [Főoldal](../README.md) · [Architektúra](architektura.md) · [Telepítés](telepitesi-utmutato.md) · [Fejlesztői útmutató](fejlesztoi-utmutato.md) · [Backend](backend-fejlesztes.md) · [Frontend](frontend-fejlesztes.md) · [Roadmap](jovokep-es-fejlesztesi-terv.md) · [Felhasználói útmutató](felhasznaloi-utmutato.md) · [GitHub Classroom](github-classroom-integraciot.md) · [Karbantartás](karbantartas-utmutato.md) · [Automatizálás](automatizalas-beallitas.md) · **Discord** · [Dokumentálás](dokumentacios-utmutato.md) · [Hozzájárulás](../CONTRIBUTING.md)
+> 📖 **Dokumentáció:** [Főoldal](../../README.md) · [Architektúra](../getting-started/architektura.md) · [Telepítés](../getting-started/telepitesi-utmutato.md) · [Környezeti változók](../getting-started/kornyezeti-valtozok.md) · [Fejlesztői útmutató](../development/fejlesztoi-utmutato.md) · [Backend](../development/backend-fejlesztes.md) · [Frontend](../development/frontend-fejlesztes.md) · [Tesztelés](../development/tesztelesi-utmutato.md) · [API referencia](../reference/api-referencia.md) · [Adatbázis](../reference/adatbazis-sema.md) · [Karbantartás](../operations/karbantartas-utmutato.md) · [Automatizálás](../operations/automatizalas-beallitas.md) · [GitHub Classroom](github-classroom-integraciot.md) · **Discord** · [Felhasználói útmutató](../guides/felhasznaloi-utmutato.md) · [Dokumentálás](../guides/dokumentacios-utmutato.md) · [Roadmap](../jovokep-es-fejlesztesi-terv.md) · [Hozzájárulás](../../CONTRIBUTING.md)
 
 Ez az útmutató az OpenSchool Platform Discord szerverének felállítását, a webhook alapú értesítéseket, a CI/CD integrációt és a közösségi csatornastruktúrát írja le.
 
@@ -217,7 +217,7 @@ A `scripts/maintenance.sh` automatikusan küld Discord értesítéseket a VPS á
 
 ### Beállítás
 
-Lásd: [Automatizálás — 5. lépés](automatizalas-beallitas.md#5-lépés--discord-értesítések-beállítása)
+Lásd: [Automatizálás — 5. lépés](../operations/automatizalas-beallitas.md#5-lépés--discord-értesítések-beállítása)
 
 ### Milyen eseményre küld értesítést?
 
@@ -331,6 +331,6 @@ env:
 ---
 
 > **Kapcsolódó dokumentáció:**
-> - [Automatizálás](automatizalas-beallitas.md) — VPS monitoring, cron jobok, Discord webhook beállítás
-> - [Fejlesztői útmutató](fejlesztoi-utmutato.md) — CI/CD pipeline, Git workflow
-> - [Roadmap](jovokep-es-fejlesztesi-terv.md) — Discord bot és platform értesítések terve
+> - [Automatizálás](../operations/automatizalas-beallitas.md) — VPS monitoring, cron jobok, Discord webhook beállítás
+> - [Fejlesztői útmutató](../development/fejlesztoi-utmutato.md) — CI/CD pipeline, Git workflow
+> - [Roadmap](../jovokep-es-fejlesztesi-terv.md) — Discord bot és platform értesítések terve

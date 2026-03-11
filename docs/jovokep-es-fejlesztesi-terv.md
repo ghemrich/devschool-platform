@@ -1,6 +1,6 @@
 # OpenSchool Platform — Jövőkép és fejlesztési terv
 
-> 📖 **Dokumentáció:** [Főoldal](../README.md) · [Architektúra](architektura.md) · [Telepítés](telepitesi-utmutato.md) · [Fejlesztői útmutató](fejlesztoi-utmutato.md) · [Backend](backend-fejlesztes.md) · [Frontend](frontend-fejlesztes.md) · **Roadmap** · [Felhasználói útmutató](felhasznaloi-utmutato.md) · [GitHub Classroom](github-classroom-integraciot.md) · [Karbantartás](karbantartas-utmutato.md) · [Automatizálás](automatizalas-beallitas.md) · [Discord](discord-integracio.md) · [Dokumentálás](dokumentacios-utmutato.md) · [Hozzájárulás](../CONTRIBUTING.md)
+> 📖 **Dokumentáció:** [Főoldal](../README.md) · [Architektúra](getting-started/architektura.md) · [Telepítés](getting-started/telepitesi-utmutato.md) · [Környezeti változók](getting-started/kornyezeti-valtozok.md) · [Fejlesztői útmutató](development/fejlesztoi-utmutato.md) · [Backend](development/backend-fejlesztes.md) · [Frontend](development/frontend-fejlesztes.md) · [Tesztelés](development/tesztelesi-utmutato.md) · [API referencia](reference/api-referencia.md) · [Adatbázis](reference/adatbazis-sema.md) · [Karbantartás](operations/karbantartas-utmutato.md) · [Automatizálás](operations/automatizalas-beallitas.md) · [GitHub Classroom](integrations/github-classroom-integraciot.md) · [Discord](integrations/discord-integracio.md) · [Felhasználói útmutató](guides/felhasznaloi-utmutato.md) · [Dokumentálás](guides/dokumentacios-utmutato.md) · **Roadmap** · [Hozzájárulás](../CONTRIBUTING.md)
 
 Ez a dokumentum összefoglalja az OpenSchool platform teljes vízióját, és felméri, mi van készen, mi hiányzik, és mi a tervezett fejlesztési irány.
 
@@ -23,7 +23,7 @@ Az OpenSchool nem egy hagyományos e-learning platform. A diákok **ugyanazokkal
 
 ## Kurzus beállítása
 
-Egy új kurzus indításához a GitHub Classroom-ban és az OpenSchool admin panelen is konfigurálni kell. A teljes lépésről lépésre útmutatót lásd: **[GitHub Classroom integráció](github-classroom-integraciot.md)**.
+Egy új kurzus indításához a GitHub Classroom-ban és az OpenSchool admin panelen is konfigurálni kell. A teljes lépésről lépésre útmutatót lásd: **[GitHub Classroom integráció](integrations/github-classroom-integraciot.md)**.
 
 ---
 
@@ -73,6 +73,12 @@ Egy új kurzus indításához a GitHub Classroom-ban és az OpenSchool admin pan
 | GitHub Actions CI | ✅ pytest minden push-ra |
 | GitHub Actions CD | ✅ SSH deploy (secrets konfigurálandó) |
 | Biztonsági mentés szkript | ✅ pg_dump + 30 napos retenciő |
+| Automatizált karbantartás | ✅ maintenance.sh (backup, health, disk, SSL, audit) |
+| VPS bootstrap szkript | ✅ bootstrap-vps.sh (teljes szerver felállítás) |
+| Cron job telepítő | ✅ setup-cron.sh (napi/heti/havi ütemezés) |
+| Biztonsági audit szkript | ✅ security-check.sh |
+| Discord CI/CD értesítések | ✅ discord-notify.sh + GitHub Actions |
+| Discord ops monitoring | ✅ maintenance.sh webhook értesítések |
 
 ### ✅ Közösség és dokumentáció
 
@@ -80,16 +86,27 @@ Egy új kurzus indításához a GitHub Classroom-ban és az OpenSchool admin pan
 |------|---------|
 | MIT licensz | ✅ |
 | CONTRIBUTING.md (magyar) | ✅ |
-| Issue sablonok (bug, feature) | ✅ |
+| Issue sablonok (bug, feature, documentation, question) | ✅ |
 | PR sablon | ✅ |
 | README.md | ✅ |
 | Makefile | ✅ |
-| pre-commit + ruff | ✅ || Architektúra dokumentáció | ✅ |
+| pre-commit + ruff | ✅ |
+| Architektúra dokumentáció | ✅ |
 | Telepítési útmutató | ✅ |
-| Fejlesztői útmutató | ✅ |
+| Fejlesztői útmutató (közös) | ✅ |
+| Backend fejlesztői útmutató | ✅ |
+| Frontend fejlesztői útmutató | ✅ |
 | Felhasználói útmutató (UI/domain) | ✅ |
 | GitHub Classroom integrációs útmutató | ✅ |
-| Dokumentumok közötti navigáció | ✅ |
+| Karbantartási útmutató | ✅ |
+| Automatizálás beállítási útmutató | ✅ |
+| Discord integrációs útmutató | ✅ |
+| Dokumentálási útmutató | ✅ |
+| API referencia | ✅ |
+| Adatbázis séma dokumentáció | ✅ |
+| Tesztelési útmutató | ✅ |
+| Környezeti változók referencia | ✅ |
+| Dokumentumok közötti navigáció (18 doc) | ✅ |
 ### ✅ Tesztek
 
 | Teszt | Állapot |
@@ -133,13 +150,21 @@ Az admin felhasználók számára dedikált kezelőfelület a platform adminiszt
 - [x] Szerepkör-alapú hozzáférésvédelem (csak admin)
 - [x] 11 teszt az admin végpontokhoz
 
-### 🔴 1. fázis — Discord integráció
+### � 1. fázis — Discord integráció
 
 A kurzuskeretrendszer Discord szervert használ a kommunikációhoz, heti szálakkal és automatikus értesítésekkel.
 
-**Szükséges fejlesztések:**
+**Kész:**
 
-- [ ] Discord webhook URL-ek tárolása a konfigurációban
+- [x] Discord webhook URL-ek tárolása a konfigurációban (VPS: `/etc/openschool-maintenance.conf`, GitHub: `DISCORD_WEBHOOK_CI` secret)
+- [x] CI/CD Discord értesítések (GitHub Actions → Discord embed üzenetek: siker/hiba/megszakítva)
+- [x] Ops monitoring Discord értesítések (backup hiba, health check, lemezhasználat, SSL lejárat)
+- [x] Discord szerver felállítási útmutató ([discord-integracio.md](integrations/discord-integracio.md))
+- [x] Csatornastruktúra ajánlás (kurzusonként bővíthető)
+- [x] Discord CI/CD notify szkript (`scripts/discord-notify.sh`)
+
+**Még tervezett:**
+
 - [ ] Platform → Discord értesítések:
   - Új beiratkozás egy kurzusra
   - Tanúsítvány kiállítás
@@ -147,28 +172,6 @@ A kurzuskeretrendszer Discord szervert használ a kommunikációhoz, heti szála
 - [ ] Discord OAuth integráció (opcionális, a GitHub mellett)
 - [ ] Discord szerver meghívó link a felületen
 - [ ] Közlemények kezelése a platformon belül (admin felület)
-
-**Csatorna struktúra a kurzuskeretrendszerből:**
-
-```
-📋 INFORMÁCIÓK
-  #szabályzat
-  #közlemények
-  #hasznos-linkek
-
-🐍 PYTHON 10
-  #python10-általános
-  #python10-segítség (heti szálak)
-  #python10-megoldások
-
-⚡ BACKEND 13
-  #backend13-általános
-  #backend13-segítség (heti szálak)
-  #backend13-megoldások
-
-💬 KÖZÖSSÉG
-  #általános
-```
 
 ### 🟠 2. fázis — Tanári eszközök
 
@@ -204,14 +207,15 @@ A platform fejlesztése során a következő külső eszközök integrálása te
 | Eszköz | Leírás | Állapot |
 |--------|--------|--------|
 | GitHub Classroom | Feladatkiadás és autograding | ✅ Webhook + repo_prefix + sync |
-| Discord értesítések | Platform → Discord értesítések küldése | 🔴 Tervezett |
+| Discord értesítések (CI/CD + ops) | CI/CD és VPS monitoring értesítések | ✅ Működik |
+| Discord értesítések (platform) | Platform → Discord (beiratkozás, tanúsítvány) | 🔴 Tervezett |
 
 ---
 
 ## Prioritási sorrend
 
-1. **VPS telepítés** (az éles rendszer felállítása a saját domainnel) ← **KÖVETKEZŐ LÉPÉS**
-2. **Discord integráció** — a közösségi kommunikáció
+1. **VPS telepítés** (az éles rendszer felállítása a saját domainnel — automatizáló szkriptek készen: `bootstrap-vps.sh`, `provision.sh`) ← **KÖVETKEZŐ LÉPÉS**
+2. **Discord integráció** — platform → Discord értesítések (CI/CD + ops monitoring már kész)
 3. **Tanári eszközök** — haladás összeszítés, automatikus assignment szinkronizálás
 4. **Haladó funkciók** — PR-ek, Issues, csapatmunka
 5. **Platform érettség** — monitoring, analitika, teljesítmény
@@ -220,6 +224,6 @@ A platform fejlesztése során a következő külső eszközök integrálása te
 
 ## Összefoglalás
 
-A platform alapjai **készen állnak**: backend API (auth, kurzusok, haladás, tanúsítványok, admin), frontend (9 oldal), infrastruktúra (Docker, CI/CD, nginx), GitHub Classroom integráció (repo_prefix, webhook, sync), admin panel, és 7 dokumentum navigációval összekötve.
+A platform alapjai **készen állnak**: backend API (auth, kurzusok, haladás, tanúsítványok, admin), frontend (9 oldal), infrastruktúra (Docker, CI/CD, nginx, automatizált karbantartás, Discord CI/CD értesítések), GitHub Classroom integráció (repo_prefix, webhook, sync), admin panel, és 16 dokumentum navigációval összekötve.
 
-A következő nagy lépés a **VPS telepítés**, majd a **Discord integráció** és **tanári eszközök bővítése** (automatikus Classroom szinkronizálás, tanári dashboard), amelyek a platform valódi értékét tovább növelik.
+Az automatizáció szintén kész: VPS bootstrap szkript, cron job-ok, biztonsági audit, ops monitoring Discord értesítésekkel. A következő nagy lépés a **VPS telepítés** (a szkriptek készen állnak), majd a **platform → Discord értesítések** és **tanári eszközök bővítése** (automatikus Classroom szinkronizálás, tanári dashboard), amelyek a platform valódi értékét tovább növelik.

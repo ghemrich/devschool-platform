@@ -1,6 +1,6 @@
 # Hozzájárulás az OpenSchool Platformhoz
 
-> 📖 **Dokumentáció:** [Főoldal](README.md) · [Architektúra](docs/architektura.md) · [Telepítés](docs/telepitesi-utmutato.md) · [Fejlesztői útmutató](docs/fejlesztoi-utmutato.md) · [Backend](docs/backend-fejlesztes.md) · [Frontend](docs/frontend-fejlesztes.md) · [Roadmap](docs/jovokep-es-fejlesztesi-terv.md) · [Felhasználói útmutató](docs/felhasznaloi-utmutato.md) · [GitHub Classroom](docs/github-classroom-integraciot.md) · [Karbantartás](docs/karbantartas-utmutato.md) · [Automatizálás](docs/automatizalas-beallitas.md) · [Discord](docs/discord-integracio.md) · [Dokumentálás](docs/dokumentacios-utmutato.md) · **Hozzájárulás**
+> 📖 **Dokumentáció:** [Főoldal](README.md) · [Architektúra](docs/getting-started/architektura.md) · [Telepítés](docs/getting-started/telepitesi-utmutato.md) · [Környezeti változók](docs/getting-started/kornyezeti-valtozok.md) · [Fejlesztői útmutató](docs/development/fejlesztoi-utmutato.md) · [Backend](docs/development/backend-fejlesztes.md) · [Frontend](docs/development/frontend-fejlesztes.md) · [Tesztelés](docs/development/tesztelesi-utmutato.md) · [API referencia](docs/reference/api-referencia.md) · [Adatbázis](docs/reference/adatbazis-sema.md) · [Karbantartás](docs/operations/karbantartas-utmutato.md) · [Automatizálás](docs/operations/automatizalas-beallitas.md) · [GitHub Classroom](docs/integrations/github-classroom-integraciot.md) · [Discord](docs/integrations/discord-integracio.md) · [Felhasználói útmutató](docs/guides/felhasznaloi-utmutato.md) · [Dokumentálás](docs/guides/dokumentacios-utmutato.md) · [Roadmap](docs/jovokep-es-fejlesztesi-terv.md) · [Hozzájárulás](CONTRIBUTING.md)
 
 Köszönjük, hogy hozzá szeretnél járulni az OpenSchool fejlesztéséhez! Ez az útmutató segít az indulásban.
 
@@ -16,7 +16,7 @@ cd openschool-platform
 
 ### 2. Lokális fejlesztői környezet felállítása
 
-Részletes útmutató: [Fejlesztői útmutató](docs/fejlesztoi-utmutato.md)
+Részletes útmutató: [Fejlesztői útmutató](docs/development/fejlesztoi-utmutato.md)
 
 Gyors összefoglalás:
 
@@ -55,7 +55,7 @@ curl http://localhost:8000/health
 ## Issue-k
 
 - Nézd meg a [meglévő issue-kat](../../issues), mielőtt újat nyitsz
-- Használd az issue template-eket (bug report / feature request)
+- Használd az issue template-eket (bug report / feature request / documentation / question)
 - A `good first issue` címkéjű issue-k ideálisak kezdőknek
 - Mielőtt nagyobb változtatásba kezdesz, nyiss egy issue-t és egyeztessünk
 
@@ -121,7 +121,7 @@ Példa: `feat: add user profile page`
 - [ ] A tesztek zöldek (`pytest -v`)
 - [ ] A linter nem jelez hibát (`ruff check .`)
 - [ ] Új publikus függvényeknek van docstring-jük
-- [ ] Az érintett dokumentáció frissítve van (lásd: [Dokumentálási útmutató](docs/dokumentacios-utmutato.md))
+- [ ] Az érintett dokumentáció frissítve van (lásd: [Dokumentálási útmutató](docs/guides/dokumentacios-utmutato.md))
 - [ ] A `README.md` API táblázata és docs indexe naprakész
 - [ ] A PR leírás tartalmazza a változtatás célját
 
