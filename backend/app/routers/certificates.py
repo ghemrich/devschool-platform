@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -11,6 +12,8 @@ from app.models.certificate import Certificate
 from app.models.course import Course
 from app.models.user import User
 from app.services.certificate import is_course_completed
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(tags=["certificates"])
 
@@ -46,10 +49,10 @@ def request_certificate(
         db.query(Certificate).filter(Certificate.user_id == current_user.id, Certificate.course_id == course_id).first()
     )
     if existing:
-        raise HTTPException(status_code=409, detail="Már van tanúsítványod ehhez a kurzushoz")
+        raise HTTPException(status_code=409, detail="Certificate already exists for this course")
 
     if not is_course_completed(db, current_user.id, course_id):
-        raise HTTPException(status_code=400, detail="A kurzus még nincs befejezve")
+        raise HTTPException(status_code=400, detail="Course not yet completed")
 
     cert = Certificate(user_id=current_user.id, course_id=course_id)
     db.add(cert)
@@ -76,6 +79,12 @@ def request_certificate(
         pdf_path.write_bytes(pdf_bytes)
         cert.pdf_path = str(pdf_path)
         db.commit()
+        logger.info(
+            "Certificate generated: cert_id=%s user=%s course=%s",
+            cert.cert_id,
+            current_user.username,
+            course.name,
+        )
     except ImportError:
         pass
 

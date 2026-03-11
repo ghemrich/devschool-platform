@@ -1,6 +1,10 @@
+import logging
+
 import qrcode
 from fpdf import FPDF
 from qrcode.constants import ERROR_CORRECT_M
+
+logger = logging.getLogger(__name__)
 
 
 def _draw_qr(pdf: FPDF, url: str, x: float, y: float, size: float) -> None:

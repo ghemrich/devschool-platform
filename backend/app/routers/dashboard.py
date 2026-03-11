@@ -9,7 +9,7 @@ from app.config import settings
 from app.database import get_db
 from app.models.course import Course, Enrollment, Exercise, Module, Progress, ProgressStatus
 from app.models.user import User
-from app.services.progress import update_progress_for_user
+from app.services.progress import count_progress, update_progress_for_user
 
 router = APIRouter(prefix="/api/me", tags=["me"])
 
@@ -24,7 +24,7 @@ def my_courses(db: Session = Depends(get_db), current_user: User = Depends(get_c
         if not course:
             continue
 
-        total, completed = _count_progress(db, current_user.id, course.id)
+        total, completed = count_progress(db, current_user.id, course.id)
         result.append(
             {
                 "course_id": course.id,
@@ -68,25 +68,6 @@ def course_progress(course_id: int, db: Session = Depends(get_db), current_user:
             )
         result.append({"module_id": module.id, "module_name": module.name, "exercises": ex_list})
     return result
-
-
-def _count_progress(db: Session, user_id: int, course_id: int) -> tuple[int, int]:
-    """Count total and completed exercises for a user in a course."""
-    modules = db.query(Module).filter(Module.course_id == course_id).all()
-    module_ids = [m.id for m in modules]
-    if not module_ids:
-        return 0, 0
-    total = db.query(Exercise).filter(Exercise.module_id.in_(module_ids)).count()
-    completed = (
-        db.query(Progress)
-        .filter(
-            Progress.user_id == user_id,
-            Progress.exercise_id.in_(db.query(Exercise.id).filter(Exercise.module_id.in_(module_ids))),
-            Progress.status == ProgressStatus.completed,
-        )
-        .count()
-    )
-    return total, completed
 
 
 class ProgressUpdate(BaseModel):
@@ -146,7 +127,7 @@ def update_exercise_progress(
 async def sync_progress(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     """Sync progress from GitHub CI status for all enrolled exercises."""
     if not current_user.github_token:
-        raise HTTPException(status_code=400, detail="Nincs GitHub token — jelentkezz be újra")
+        raise HTTPException(status_code=400, detail="No GitHub token — please log in again")
 
     owner = settings.github_org or current_user.username
     await update_progress_for_user(db, current_user, current_user.github_token, owner)

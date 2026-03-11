@@ -1,6 +1,10 @@
+import logging
+
 from sqlalchemy.orm import Session
 
 from app.models.course import Exercise, Module, Progress, ProgressStatus
+
+logger = logging.getLogger(__name__)
 
 
 def is_course_completed(db: Session, user_id: int, course_id: int) -> bool:

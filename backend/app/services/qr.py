@@ -1,8 +1,11 @@
 import base64
 import io
+import logging
 
 import qrcode
 from qrcode.constants import ERROR_CORRECT_M
+
+logger = logging.getLogger(__name__)
 
 
 def generate_qr_base64(url: str) -> str:

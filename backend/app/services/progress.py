@@ -7,6 +7,25 @@ from app.models.user import User
 from app.services.github import check_exercise_status
 
 
+def count_progress(db: Session, user_id: int, course_id: int) -> tuple[int, int]:
+    """Count total and completed exercises for a user in a course."""
+    modules = db.query(Module).filter(Module.course_id == course_id).all()
+    module_ids = [m.id for m in modules]
+    if not module_ids:
+        return 0, 0
+    total = db.query(Exercise).filter(Exercise.module_id.in_(module_ids)).count()
+    completed = (
+        db.query(Progress)
+        .filter(
+            Progress.user_id == user_id,
+            Progress.exercise_id.in_(db.query(Exercise.id).filter(Exercise.module_id.in_(module_ids))),
+            Progress.status == ProgressStatus.completed,
+        )
+        .count()
+    )
+    return total, completed
+
+
 async def update_progress_for_user(db: Session, user: User, github_token: str, owner: str = "openschool-org"):
     """Check GitHub CI status for all enrolled exercises and update progress."""
     enrollments = db.query(Enrollment).filter(Enrollment.user_id == user.id).all()

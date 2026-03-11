@@ -1,5 +1,6 @@
 import hashlib
 import hmac
+import logging
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Request
 from sqlalchemy.orm import Session
@@ -8,6 +9,8 @@ from app.config import settings
 from app.database import get_db
 from app.models.course import Exercise, Progress, ProgressStatus
 from app.models.user import User
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/webhooks", tags=["webhooks"])
 
@@ -95,6 +98,11 @@ async def github_webhook(
             matched = True
 
     if matched:
-        db.commit()
+        try:
+            db.commit()
+        except Exception:
+            db.rollback()
+            logger.exception("Failed to commit webhook progress update for repo=%s", repo_name)
+            raise HTTPException(status_code=500, detail="Failed to update progress")
 
     return {"status": "processed", "repo": repo_name, "updated": matched}

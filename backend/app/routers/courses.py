@@ -1,11 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from app.auth.dependencies import get_current_user, require_role
 from app.database import get_db
-from app.models.course import Course, Enrollment, Exercise, Module, Progress, ProgressStatus
+from app.models.course import Course, Enrollment, Exercise, Module
 from app.models.user import User, UserRole
+from app.services.progress import count_progress
 
 router = APIRouter(prefix="/api/courses", tags=["courses"])
 
@@ -201,37 +202,25 @@ def course_students(
     if not course:
         raise HTTPException(status_code=404, detail="Course not found")
 
-    modules = db.query(Module).filter(Module.course_id == course_id).all()
-    module_ids = [m.id for m in modules]
-    total_exercises = db.query(Exercise).filter(Exercise.module_id.in_(module_ids)).count() if module_ids else 0
-
-    enrollments = db.query(Enrollment).filter(Enrollment.course_id == course_id).all()
+    enrollments = (
+        db.query(Enrollment).filter(Enrollment.course_id == course_id).options(joinedload(Enrollment.user)).all()
+    )
     result = []
     for enrollment in enrollments:
-        user = db.query(User).filter(User.id == enrollment.user_id).first()
+        user = enrollment.user
         if not user:
             continue
 
-        completed = (
-            db.query(Progress)
-            .filter(
-                Progress.user_id == user.id,
-                Progress.exercise_id.in_(db.query(Exercise.id).filter(Exercise.module_id.in_(module_ids))),
-                Progress.status == ProgressStatus.completed,
-            )
-            .count()
-            if module_ids
-            else 0
-        )
+        total, completed = count_progress(db, user.id, course_id)
 
         result.append(
             {
                 "user_id": user.id,
                 "username": user.username,
                 "avatar_url": user.avatar_url,
-                "total_exercises": total_exercises,
+                "total_exercises": total,
                 "completed_exercises": completed,
-                "progress_percent": round(completed / total_exercises * 100, 1) if total_exercises > 0 else 0,
+                "progress_percent": round(completed / total * 100, 1) if total > 0 else 0,
                 "enrolled_at": enrollment.enrolled_at.isoformat() if enrollment.enrolled_at else None,
             }
         )
