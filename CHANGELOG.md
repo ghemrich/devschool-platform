@@ -55,6 +55,8 @@
 - Restructure into separate backend/frontend guides
 - Add Discord integration guide, documentation guide, and CI notify script
 - Update roadmap to reflect current state
+- Regenerate CHANGELOG.md
+- Add API reference, database schema, testing guide, and env vars reference
 
 ### ⚙️ Miscellaneous Tasks
 
