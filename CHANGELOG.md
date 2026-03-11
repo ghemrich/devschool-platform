@@ -69,6 +69,7 @@
 - Regenerate CHANGELOG.md
 - Remove duplicate Discord channel structure from roadmap
 - Regenerate CHANGELOG.md
+- Regenerate CHANGELOG.md
 
 ### ⚙️ Miscellaneous Tasks
 
@@ -82,6 +83,7 @@
 - Add Discord notifications to CI/CD workflows
 - Run CI on pull requests targeting develop branch
 - *(deps)* Bump actions/checkout from v5 to v6
+- Set Docker Compose project name to openschool
 
 ### 🛡️ Security
 
