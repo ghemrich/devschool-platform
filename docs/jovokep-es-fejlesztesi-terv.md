@@ -21,13 +21,48 @@ Az OpenSchool nem egy hagyományos e-learning platform. A diákok **ugyanazokkal
 
 ---
 
-## Kurzusok
+## Kurzus beállítása lépésről lépésre
 
-| Kurzus | Évfolyam | Időtartam | Leírás |
-|--------|----------|-----------|--------|
-| Python Alapok | 10. osztály | 13 hét, heti 2 óra | Bevezető Python kurzus |
-| Backend FastAPI | 13. évfolyam (esti/felnőtt) | 25 hét, heti 6 óra | Backend fejlesztés FastAPI-val |
-| Projekt Labor | Backend 13 után | 7 modul, egyéni tempó | A OpenSchool platform felépítése |
+Egy új kurzus indításához mindkét rendszerben (GitHub Classroom + OpenSchool) kell dolgozni. A részletes technikai útmutatót lásd: [GitHub Classroom integráció](github-classroom-integraciot.md).
+
+### 1. GitHub szervezet és Classroom előkészítése
+
+1. Hozz létre egy **GitHub Organization**-t (ha még nincs), pl. `openschool-org`
+2. A <https://classroom.github.com> oldalon kapcsold össze a szervezettel
+3. Állítsd be a `.env` fájlban: `GITHUB_ORG=openschool-org`
+
+### 2. Kurzus létrehozása az OpenSchool-ban
+
+1. **Admin panel** → **Kurzusok** (`/admin/courses`)
+2. Add meg a kurzus nevét és leírását → **Létrehozás**
+3. A kurzus kártyáján kattints a **Részletek** gombra
+4. Add hozzá a **modulokat** (pl. „1. Alapok", „2. Haladó")
+
+### 3. Feladatok létrehozása (mindkét helyen)
+
+Minden feladathoz két lépés kell:
+
+| Hol | Mit csinálj |
+|-----|-------------|
+| **GitHub Classroom** | Hozz létre egy Assignment-et egy template repóval, amelyben van `.github/workflows/` CI teszt. Jegyezd meg a **repository prefix**-et (pl. `python-hello-world`) és a **meghívó linket**. |
+| **OpenSchool admin** | A modul alatt add hozzá a feladatot: **Feladat neve** + **Repo prefix** (pontosan ugyanaz mint a Classroom-ban) + **Classroom link** (a meghívó URL) |
+
+### 4. Webhook beállítása (opcionális)
+
+Ha azt szeretnéd, hogy a haladás automatikusan frissüljön (ne kelljen a tanulónak a „Szinkronizálás" gombot nyomni):
+
+1. GitHub org beállítások → Webhooks → **Add webhook**
+2. URL: `https://{domain}/api/webhooks/github`
+3. Esemény: **Workflow runs**
+4. Secret: ugyanaz mint `GITHUB_WEBHOOK_SECRET` a `.env`-ben
+
+### 5. Tanulók tájékoztatása
+
+A tanulóknak a következőket kell tenniük:
+1. Belépés az OpenSchool-ba GitHub fiókkal
+2. Beiratkozás a kurzusra
+3. A feladatok mellett a 📎 ikonra kattintva elfogadják a GitHub Classroom assignment-et
+4. Megoldják a feladatot, push-olnak → CI fut → haladás frissül
 
 ---
 
