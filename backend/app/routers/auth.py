@@ -21,7 +21,7 @@ GITHUB_USER_URL = "https://api.github.com/user"
 @router.get("/login")
 def auth_login():
     """Redirect to GitHub OAuth authorization page."""
-    url = f"{GITHUB_AUTHORIZE_URL}?client_id={settings.github_client_id}&scope=read:user user:email"
+    url = f"{GITHUB_AUTHORIZE_URL}?client_id={settings.github_client_id}&scope=read:user user:email repo"
     return RedirectResponse(url=url)
 
 
