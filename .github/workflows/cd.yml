@@ -37,6 +37,19 @@ jobs:
             sleep 5
             curl -f http://localhost:8000/health
             echo "Staging deploy successful!"
+      - uses: actions/checkout@v5
+      - name: Discord notification
+        if: always()
+        env:
+          DISCORD_WEBHOOK_CI: ${{ secrets.DISCORD_WEBHOOK_CI }}
+        run: |
+          ./scripts/discord-notify.sh \
+            --status "${{ job.status }}" \
+            --title "Staging Deploy" \
+            --repo "${{ github.repository }}" \
+            --commit "${{ github.sha }}" \
+            --author "${{ github.actor }}" \
+            --url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
   deploy:
     runs-on: ubuntu-latest
@@ -64,3 +77,16 @@ jobs:
             sudo scripts/setup-cron.sh
 
             echo "Deploy successful!"
+      - uses: actions/checkout@v5
+      - name: Discord notification
+        if: always()
+        env:
+          DISCORD_WEBHOOK_CI: ${{ secrets.DISCORD_WEBHOOK_CI }}
+        run: |
+          ./scripts/discord-notify.sh \
+            --status "${{ job.status }}" \
+            --title "Production Deploy" \
+            --repo "${{ github.repository }}" \
+            --commit "${{ github.sha }}" \
+            --author "${{ github.actor }}" \
+            --url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"

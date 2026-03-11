@@ -33,3 +33,15 @@ jobs:
       - run: pip install -r backend/requirements-dev.txt
       - name: Run tests
         run: cd backend && pytest -v --tb=short
+      - name: Discord notification
+        if: always()
+        env:
+          DISCORD_WEBHOOK_CI: ${{ secrets.DISCORD_WEBHOOK_CI }}
+        run: |
+          ./scripts/discord-notify.sh \
+            --status "${{ job.status }}" \
+            --title "CI: ${{ github.event.head_commit.message || github.event.pull_request.title || 'PR check' }}" \
+            --repo "${{ github.repository }}" \
+            --commit "${{ github.sha }}" \
+            --author "${{ github.actor }}" \
+            --url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
