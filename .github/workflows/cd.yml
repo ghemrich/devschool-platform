@@ -58,4 +58,9 @@ jobs:
             docker compose -f docker-compose.prod.yml exec -T backend alembic upgrade head
             sleep 5
             curl -f http://localhost:8000/health
+
+            # Update maintenance automation (cron + logrotate)
+            chmod +x scripts/maintenance.sh scripts/setup-cron.sh
+            sudo scripts/setup-cron.sh
+
             echo "Deploy successful!"

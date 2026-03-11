@@ -44,3 +44,22 @@ logs:
 changelog:
 	git-cliff -o CHANGELOG.md
 	@echo "✅ CHANGELOG.md frissítve!"
+
+# --- Maintenance ---
+maintenance-health:
+	./scripts/maintenance.sh health
+
+maintenance-backup:
+	./scripts/maintenance.sh backup
+
+maintenance-daily:
+	./scripts/maintenance.sh full-daily
+
+maintenance-weekly:
+	./scripts/maintenance.sh full-weekly
+
+maintenance-monthly:
+	./scripts/maintenance.sh full-monthly
+
+install-cron:
+	sudo ./scripts/setup-cron.sh
