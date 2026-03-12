@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.config import settings
-from app.database import Base, engine
+from app.database import engine  # noqa: F401
 from app.models.certificate import Certificate  # noqa: F401
 from app.models.course import Course, Enrollment, Exercise, Module, Progress  # noqa: F401
 from app.routers import admin, auth, certificates, courses, dashboard, webhooks
@@ -15,8 +15,6 @@ logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
 )
 logger = logging.getLogger(__name__)
-
-Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="OpenSchool API",
