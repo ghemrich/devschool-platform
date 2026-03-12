@@ -185,15 +185,15 @@ graph LR
 
 ### CI Pipeline (`.github/workflows/ci.yml`)
 
-Mikor fut: push a `main`-re, PR-ek a `main`-re
+Mikor fut: push a `main` vagy `develop`-re, PR-ek a `main` vagy `develop`-re
 
-1. Checkout → Python 3.12 beállítás → Függőségek telepítése → pytest futtatás
+1. Checkout → Python 3.12 beállítás → Függőségek telepítése → pytest futtatás → Discord értesítés
 
 ### CD Pipeline (`.github/workflows/cd.yml`)
 
-Mikor fut: push a `main` vagy `develop` ágra (csak ha a `VPS_HOST` secret be van állítva)
+Mikor fut: push a `main` vagy `develop` ágra (csak ha a `VPS_HOST` repository variable be van állítva)
 
-1. SSH belépés a VPS-re → git pull → docker compose build → alembic migrate → health check
+1. SSH belépés a VPS-re → git pull → docker compose build → alembic migrate → health check → Discord értesítés
 
 ---
 

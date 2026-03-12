@@ -133,8 +133,10 @@ Mielőtt élesbe megy egy új verzió:
 # VPS-en (SSH-val)
 cd /opt/openschool
 git pull origin main
-docker compose -f docker-compose.prod.yml build
-docker compose -f docker-compose.prod.yml up -d
+docker compose -f docker-compose.prod.yml --env-file .env.prod up --build --force-recreate -d
+
+# Migrációk futtatása
+docker compose -f docker-compose.prod.yml --env-file .env.prod exec backend alembic upgrade head
 
 # Ellenőrzés
 docker compose -f docker-compose.prod.yml ps
@@ -142,14 +144,15 @@ curl -s http://localhost:8000/health
 docker compose -f docker-compose.prod.yml logs --tail=20 backend
 ```
 
+> **Megjegyzés:** A `--force-recreate` flag biztosítja, hogy az nginx DNS cache frissüljön (pl. staging konténer IP változás esetén).
+
 ### Rollback
 
 ```bash
 # Előző verzióra visszaállás
 git log --oneline -5              # utolsó 5 commit
 git checkout <commit-hash>        # visszaállás
-docker compose -f docker-compose.prod.yml build
-docker compose -f docker-compose.prod.yml up -d
+docker compose -f docker-compose.prod.yml --env-file .env.prod up --build --force-recreate -d
 ```
 
 ## 5. Monitorozás
@@ -167,6 +170,8 @@ healthcheck:
   retries: 3
   start_period: 15s
 ```
+
+> **Megjegyzés:** Az nginx konténer healthcheck-je `wget` és `http://127.0.0.1/health` címet használ (a `localhost` IPv6-ra oldható fel Alpine-ban, ezért explicit IPv4 cím kell).
 
 ### Log ellenőrzés
 

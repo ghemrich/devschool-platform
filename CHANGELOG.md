@@ -2,7 +2,6 @@
 
 ### 🚀 Features
 
-- Add automated mentor and developer onboarding pipeline to roadmap
 - Add Module 3 - courses, progress tracking, and dashboard
 - Add Module 4 - certificate system
 - Add Module 5 - frontend with Astro
@@ -12,6 +11,10 @@
 - GitHub Classroom integration
 - Add admin panel and update all documentation
 - *(frontend)* Add GitHub link and site config
+- Add SSL, SSH hardening, Cloudflare docs, and security fixes
+- Staging environment support
+- Add staging.openschool.hu domain with SSL to production nginx
+- Templatize nginx config with envsubst for domain names
 
 ### 🐛 Bug Fixes
 
@@ -23,6 +26,21 @@
 - PDF download sends auth header via fetch instead of plain link
 - Consistent nav button spacing for auth links
 - Resolve all ruff lint errors
+- Install curl in backend image for healthcheck
+- Use 127.0.0.1 instead of localhost in nginx healthcheck (IPv6 issue)
+- Add repo scope to GitHub OAuth for Actions API access
+- Use correct compose file and health check for staging CD
+- Ensure checkout runs before discord notify and add chmod
+- Run prod health check inside container
+- Add --force-recreate to prevent stale DNS in nginx after deploy
+- Persist certificate PDFs with Docker volume and regenerate if missing
+- Add 'from None' to satisfy B904 lint rule
+- Split staging HTTPS blocks for separate SSL certs per domain
+- Use 127.0.0.1 instead of localhost in nginx healthcheck
+- Remove sed emoji hack in discord-notify, add error response logging
+- Strip newlines in discord-notify sanitize function
+- Remove duplicate staging server block causing wrong SSL cert
+- Remove create_all() — let alembic manage schema exclusively
 
 ### 💼 Other
 
@@ -36,7 +54,6 @@
 
 ### 📚 Documentation
 
-- Add growth model vision and mentor pipeline phases to roadmap
 - Magyar nyelvű dokumentáció (telepítés, architektúra, jövőkép)
 - Fejlesztői környezet útmutató és dev tooling
 - Rewrite README as introductory page with philosophy
@@ -72,6 +89,13 @@
 - Remove duplicate Discord channel structure from roadmap
 - Regenerate CHANGELOG.md
 - Regenerate CHANGELOG.md
+- Update CHANGELOG
+- Add automated mentor and developer onboarding pipeline to roadmap
+- Kiegészített telepítési útmutató
+- Restructure installation guide — reorder sections, rewrite staging, add firewall
+- Split installation guide into 3 focused files
+- Update all references for nginx envsubst template
+- Add Discord invite link and update roadmap progress
 
 ### ⚙️ Miscellaneous Tasks
 
@@ -86,6 +110,8 @@
 - Run CI on pull requests targeting develop branch
 - *(deps)* Bump actions/checkout from v5 to v6
 - Set Docker Compose project name to openschool
+- Test CD pipeline
+- Test CD pipeline with secrets
 
 ### 🛡️ Security
 

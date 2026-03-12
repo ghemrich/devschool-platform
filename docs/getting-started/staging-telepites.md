@@ -194,26 +194,24 @@ Ha Cloudflare-t használsz: először állítsd **DNS only** módra (szürke fel
 
 ---
 
-## 8. SSL tanúsítvány bővítése
+## 8. SSL tanúsítvány a staging domainhez
 
-A meglévő Let's Encrypt tanúsítványt ki kell bővíteni a staging domainnel:
+A staging domain **külön** Let's Encrypt tanúsítványt kap (nem bővítjük a production certeket):
 
 ```bash
 # Production nginx leállítása (80-as port felszabadítása)
 cd /opt/openschool
 docker compose -f docker-compose.prod.yml stop nginx
 
-# Tanúsítvány bővítése az --expand kapcsolóval
+# Külön tanúsítvány a staging domainhez
 sudo certbot certonly --standalone \
-  -d yourdomain.com \
-  -d staging.yourdomain.com \
-  --expand
+  -d staging.yourdomain.com
 
 # Production nginx újraindítása
 docker compose -f docker-compose.prod.yml start nginx
 ```
 
-> A `--expand` kapcsoló a meglévő tanúsítványhoz adja hozzá az új domaint, nem cseréli le. Cloudflare használata esetén ideiglenesen ki kell kapcsolni a proxyt (DNS only), majd az igénylés után vissza kell kapcsolni.
+> A staging és production tanúsítványok függetlenek egymástól. Az `nginx.conf.template`-ben a staging blokk a `/etc/letsencrypt/live/${STAGING_DOMAIN}/` útvonalon keresi a certet.
 
 ---
 
@@ -284,7 +282,7 @@ staging-deploy:
           docker compose -f docker-compose.staging.yml --env-file .env.staging up --build -d
           docker compose -f docker-compose.staging.yml --env-file .env.staging exec -T backend alembic upgrade head
           sleep 5
-          curl -f https://staging.yourdomain.com/health
+          docker compose -f docker-compose.staging.yml --env-file .env.staging exec -T backend curl -f http://localhost:8000/health
           echo "Staging deploy successful!"
 ```
 

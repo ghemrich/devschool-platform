@@ -110,7 +110,8 @@ Az `environment` beállítás hatása:
 | Érték | Log szint | Swagger UI | SECRET_KEY validáció |
 |-------|-----------|------------|----------------------|
 | `development` | DEBUG | ✅ Elérhető (`/docs`) | Nincs |
-| `production` | INFO | ❌ Kikapcsolt | Figyelmeztetés ha alapértelmezett |
+| `staging` | DEBUG | ✅ Elérhető (`/docs`) | Nincs |
+| `production` | INFO | ❌ Kikapcsolt | **ValueError** — nem indul el |
 
 ---
 

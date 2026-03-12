@@ -162,10 +162,10 @@ Várd meg a DNS propagációt (akár 48 óra, általában percek).
 ### 4. Szolgáltatások indítása
 
 ```bash
-docker compose -f docker-compose.prod.yml up --build -d
+docker compose -f docker-compose.prod.yml --env-file .env.prod up --build -d
 
 # Migrációk futtatása
-docker compose -f docker-compose.prod.yml exec backend alembic upgrade head
+docker compose -f docker-compose.prod.yml --env-file .env.prod exec backend alembic upgrade head
 
 # Ellenőrzés
 curl http://localhost/health

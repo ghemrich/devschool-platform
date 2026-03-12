@@ -82,15 +82,28 @@ A `docker-compose.yml` és `docker-compose.prod.yml` a `.env` fájlból olvassa 
 
 ---
 
-## 3. GitHub Actions secrets
+## 3. GitHub Actions secrets és variables
 
-A CI/CD workflow-k (`ci.yml`, `cd.yml`) ezeket a GitHub repository secrets-ből olvassák.
+A CI/CD workflow-k (`ci.yml`, `cd.yml`) ezeket a GitHub repository beállításokból olvassák.
+
+### Repository variables
+
+| Variable | Workflow | Kötelező | Leírás |
+|----------|----------|----------|--------|
+| `VPS_HOST` | `cd.yml` | Deploy-hoz | Éles szerver SSH host |
+| `STAGING_HOST` | `cd.yml` | Staging-hez | Staging szerver SSH host |
+
+> **Beállítás:** GitHub repó → Settings → Secrets and variables → Actions → Variables → New repository variable
+
+### Repository secrets
 
 | Secret | Workflow | Kötelező | Leírás |
 |--------|----------|----------|--------|
 | `DISCORD_WEBHOOK_CI` | `ci.yml`, `cd.yml` | Nem | Discord webhook URL CI/CD értesítésekhez. Ha nincs megadva, az értesítés átugródik |
-| `STAGING_HOST` | `cd.yml` | Staging-hez | Staging szerver SSH host |
-| `VPS_HOST` | `cd.yml` | Deploy-hoz | Éles szerver SSH host |
+| `VPS_USER` | `cd.yml` | Deploy-hoz | Éles szerver SSH felhasználónév |
+| `VPS_SSH_KEY` | `cd.yml` | Deploy-hoz | Éles szerver SSH privát kulcs |
+| `STAGING_USER` | `cd.yml` | Staging-hez | Staging szerver SSH felhasználónév |
+| `STAGING_SSH_KEY` | `cd.yml` | Staging-hez | Staging szerver SSH privát kulcs |
 
 > **Beállítás:** GitHub repó → Settings → Secrets and variables → Actions → New repository secret
 
@@ -144,7 +157,7 @@ nano .env
 
 # 2. Kötelező módosítások:
 SECRET_KEY=<openssl rand -hex 32 kimenet>
-BASE_URL=https://school.example.com
+BASE_URL=https://openschool.hu
 ENVIRONMENT=production
 ALLOWED_ORIGINS=https://school.example.com
 GITHUB_CLIENT_ID=<OAuth App ID>
