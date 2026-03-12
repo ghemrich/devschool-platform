@@ -170,7 +170,7 @@ Kurzusok listázása lapozással (publikus).
   "data": [
     {
       "id": 1,
-      "name": "Python 10",
+      "name": "Python Alapok",
       "description": "Bevezető Python kurzus",
       "created_at": "2025-09-01T10:00:00"
     }
@@ -194,7 +194,7 @@ Kurzus részletei modulokkal és feladatokkal (publikus).
 ```json
 {
   "id": 1,
-  "name": "Python 10",
+  "name": "Python Alapok",
   "description": "Bevezető Python kurzus",
   "modules": [
     {
@@ -230,7 +230,7 @@ Kurzus részletei modulokkal és feladatokkal (publikus).
 **Kérés:**
 ```json
 {
-  "name": "Backend 13",
+  "name": "Backend FastAPI",
   "description": "Backend fejlesztés FastAPI-val"
 }
 ```
@@ -242,7 +242,7 @@ Kurzus részletei modulokkal és feladatokkal (publikus).
 
 **Válasz (201):**
 ```json
-{"id": 2, "name": "Backend 13"}
+{"id": 2, "name": "Backend FastAPI"}
 ```
 
 ---
@@ -374,7 +374,7 @@ Beiratkozott diákok listája haladással.
 **Válasz (200):**
 ```json
 {
-  "course_name": "Python 10",
+  "course_name": "Python Alapok",
   "students": [
     {
       "user_id": 3,
@@ -406,7 +406,7 @@ A bejelentkezett felhasználó beiratkozott kurzusai haladás-összesítéssel.
 [
   {
     "course_id": 1,
-    "course_name": "Python 10",
+    "course_name": "Python Alapok",
     "total_exercises": 10,
     "completed_exercises": 7,
     "progress_percent": 70.0,
@@ -576,7 +576,7 @@ Tanúsítvány publikus verifikáció (hitelesítés nem szükséges).
 {
   "valid": true,
   "name": "diak1",
-  "course": "Python 10",
+  "course": "Python Alapok",
   "issued_at": "2025-12-01T10:00:00",
   "cert_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
 }

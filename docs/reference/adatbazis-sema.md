@@ -109,7 +109,7 @@ A GitHub OAuth-tal regisztrált felhasználók. Minden felhasználónak egyedi `
 
 ### `courses`
 
-A kurzusok (pl. „Python 10", „Backend 13"). Adminok hozhatják létre, nyilvánosan megjelennek.
+A kurzusok (pl. „Python Alapok", „Backend FastAPI"). Adminok hozhatják létre, nyilvánosan megjelennek.
 
 | Oszlop | Típus | Nullable | Default | Leírás |
 |--------|-------|----------|---------|--------|

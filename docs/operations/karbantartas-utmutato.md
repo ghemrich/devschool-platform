@@ -2,7 +2,7 @@
 
 > 📖 **Dokumentáció:** [Főoldal](../../README.md) · [Architektúra](../getting-started/architektura.md) · [Telepítés](../getting-started/telepitesi-utmutato.md) · [Környezeti változók](../getting-started/kornyezeti-valtozok.md) · [Fejlesztői útmutató](../development/fejlesztoi-utmutato.md) · [Backend](../development/backend-fejlesztes.md) · [Frontend](../development/frontend-fejlesztes.md) · [Tesztelés](../development/tesztelesi-utmutato.md) · [API referencia](../reference/api-referencia.md) · [Adatbázis](../reference/adatbazis-sema.md) · **Karbantartás** · [Automatizálás](automatizalas-beallitas.md) · [GitHub Classroom](../integrations/github-classroom-integraciot.md) · [Discord](../integrations/discord-integracio.md) · [Felhasználói útmutató](../guides/felhasznaloi-utmutato.md) · [Dokumentálás](../guides/dokumentacios-utmutato.md) · [Roadmap](../jovokep-es-fejlesztesi-terv.md) · [Hozzájárulás](../../CONTRIBUTING.md)
 
-Ez az útmutató a OpenSchool Platform hosszú távú karbantartásához, minőségbiztosításához és üzemeltetéséhez szükséges folyamatokat és gyakorlatokat írja le.
+Ez az útmutató az OpenSchool Platform hosszú távú karbantartásához, minőségbiztosításához és üzemeltetéséhez szükséges folyamatokat és gyakorlatokat írja le.
 
 ---
 

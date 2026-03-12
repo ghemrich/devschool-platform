@@ -178,7 +178,7 @@ docker compose exec db psql -U openschool -d openschool <<'SQL'
 INSERT INTO courses (name, description) VALUES
   ('Python Alapok', '13 hetes bevezető kurzus a Python programozásba.'),
   ('Backend FastAPI', '25 hetes backend fejlesztő kurzus FastAPI keretrendszerrel.'),
-  ('Projekt Labor', 'A OpenSchool platform felépítése az alapoktól az éles üzemig.');
+  ('Projekt Labor', 'Az OpenSchool platform felépítése az alapoktól az éles üzemig.');
 SQL
 ```
 
