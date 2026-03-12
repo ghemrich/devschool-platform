@@ -92,6 +92,12 @@ Szívesen fogadjuk a hozzájárulásokat! Olvasd el a [CONTRIBUTING.md](CONTRIBU
 | [Jövőkép és roadmap](docs/jovokep-es-fejlesztesi-terv.md) | Megvalósított funkciók, tervezett fejlesztések |
 | [Hozzájárulás](CONTRIBUTING.md) | Fork, branch stratégia, PR küldés, kódstílus |
 
+### 📦 Kapcsolódó repók
+
+| Repó | Leírás |
+|---|---|
+| [openschool-knowledge](https://github.com/ghemrich/openschool-knowledge) | Kurzusanyagok, útmutatók, vizsgák, értékelési módszertanok |
+
 A `good first issue` címkéjű [issue-k](../../issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) ideálisak kezdőknek.
 
 ## Licensz
