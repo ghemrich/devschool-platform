@@ -77,6 +77,8 @@ A `docker-compose.yml` és `docker-compose.prod.yml` a `.env` fájlból olvassa 
 | `GITHUB_CLIENT_SECRET` | Backend container | OAuth titkos kulcs |
 | `GITHUB_ORG` | Backend container | Szervezet |
 | `GITHUB_WEBHOOK_SECRET` | Backend container | Webhook secret |
+| `PROD_DOMAIN` | Nginx container | Éles domain név (envsubst template-hez) |
+| `STAGING_DOMAIN` | Nginx container | Staging domain név (envsubst template-hez) |
 
 ---
 

@@ -393,7 +393,8 @@ openschool-platform/
 │   └── tsconfig.json          # TypeScript konfig
 │
 ├── nginx/
-│   └── nginx.conf             # Nginx reverse proxy konfig
+│   ├── nginx.conf.template    # Nginx production konfig (envsubst template)
+│   └── nginx-staging.conf     # Nginx staging/dev konfig (HTTP only)
 │
 ├── scripts/
 │   └── backup.sh              # Biztonsági mentés szkript

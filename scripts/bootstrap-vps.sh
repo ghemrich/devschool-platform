@@ -201,6 +201,10 @@ ALLOWED_ORIGINS=https://$DOMAIN
 GITHUB_CLIENT_ID=$GH_CLIENT_ID
 GITHUB_CLIENT_SECRET=$GH_CLIENT_SECRET
 GITHUB_WEBHOOK_SECRET=$WEBHOOK_SECRET
+
+# === NGINX DOMAINS (envsubst template) ===
+PROD_DOMAIN=$DOMAIN
+STAGING_DOMAIN=staging.$DOMAIN
 EOF
 
 chmod 600 "$ENV_FILE"
@@ -276,7 +280,7 @@ if [ "$SETUP_SSL" = "y" ] || [ "$SETUP_SSL" = "Y" ]; then
             warn "Add the following to docker-compose.prod.yml nginx volumes manually:"
             echo "      - /etc/letsencrypt:/etc/letsencrypt:ro"
             echo ""
-            warn "And update nginx/nginx.conf for SSL (see telepitesi-utmutato.md)"
+            warn "And update nginx/nginx.conf.template for SSL (see telepitesi-utmutato.md)"
         fi
 
         # Setup auto-renewal
@@ -336,7 +340,7 @@ echo ""
 echo "  Next steps:"
 echo "  1. Configure DNS: A record '$DOMAIN' → $(curl -4sf ifconfig.me || echo 'VPS_IP')"
 if [ "$SETUP_SSL" = "y" ] || [ "$SETUP_SSL" = "Y" ]; then
-    echo "  2. Update nginx/nginx.conf for SSL (see docs/telepitesi-utmutato.md)"
+    echo "  2. Update nginx/nginx.conf.template for SSL (see docs/telepitesi-utmutato.md)"
     echo "  3. Mount /etc/letsencrypt in docker-compose.prod.yml"
 fi
 echo "  4. Edit /etc/openschool-maintenance.conf (Discord webhook, SSL_DOMAIN)"

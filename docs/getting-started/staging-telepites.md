@@ -42,7 +42,7 @@ Production nginx (docker-compose.prod.yml)
                                                        └── backend (staging)
 ```
 
-- A **production nginx** kezeli az SSL-t mindkét domainhez (egyetlen Let's Encrypt tanúsítvány)
+- A **production nginx** kezeli az SSL-t mindkét domainhez (domain nevek `envsubst` template-ből, SSL tanúsítványok domain-enként)
 - A staging kéréseket az `openschool-net` Docker hálózaton keresztül proxy-zza a staging nginx konténerbe
 - A **staging nginx** (`nginx-staging.conf`) csak HTTP-t szolgál ki — az SSL-t a production nginx terminálja
 - Minden más (backend, DB, frontend) teljesen elkülönített
@@ -110,6 +110,8 @@ SECRET_KEY=$SECRET
 BASE_URL=https://staging.yourdomain.com
 ENVIRONMENT=staging
 ALLOWED_ORIGINS=https://staging.yourdomain.com
+PROD_DOMAIN=yourdomain.com
+STAGING_DOMAIN=staging.yourdomain.com
 GITHUB_CLIENT_ID=staging_oauth_client_id
 GITHUB_CLIENT_SECRET=staging_oauth_client_secret
 GITHUB_WEBHOOK_SECRET=$WEBHOOK_SECRET
@@ -154,50 +156,27 @@ networks:
     external: true
 ```
 
-### `nginx/nginx.conf` — staging proxy blokkok
+### `nginx/nginx.conf.template` — staging proxy blokkok
 
-A production nginx-hez két új server blokk kell (HTTP + HTTPS) a staging domainhez:
+Az nginx konfiguráció egy **template fájl** (`nginx/nginx.conf.template`), amely `envsubst`-tel kapja meg a domain neveket environment változókból. A staging server blokkok a template-ben már benne vannak — a `PROD_DOMAIN` és `STAGING_DOMAIN` változókat a `.env.prod` fájlban kell beállítani:
 
-```nginx
-# HTTP — staging health + redirect
-server {
-    listen 80;
-    server_name staging.yourdomain.com;
-
-    resolver 127.0.0.11 valid=30s ipv6=off;
-    set $staging_backend http://openschool-staging-nginx-1;
-
-    location /health {
-        proxy_pass $staging_backend;
-    }
-
-    location / {
-        return 301 https://$host$request_uri;
-    }
-}
-
-# HTTPS — staging proxy
-server {
-    listen 443 ssl;
-    server_name staging.yourdomain.com;
-
-    ssl_certificate /etc/letsencrypt/live/yourdomain.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/yourdomain.com/privkey.pem;
-    ssl_protocols TLSv1.2 TLSv1.3;
-    ssl_ciphers HIGH:!aNULL:!MD5;
-
-    resolver 127.0.0.11 valid=30s ipv6=off;
-    set $staging_backend http://openschool-staging-nginx-1;
-
-    location / {
-        proxy_pass $staging_backend;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-}
+```ini
+# .env.prod
+PROD_DOMAIN=yourdomain.com
+STAGING_DOMAIN=staging.yourdomain.com
 ```
+
+A `docker-compose.prod.yml` az nginx konténerben az `envsubst` paranccsal rendereli a template-et:
+
+```yaml
+nginx:
+  command: >
+    sh -c "envsubst '$$PROD_DOMAIN $$STAGING_DOMAIN'
+    < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
+    && nginx -g 'daemon off;'"
+```
+
+A template-ben a domain nevek `${PROD_DOMAIN}` és `${STAGING_DOMAIN}` helyőrzőkkel szerepelnek. Az `envsubst` explicit változólistával fut, hogy az nginx saját változói (`$host`, `$request_uri` stb.) ne legyenek lecserélve.
 
 > A `resolver 127.0.0.11` a Docker belső DNS-e. A `set $staging_backend` változóval oldja meg az nginx, hogy a staging konténer DNS neve runtime-ban legyen feloldva (nem induláskor).
 
@@ -336,7 +315,7 @@ A staging elsődleges célja az adatbázis migrációk tesztelése éles deploy 
 | Branch | `develop` | `main` |
 | Domain | `staging.yourdomain.com` | `yourdomain.com` |
 | Compose fájl | `docker-compose.staging.yml` | `docker-compose.prod.yml` |
-| Nginx konfig | `nginx-staging.conf` (HTTP only) | `nginx.conf` (SSL + staging proxy) |
+| Nginx konfig | `nginx-staging.conf` (HTTP only) | `nginx.conf.template` (SSL + staging proxy, envsubst) |
 | Adatbázis | `openschool_staging` | `openschool` |
 | GitHub OAuth | Külön app | Külön app |
 | `ENVIRONMENT` | `staging` | `production` |

@@ -135,6 +135,8 @@ ALLOWED_ORIGINS=https://yourdomain.com
 GITHUB_CLIENT_ID=production_client_id
 GITHUB_CLIENT_SECRET=production_client_secret
 GITHUB_WEBHOOK_SECRET=$WEBHOOK_SECRET
+PROD_DOMAIN=yourdomain.com
+STAGING_DOMAIN=staging.yourdomain.com
 EOF
 
 # Jogosultsagok (csak a tulajdonos olvashatja)
@@ -296,7 +298,7 @@ sudo certbot certonly --standalone -d yourdomain.com -d www.yourdomain.com
 # /etc/letsencrypt/live/yourdomain.com/privkey.pem
 ```
 
-Frissítsd az `nginx/nginx.conf` fájlt SSL-hez:
+Frissítsd az `nginx/nginx.conf.template` fájlt SSL-hez:
 
 ```nginx
 # HTTP — /health átengedi (Docker healthcheck-hez), minden mást HTTPS-re irányít
