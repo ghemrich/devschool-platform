@@ -287,20 +287,21 @@ A platform fejlesztése során a következő külső eszközök integrálása te
 
 ## Prioritási sorrend
 
-1. **VPS telepítés** (az éles rendszer felállítása a saját domainnel — automatizáló szkriptek készen: `bootstrap-vps.sh`, `provision.sh`) ← **KÖVETKEZŐ LÉPÉS**
-2. **Discord integráció** — platform → Discord értesítések (CI/CD + ops monitoring már kész)
-3. **Automatikus mentor pipeline** — előléptetési szabályok, mentor kurzus, mentor dashboard
-4. **Tanári eszközök** — haladás összesítés, Classroom szinkronizálás
-5. **Platform fejlesztő track** — meta-kurzus valódi platform hozzájárulásokkal
-6. **Haladó funkciók** — PR-ek, Issues, csapatmunka
-7. **Platform érettség** — monitoring, analitika, teljesítmény
+1. ~~**VPS telepítés**~~ ✅ — éles rendszer felállítva
+2. ~~**Discord szerver**~~ ✅ — szerver létrehozva ([discord.gg/BrKd45S6](https://discord.gg/BrKd45S6)), CI/CD + ops monitoring értesítések működnek
+3. **Discord platform értesítések** — platform → Discord értesítések (beiratkozás, tanúsítvány) ← **KÖVETKEZŐ LÉPÉS**
+4. **Automatikus mentor pipeline** — előléptetési szabályok, mentor kurzus, mentor dashboard
+5. **Tanári eszközök** — haladás összesítés, Classroom szinkronizálás
+6. **Platform fejlesztő track** — meta-kurzus valódi platform hozzájárulásokkal
+7. **Haladó funkciók** — PR-ek, Issues, csapatmunka
+8. **Platform érettség** — monitoring, analitika, teljesítmény
 
 ---
 
 ## Összefoglalás
 
-A platform alapjai **készen állnak**: backend API (auth, kurzusok, haladás, tanúsítványok, admin), frontend (9 oldal), infrastruktúra (Docker, CI/CD, nginx, automatizált karbantartás, Discord CI/CD értesítések), GitHub Classroom integráció (repo_prefix, webhook, sync), admin panel, és átfogó dokumentáció.
+A platform alapjai **készen állnak**: backend API (auth, kurzusok, haladás, tanúsítványok, admin), frontend (9 oldal), infrastruktúra (Docker, CI/CD, nginx, automatizált karbantartás, Discord CI/CD értesítések), GitHub Classroom integráció (repo_prefix, webhook, sync), admin panel, és átfogó dokumentáció. A **VPS éles rendszer felállítva**, a **Discord szerver működik** ([discord.gg/BrKd45S6](https://discord.gg/BrKd45S6)).
 
 A hosszú távú vízió egy **önfenntartó közösség** kiépítése: a diákok tanúsítványok megszerzésével automatikusan mentorrá válhatnak, majd a platform fejlesztésébe is bekapcsolódhatnak. Ez a modell lehetővé teszi, hogy a platform organikusan növekedjen — minden új mentor egyben új tanár és potenciális fejlesztő is.
 
-A következő lépések: **VPS telepítés**, **Discord értesítések**, majd az **automatikus mentor pipeline** kiépítése (előléptetési szabályok, meta-kurzusok, mentor dashboard). Az automatizáció infrastruktúrája (CI, webhook, tanúsítványok) már készen áll — a pipeline erre épít.
+A következő lépések: **Discord platform értesítések** (beiratkozás, tanúsítvány), majd az **automatikus mentor pipeline** kiépítése (előléptetési szabályok, meta-kurzusok, mentor dashboard). Az automatizáció infrastruktúrája (CI, webhook, tanúsítványok) már készen áll — a pipeline erre épít.

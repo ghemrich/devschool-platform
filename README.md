@@ -38,6 +38,10 @@ curl http://localhost:8000/health
 
 Lokális fejlesztéshez lásd: [Fejlesztői útmutató](docs/development/fejlesztoi-utmutato.md)
 
+## Közösség
+
+Csatlakozz az hivatalos Discord szerverünkhöz: [discord.gg/BrKd45S6](https://discord.gg/BrKd45S6)
+
 ## Hozzájárulás
 
 Szívesen fogadjuk a hozzájárulásokat! Olvasd el a [CONTRIBUTING.md](CONTRIBUTING.md) fájlt a részletekért.
