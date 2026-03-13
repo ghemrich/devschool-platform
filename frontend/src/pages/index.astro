@@ -47,6 +47,11 @@ import Layout from '../layouts/Layout.astro';
           <h3>GitHub repository</h3>
           <p>A platform teljes forráskódja elérhető GitHubon. Nézd meg a dokumentációt, nyiss issue-t, vagy járulj hozzá a fejlesztéshez.</p>
         </a>
+        <a href="https://github.com/ghemrich/openschool-knowledge" target="_blank" rel="noopener noreferrer" class="community-card card">
+          <svg class="community-icon" width="40" height="40" viewBox="0 0 24 24" fill="var(--color-success)"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" fill="none" stroke="var(--color-success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>Tudásbázis</h3>
+          <p>Kurzusanyagok, leckék, vizsgák és mentori útmutatók. Három kurzus: Python Alapok (13 hét), Backend FastAPI (25 hét) és Projekt Labor (7 modul).</p>
+        </a>
       </div>
     </div>
   </section>
@@ -160,7 +165,7 @@ import Layout from '../layouts/Layout.astro';
 
   .community-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
   }
 
@@ -206,6 +211,12 @@ import Layout from '../layouts/Layout.astro';
 
     .community-grid {
       grid-template-columns: 1fr;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .community-grid {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 </style>
