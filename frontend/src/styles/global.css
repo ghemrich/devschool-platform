@@ -17,7 +17,11 @@
 }
 
 body {
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-family:
+    "Segoe UI",
+    system-ui,
+    -apple-system,
+    sans-serif;
   color: var(--color-text);
   background: var(--color-bg);
   line-height: 1.6;
@@ -109,4 +113,45 @@ a:hover {
   .card-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ============================================
+   DASHBOARD - Modullista, kurzusok, closed
+   ============================================ */
+/* .closed (Dropdown menühöz) -> rákattint látszik <-> nem látszik  */
+.closed {
+  display: none;
+  visibility: hidden;
+}
+
+.modulelists-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 12px;
+  margin-top: 24px;
+}
+
+.modulelists-container #moduleList-toggleBtn {
+  margin-top: 8px;
+}
+
+.modulelists_info {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+@media (max-width: 767px) {
+  .modulelists-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.modulelists_dropdownlist-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 10px;
+  margin-left: 12px;
 }

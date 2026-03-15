@@ -1,10 +1,13 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 ---
+
 <Layout title="Dashboard">
   <div class="container page">
     <h1>Dashboard</h1>
-    <button id="sync-btn" class="btn btn-secondary" style="margin-bottom:20px;">🔄 Haladás szinkronizálása GitHub-ból</button>
+    <button id="sync-btn" class="btn btn-secondary" style="margin-bottom:20px;"
+      >🔄 Haladás szinkronizálása GitHub-ból</button
+    >
     <div id="sync-msg"></div>
     <div id="dashboard-content">
       <p>Betöltés...</p>
@@ -12,11 +15,21 @@ import Layout from '../layouts/Layout.astro';
   </div>
 
   <script>
-    import '../lib/dashboard.js';
+    import "../lib/dashboard.js";
   </script>
 </Layout>
 
 <style>
-  .page { padding: 40px 0; }
-  .page h1 { margin-bottom: 32px; }
+  .page {
+    padding: 40px 0;
+  }
+
+  @media (max-width: 767px) {
+    .page {
+      padding: 40px;
+    }
+  }
+  .page h1 {
+    margin-bottom: 32px;
+  }
 </style>
