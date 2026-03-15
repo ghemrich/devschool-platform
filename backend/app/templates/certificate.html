@@ -64,19 +64,18 @@
 </head>
 <body>
     <div class="certificate">
-        <div class="title">OpenSchool Certificate</div>
-        <div class="subtitle">Certificate of Completion</div>
-        <p>This certifies that</p>
+        <div class="title">Tanúsítvány</div>
         <div class="recipient">{{name}}</div>
-        <p>has successfully completed the course</p>
+        <p>sikeresen elvégezte a(z)</p>
         <div class="course-name">{{course_name}}</div>
+        <p>online kurzust</p>
         <div class="details">
-            Issued on: {{issued_date}}
+            Kiállítva: {{issued_date}}
         </div>
         <div class="qr-section">
             <img src="data:image/png;base64,{{qr_base64}}" alt="Verification QR Code">
-            <p class="cert-id">Verify at: {{verify_url}}</p>
-            <p class="cert-id">Certificate ID: {{cert_id}}</p>
+            <p class="cert-id">Igazolás: {{verify_url}}</p>
+            <p class="cert-id">Tanusítvány azonosító: {{cert_id}}</p>
         </div>
     </div>
 </body>
