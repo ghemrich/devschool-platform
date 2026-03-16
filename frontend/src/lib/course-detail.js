@@ -8,11 +8,11 @@ async function loadCourse() {
   const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
   try {
-    const [res, progressRes, coursesRes] = [
+    const [res, progressRes, coursesRes] = await Promise.all([
       await fetch(`/api/courses/${slug}`, { headers }),
       await fetch(`/api/me/courses/${slug}/progress`, { headers }),
       await fetch(`/api/me/courses`, { headers }),
-    ];
+    ]);
     if (!res.ok) {
       container.innerHTML = "<p>Kurzus nem található.</p>";
       return;
