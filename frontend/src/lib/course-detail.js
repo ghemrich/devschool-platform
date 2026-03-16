@@ -8,21 +8,19 @@ async function loadCourse() {
   const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
   try {
-    const [res, progressRes, coursesRes] = await Promise.all([
-      await fetch(`/api/courses/${slug}`, { headers }),
-      await fetch(`/api/me/courses/${slug}/progress`, { headers }),
-      await fetch(`/api/me/courses`, { headers }),
+    const [res, coursesRes] = await Promise.all([
+      fetch(`/api/courses/${slug}`, { headers }),
+      fetch(`/api/me/courses`, { headers }),
     ]);
     if (!res.ok) {
       container.innerHTML = "<p>Kurzus nem található.</p>";
       return;
     }
     const course = await res.json();
-    const progress = await progressRes.json();
-    const courses = await coursesRes.json();
+    const enrollments = coursesRes.ok ? await coursesRes.json() : [];
 
-    const userEnrolled = !!courses.find((course) => {
-      return String(course.course_id) === slug;
+    const userEnrolled = !!enrollments.find((enrollment) => {
+      return String(enrollment.course_id) === slug;
     });
 
     let modulesHtml = "";
