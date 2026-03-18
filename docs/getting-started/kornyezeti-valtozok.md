@@ -59,6 +59,12 @@ Ezeket a `.env` fájlban kell beállítani a projekt gyökerében. A backend a `
 | `GITHUB_WEBHOOK_SECRET` | **Ajánlott** | `""` | Webhook HMAC-SHA256 aláíró kulcs. Ha nincs megadva és `WEBHOOK_SKIP_VERIFY` sem `true`, a webhook végpont **elutasít minden kérést**. Generálás: `openssl rand -hex 20` |
 | `WEBHOOK_SKIP_VERIFY` | Nem | `false` | Ha `true`, a webhook végpont elfogadja az aláírás nélküli kéréseket. **Kizárólag fejlesztési környezetben használandó!** |
 
+### Discord
+
+| Változó | Kötelező | Default | Leírás |
+|---------|----------|---------|--------|
+| `DISCORD_WEBHOOK_URL` | Nem | `""` | Discord webhook URL a platform értesítésekhez (beiratkozás, tanúsítvány kiállítás). Ha üres, az értesítések átugródnak |
+
 ---
 
 ## 2. Docker Compose változók
@@ -80,6 +86,7 @@ A `docker-compose.yml` és `docker-compose.prod.yml` a `.env` fájlból olvassa 
 | `GITHUB_ORG` | Backend container | Szervezet |
 | `GITHUB_ORG_ADMIN_TOKEN` | Backend container | Org meghívó token |
 | `GITHUB_WEBHOOK_SECRET` | Backend container | Webhook secret |
+| `DISCORD_WEBHOOK_URL` | Backend container | Discord platform értesítések (beiratkozás, tanúsítvány) |
 | `PROD_DOMAIN` | Nginx container | Éles domain név (envsubst template-hez) |
 | `STAGING_DOMAIN` | Nginx container | Staging domain név (envsubst template-hez) |
 

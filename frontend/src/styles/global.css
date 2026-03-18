@@ -119,6 +119,14 @@ a:hover {
 /* ============================================
    PROGRESS BAR
    ============================================ */
+
+#logo-full {
+  height: 70px;
+}
+#logo-full:hover {
+  height: 60px;
+  margin: 5px;
+}
 .progress-wrapper {
   display: flex;
   align-items: center;

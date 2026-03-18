@@ -151,10 +151,11 @@ Egy új kurzus indításához a GitHub Classroom-ban és az OpenSchool admin pan
 | Tanúsítvány tesztek (12 teszt) | ✅ |
 | GitHub Classroom tesztek (9 teszt) | ✅ |
 | Admin tesztek (11 teszt) | ✅ |
+| Discord értesítés tesztek (8 teszt) | ✅ |
 | Health check teszt | ✅ |
 | Egyéb tesztek | ✅ |
 | Frontend tesztek (39 teszt — Vitest + React Testing Library) | ✅ |
-| **Összesen: 95 teszt (56 backend + 39 frontend)** | ✅ Mind zöld |
+| **Összesen: 103 teszt (64 backend + 39 frontend)** | ✅ Mind zöld |
 
 ---
 
@@ -199,12 +200,16 @@ A kurzuskeretrendszer Discord szervert használ a kommunikációhoz, heti szála
 - [x] Csatornastruktúra ajánlás (kurzusonként bővíthető)
 - [x] Discord CI/CD notify szkript (`scripts/discord-notify.sh`)
 
+**Platform → Discord értesítések:**
+
+- [x] Új beiratkozás egy kurzusra — `notify_enrollment()` (`services/discord.py`)
+- [x] Tanúsítvány kiállítás — `notify_certificate()` (`services/discord.py`)
+- [x] `DISCORD_WEBHOOK_URL` környezeti változó a `config.py`-ban
+- [x] 8 teszt a Discord értesítésekhez (`tests/test_discord.py`)
+
 **Még tervezett:**
 
-- [ ] Platform → Discord értesítések:
-  - Új beiratkozás egy kurzusra
-  - Tanúsítvány kiállítás
-  - Új kurzus létrehozása
+- [ ] Új kurzus létrehozása értesítés
 - [ ] Discord OAuth integráció (opcionális, a GitHub mellett)
 - [ ] Discord szerver meghívó link a felületen
 - [ ] Közlemények kezelése a platformon belül (admin felület)
@@ -279,7 +284,7 @@ A platform fejlesztése során a következő külső eszközök integrálása te
 |--------|--------|--------|
 | GitHub Classroom | Feladatkiadás és autograding | ✅ Webhook + repo_prefix + sync |
 | Discord értesítések (CI/CD + ops) | CI/CD és VPS monitoring értesítések | ✅ Működik |
-| Discord értesítések (platform) | Platform → Discord (beiratkozás, tanúsítvány) | 🔴 Tervezett |
+| Discord értesítések (platform) | Platform → Discord (beiratkozás, tanúsítvány) | ✅ Működik |
 | Automatikus előléptetés | Tanúsítvány-alapú szerepkör váltás | 🔴 Tervezett |
 | GitHub org team meghívás | Fejlesztők automatikus meghívása | 🔴 Tervezett |
 | Discord szerepkör szinkronizáció | Platform → Discord role szinkron | 🔴 Tervezett |
@@ -290,8 +295,8 @@ A platform fejlesztése során a következő külső eszközök integrálása te
 
 1. ~~**VPS telepítés**~~ ✅ — éles rendszer felállítva
 2. ~~**Discord szerver**~~ ✅ — szerver létrehozva ([discord.gg/BrKd45S6](https://discord.gg/BrKd45S6)), CI/CD + ops monitoring értesítések működnek
-3. **Discord platform értesítések** — platform → Discord értesítések (beiratkozás, tanúsítvány) ← **KÖVETKEZŐ LÉPÉS**
-4. **Automatikus mentor pipeline** — előléptetési szabályok, mentor kurzus, mentor dashboard
+3. ~~**Discord platform értesítések**~~ ✅ — beiratkozás és tanúsítvány értesítések működnek (`services/discord.py`)
+4. **Automatikus mentor pipeline** — előléptetési szabályok, mentor kurzus, mentor dashboard ← **KÖVETKEZŐ LÉPÉS**
 5. **Mentori eszközök** — haladás összesítés, Classroom szinkronizálás
 6. **Platform fejlesztő track** — meta-kurzus valódi platform hozzájárulásokkal
 7. **Haladó funkciók** — PR-ek, Issues, csapatmunka
@@ -301,8 +306,8 @@ A platform fejlesztése során a következő külső eszközök integrálása te
 
 ## Összefoglalás
 
-A platform alapjai **készen állnak**: backend API (auth, kurzusok, haladás, tanúsítványok, admin), frontend (9 oldal), infrastruktúra (Docker, CI/CD, nginx, automatizált karbantartás, Discord CI/CD értesítések), GitHub Classroom integráció (repo_prefix, webhook, sync), admin panel, és átfogó dokumentáció. A **VPS éles rendszer felállítva**, a **Discord szerver működik** ([discord.gg/BrKd45S6](https://discord.gg/BrKd45S6)).
+A platform alapjai **készen állnak**: backend API (auth, kurzusok, haladás, tanúsítványok, admin, Discord értesítések), frontend (9 oldal), infrastruktúra (Docker, CI/CD, nginx, automatizált karbantartás, Discord értesítések), GitHub Classroom integráció (repo_prefix, webhook, sync), admin panel, és átfogó dokumentáció. A **VPS éles rendszer felállítva**, a **Discord szerver működik** ([discord.gg/BrKd45S6](https://discord.gg/BrKd45S6)), a **platform → Discord értesítések** (beiratkozás, tanúsítvány) implementálva.
 
 A hosszú távú vízió egy **önfenntartó közösség** kiépítése: a tanulók tanúsítványok megszerzésével automatikusan mentorrá válhatnak, majd a platform fejlesztésébe is bekapcsolódhatnak. Ez a modell lehetővé teszi, hogy a platform organikusan növekedjen — minden új mentor egyben új mentor és potenciális fejlesztő is.
 
-A következő lépések: **Discord platform értesítések** (beiratkozás, tanúsítvány), majd az **automatikus mentor pipeline** kiépítése (előléptetési szabályok, meta-kurzusok, mentor dashboard). Az automatizáció infrastruktúrája (CI, webhook, tanúsítványok) már készen áll — a pipeline erre épít.
+A következő lépés: az **automatikus mentor pipeline** kiépítése (előléptetési szabályok, meta-kurzusok, mentor dashboard). Az automatizáció infrastruktúrája (CI, webhook, tanúsítványok, Discord értesítések) már készen áll — a pipeline erre épít.

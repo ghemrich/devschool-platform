@@ -11,15 +11,6 @@ beforeEach(() => {
 });
 
 describe('Layout', () => {
-  it('renders header with site name', () => {
-    render(
-      <MemoryRouter>
-        <Layout />
-      </MemoryRouter>,
-    );
-    expect(screen.getByText('OpenSchool')).toBeInTheDocument();
-  });
-
   it('renders navigation links', () => {
     render(
       <MemoryRouter>

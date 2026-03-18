@@ -20,6 +20,7 @@ class Settings(BaseSettings):
     github_client_id: str = ""
     github_client_secret: str = ""
     webhook_skip_verify: bool = False
+    discord_webhook_url: str = ""
 
     @model_validator(mode="after")
     def validate_production_secrets(self) -> "Settings":
