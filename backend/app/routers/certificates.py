@@ -12,6 +12,7 @@ from app.models.certificate import Certificate
 from app.models.course import Course
 from app.models.user import User
 from app.services.certificate import is_course_completed
+from app.services.discord import notify_certificate
 
 logger = logging.getLogger(__name__)
 
@@ -87,6 +88,8 @@ def request_certificate(
         )
     except ImportError:
         pass
+
+    notify_certificate(current_user.username, course.name, cert.cert_id)
 
     return {"cert_id": cert.cert_id, "course_id": course_id, "issued_at": cert.issued_at.isoformat()}
 

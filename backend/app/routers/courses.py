@@ -6,6 +6,7 @@ from app.auth.dependencies import get_current_user, require_role
 from app.database import get_db
 from app.models.course import Course, Enrollment, Exercise, Module
 from app.models.user import User, UserRole
+from app.services.discord import notify_enrollment
 from app.services.progress import count_progress
 
 router = APIRouter(prefix="/api/courses", tags=["courses"])
@@ -181,6 +182,9 @@ def enroll(course_id: int, db: Session = Depends(get_db), current_user: User = D
     enrollment = Enrollment(user_id=current_user.id, course_id=course_id)
     db.add(enrollment)
     db.commit()
+
+    notify_enrollment(current_user.username, course.name)
+
     return {"detail": "Enrolled successfully"}
 
 

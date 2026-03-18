@@ -51,6 +51,7 @@ backend/
 │   │   └── webhooks.py       # /api/webhooks/* — GitHub webhook fogadás
 │   └── services/
 │       ├── certificate.py    # is_course_completed() — teljesítés ellenőrzés
+│       ├── discord.py        # Discord webhook értesítések (beiratkozás, tanúsítvány)
 │       ├── pdf.py            # PDF generálás fpdf2-vel
 │       ├── qr.py             # QR kód generálás
 │       ├── github.py         # GitHub Actions állapot lekérdezés

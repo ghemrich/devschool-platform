@@ -76,6 +76,7 @@ backend/
 │   │   └── webhooks.py       # /api/webhooks/* — GitHub webhook fogadás
 │   └── services/
 │       ├── certificate.py    # is_course_completed() — teljesítés ellenőrzés
+│       ├── discord.py        # Discord webhook értesítések (beiratkozás, tanúsítvány)
 │       ├── pdf.py            # PDF generálás fpdf2-vel
 │       ├── qr.py             # QR kód generálás
 │       ├── github.py         # GitHub Actions állapot lekérdezés + org meghívás
@@ -105,6 +106,7 @@ class Settings(BaseSettings):
     github_org: str = ""
     github_org_admin_token: str = ""
     github_webhook_secret: str = ""
+    discord_webhook_url: str = ""             # Discord értesítések (beiratkozás, tanúsítvány)
 ```
 
 Az `environment` beállítás hatása:
@@ -228,6 +230,7 @@ A webhook a `workflow_run` eseményt figyeli (`action=completed`, `conclusion=su
 | **qr** | `services/qr.py` | QR kód generálás a verifikációs URL-hez |
 | **github** | `services/github.py` | GitHub Actions workflow állapot lekérdezés egyéni repókhoz + `invite_user_to_org()` — felhasználó automatikus meghívása a GitHub szervezetbe |
 | **progress** | `services/progress.py` | `update_progress_for_user()` — GitHub CI alapján haladás frissítés |
+| **discord** | `services/discord.py` | Discord webhook értesítések — `notify_enrollment()` beiratkozáskor, `notify_certificate()` tanúsítvány kiállításakor |
 
 ---
 

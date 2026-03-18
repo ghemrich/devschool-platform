@@ -273,21 +273,60 @@ curl -s -X POST "$DISCORD_WEBHOOK_URL" \
 
 ---
 
-## 6. Discord bot (jövőbeli)
+## 6. Platform értesítések (beiratkozás, tanúsítvány)
 
-> 🔴 **Tervezett** — jelenleg webhook alapú értesítések vannak. A bot fejlesztése a roadmap 1. fázisának része.
+> ✅ **Implementálva** — a backend automatikusan küld Discord embed üzeneteket beiratkozáskor és tanúsítvány kiállításakor.
+
+### Működés
+
+A `backend/app/services/discord.py` szolgáltatás webhook-on keresztül küld értesítéseket:
+
+| Esemény | Embed szín | Leírás |
+|---------|------------|--------|
+| 📚 Új beiratkozás | 🔵 Kék (`#3498DB`) | `{username}` beiratkozott a `{course_name}` kurzusra |
+| 🎓 Tanúsítvány kiállítva | 🟢 Zöld (`#2ECC71`) | `{username}` megszerezte a `{course_name}` tanúsítványát + hitelesítési link |
+
+### Beállítás
+
+1. Hozz létre egy webhookot a kívánt Discord csatornán (pl. `#közlemények`):
+   - **Csatorna beállítások → Integrációk → Webhookok → Új webhook**
+   - Adj nevet (pl. `OpenSchool Platform`)
+   - **Webhook URL másolása**
+
+2. Állítsd be a `DISCORD_WEBHOOK_URL` környezeti változót:
+
+   **Lokális fejlesztés (`.env`):**
+   ```bash
+   DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/...
+   ```
+
+   **VPS (`.env.prod` / `.env.staging`):**
+   ```bash
+   echo 'DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/...' >> .env.prod
+   docker compose -f docker-compose.prod.yml --env-file .env.prod up -d backend
+   ```
+
+3. Ha a `DISCORD_WEBHOOK_URL` üres vagy nincs megadva, az értesítések csendben átugródnak (nem okoz hibát).
+
+### Technikai részletek
+
+- **Fájl:** `backend/app/services/discord.py`
+- **Függvények:** `notify_enrollment()`, `notify_certificate()`, `_send_embed()`
+- **HTTP kliens:** `httpx` (10 másodperces timeout)
+- **Tesztek:** `backend/tests/test_discord.py` (8 teszt)
+- **Konfiguráció:** `backend/app/config.py` → `discord_webhook_url`
+
+### Jövőbeli bővítés (Discord bot)
 
 A jövőben egy Discord bot biztosíthatja a kétirányú integrációt:
 
 | Funkció | Leírás |
 |---------|--------|
-| Beiratkozás értesítés | Tanuló beiratkozott → üzenet a kurzus csatornán |
-| Tanúsítvány értesítés | Tanuló elvégezte a kurzust → gratulálás |
-| Kurzus létrehozás | Új kurzus → automatikus csatornák létrehozása |
+| Kurzus létrehozás értesítés | Új kurzus → automatikus csatornák létrehozása |
 | Heti szálak | Automatikus heti Q&A szál indítása |
 | `/status` parancs | Bot parancs a szerver/platform állapotának lekérdezéséhez |
 
-### Előkészítés a bot fejlesztéséhez
+**Előkészítés a bot fejlesztéséhez:**
 
 1. [Discord Developer Portal](https://discord.com/developers/applications) → **New Application**
 2. **Bot** fül → **Add Bot**
