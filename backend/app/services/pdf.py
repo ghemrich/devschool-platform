@@ -57,13 +57,13 @@ def generate_certificate_pdf(
 
     pdf.set_font("Helvetica", "", 16)
     pdf.set_text_color(127, 140, 141)
-    pdf.cell(0, 10, "Certificate of Completion", ln=True, align="C")
+    pdf.cell(0, 10, "Tanúsítvány a tanfolyam elvégzéséről", ln=True, align="C")
 
     # Recipient
     pdf.ln(15)
     pdf.set_font("Helvetica", "", 14)
     pdf.set_text_color(100, 100, 100)
-    pdf.cell(0, 10, "This certifies that", ln=True, align="C")
+    pdf.cell(0, 10, "Ez igazolja, hogy", ln=True, align="C")
 
     pdf.set_font("Helvetica", "B", 28)
     pdf.set_text_color(231, 76, 60)
@@ -72,7 +72,7 @@ def generate_certificate_pdf(
     # Course
     pdf.set_font("Helvetica", "", 14)
     pdf.set_text_color(100, 100, 100)
-    pdf.cell(0, 10, "has successfully completed the course", ln=True, align="C")
+    pdf.cell(0, 10, "sikeresen elvégezte a következő kurzust", ln=True, align="C")
 
     pdf.set_font("Helvetica", "B", 22)
     pdf.set_text_color(44, 62, 80)
@@ -82,7 +82,7 @@ def generate_certificate_pdf(
     pdf.ln(8)
     pdf.set_font("Helvetica", "", 12)
     pdf.set_text_color(127, 140, 141)
-    pdf.cell(0, 8, f"Issued: {issued_date}", ln=True, align="C")
+    pdf.cell(0, 8, f"Kiadva: {issued_date}", ln=True, align="C")
 
     # QR code — drawn as native PDF rectangles
     _draw_qr(pdf, verify_url, x=125, y=140, size=40)
@@ -91,7 +91,7 @@ def generate_certificate_pdf(
     pdf.set_y(182)
     pdf.set_font("Helvetica", "", 9)
     pdf.set_text_color(189, 195, 199)
-    pdf.cell(0, 5, f"Certificate ID: {cert_id}", ln=True, align="C")
-    pdf.cell(0, 5, f"Verify: {verify_url}", ln=True, align="C")
+    pdf.cell(0, 5, f"Tanúsítvány azonosító: {cert_id}", ln=True, align="C")
+    pdf.cell(0, 5, f"Ellenőrzés: {verify_url}", ln=True, align="C")
 
     return pdf.output()
