@@ -194,9 +194,9 @@ export default function DashboardPage() {
       <div className="card" style={{ marginBottom: 20, padding: 16 }}>
         <h3 style={{ marginTop: 0 }}>🔗 Discord összekapcsolás</h3>
         <p style={{ fontSize: '0.9rem', color: '#666', margin: '4px 0 12px' }}>
-          Add meg a Discord felhasználói ID-dat a szerepkör szinkronizáláshoz. Discord Beállítások
-          → Alkalmazás beállításai → Haladó → kapcsold be a Fejlesztői módot. Ezután menj
-          vissza bármely szerverre, jobb klikk a nevedre a taglistában → ID másolása.
+          Add meg a Discord felhasználói ID-dat a szerepkör szinkronizáláshoz. Discord Beállítások →
+          Alkalmazás beállításai → Haladó → kapcsold be a Fejlesztői módot. Ezután menj vissza
+          bármely szerverre, jobb klikk a nevedre a taglistában → ID másolása.
         </p>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
           <input
