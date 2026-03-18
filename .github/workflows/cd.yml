@@ -46,7 +46,8 @@ jobs:
           script: |
             set -e
             cd /opt/openschool-staging
-            git pull origin develop
+            git fetch origin develop
+            git reset --hard origin/develop
             docker compose -f docker-compose.staging.yml --env-file .env.staging up --build --force-recreate -d
             docker compose -f docker-compose.staging.yml --env-file .env.staging exec -T backend alembic upgrade head
             sleep 5
@@ -83,7 +84,8 @@ jobs:
           script: |
             set -e
             cd /opt/openschool
-            git pull origin main
+            git fetch origin main
+            git reset --hard origin/main
             docker compose -f docker-compose.prod.yml --env-file .env.prod up --build --force-recreate -d
             docker compose -f docker-compose.prod.yml --env-file .env.prod exec -T backend alembic upgrade head
             sleep 5
