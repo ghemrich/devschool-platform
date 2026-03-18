@@ -91,7 +91,7 @@ cd /opt/openschool
 git pull origin main
 docker compose -f docker-compose.prod.yml --env-file .env.prod up --build --force-recreate -d
 docker compose -f docker-compose.prod.yml --env-file .env.prod exec backend alembic upgrade head
-curl -s http://localhost/health
+curl -s http://localhost:8000/health
 ```
 
 ### Rollback

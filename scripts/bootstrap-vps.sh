@@ -316,8 +316,8 @@ echo ""
 log "Final health check..."
 sleep 3
 
-if curl -sf http://localhost/health &>/dev/null; then
-    ok "Backend /health: responding (via nginx)"
+if curl -sf http://localhost:8000/health &>/dev/null; then
+    ok "Backend /health: responding"
 else
     warn "Backend /health: not responding yet (may need a moment)"
 fi
@@ -341,7 +341,7 @@ echo ""
 echo "  Next steps:"
 echo "  1. Configure DNS: A record '$DOMAIN' → $(curl -4sf ifconfig.me || echo 'VPS_IP')"
 if [ "$SETUP_SSL" = "y" ] || [ "$SETUP_SSL" = "Y" ]; then
-    echo "  2. Update nginx/nginx.conf.template for SSL (see docs/deployment.md)"
+    echo "  2. Update nginx/nginx.conf.template for SSL (see docs/telepitesi-utmutato.md)"
     echo "  3. Mount /etc/letsencrypt in docker-compose.prod.yml"
 fi
 echo "  4. Edit /etc/openschool-maintenance.conf (Discord webhook, SSL_DOMAIN)"

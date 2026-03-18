@@ -114,8 +114,8 @@ cmd_health() {
         fi
     done <<< "$containers"
 
-    # Backend /health endpoint (via nginx, since backend port is not exposed)
-    if curl -sf http://localhost/health &>/dev/null; then
+    # Backend /health endpoint
+    if curl -sf http://localhost:8000/health &>/dev/null; then
         ok "Backend /health: responding"
     else
         err "Backend /health: NOT responding"
