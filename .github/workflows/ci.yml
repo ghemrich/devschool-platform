@@ -76,6 +76,7 @@ jobs:
         env:
           DISCORD_WEBHOOK_CI: ${{ secrets.DISCORD_WEBHOOK_CI }}
         run: |
+          chmod +x ./scripts/discord-notify.sh
           ./scripts/discord-notify.sh \
             --status "${{ job.status }}" \
             --title "CI: ${{ github.event.head_commit.message || github.event.pull_request.title || 'PR check' }}" \

@@ -166,11 +166,12 @@ A szerver oldali szkriptek `/etc/openschool-maintenance.conf` fájlt használjá
 
 | Változó | Default | Leírás |
 |---|---|---|
-| `PROJECT_DIR` | `/opt/openschool` | Projekt könyvtár |
-| `BACKUP_DIR` | `/opt/openschool-backups` | Mentések helye |
-| `DISCORD_WEBHOOK` | — | Ops monitoring webhook |
-| `CERT_DOMAIN` | — | Domain név SSL ellenőrzéshez |
-| `RETENTION_DAYS` | `30` | Mentések megtartása napokban |
+| `BACKUP_DIR` | `/opt/openschool/backups` | Mentések helye |
+| `BACKUP_RETENTION_DAYS` | `30` | Mentések megtartása napokban |
+| `SSL_DOMAIN` | — | Domain név SSL ellenőrzéshez |
+| `SSL_WARNING_DAYS` | `30` | SSL lejárat figyelmeztetés küszöb (nap) |
+| `DISCORD_WEBHOOK_URL` | — | Ops monitoring webhook |
+| `NOTIFY_EMAIL` | — | E-mail értesítések (mailutils szükséges) |
 | `LOG_FILE` | `/var/log/openschool-maintenance.log` | Karbantartási napló |
 
 ### Validáció
@@ -179,7 +180,8 @@ A `backend/app/config.py` Pydantic validátorral ellenőrzi induláskor:
 
 - `ENVIRONMENT=production` + alapértelmezett SECRET_KEY → **ValueError, nem indul**
 - `ENVIRONMENT=production` + üres GITHUB_CLIENT_SECRET → **ValueError, nem indul**
-- `ENVIRONMENT=production` + üres GITHUB_WEBHOOK_SECRET → **ValueError, nem indul**
+- `ENVIRONMENT=production` + üres GITHUB_WEBHOOK_SECRET → **warning a logban** (nem akadályozza az indulást, de webhook ellenőrzés kikapcsol)
+- `ENVIRONMENT=production` + `*` az ALLOWED_ORIGINS-ben → **ValueError, nem indul**
 - Üres GITHUB_ORG_ADMIN_TOKEN → org meghívás és haladás szinkronizálás kimarad, `POST /api/me/sync-progress` → 400
 
 ## Adatbázis és migrációk
