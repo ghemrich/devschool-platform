@@ -86,13 +86,7 @@ CI pipeline: `Push/PR → lint (backend + frontend) → test (backend + frontend
 
 ### Éles deploy
 
-```bash
-cd /opt/openschool
-git pull origin main
-docker compose -f docker-compose.prod.yml --env-file .env.prod up --build --force-recreate -d
-docker compose -f docker-compose.prod.yml --env-file .env.prod exec backend alembic upgrade head
-curl -s http://localhost:8000/health
-```
+Részletes telepítési útmutató: [deployment.md](deployment.md)
 
 ### Rollback
 

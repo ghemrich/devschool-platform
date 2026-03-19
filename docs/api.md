@@ -389,47 +389,4 @@ Működés:
 {"status": "processed", "repo": "python-alapok-hello-diak1", "updated": true}
 ```
 
----
 
-## Összefoglaló tábla
-
-| Végpont | Metódus | Auth | Leírás |
-|---------|---------|------|--------|
-| `/health` | GET | — | Állapot |
-| `/api/auth/login` | GET | — | OAuth redirect |
-| `/api/auth/callback` | GET | — | OAuth callback |
-| `/api/auth/me` | GET | Bearer | Profil |
-| `/api/auth/me` | PATCH | Bearer | Profil frissítés |
-| `/api/auth/refresh` | POST | Cookie | Token frissítés |
-| `/api/auth/logout` | POST | — | Kijelentkezés |
-| `/api/courses` | GET | — | Kurzuslista |
-| `/api/courses/{id}` | GET | — | Kurzus részletek |
-| `/api/courses` | POST | Admin | Kurzus létrehozás |
-| `/api/courses/{id}` | PUT | Admin | Kurzus módosítás |
-| `/api/courses/{id}/modules` | POST | Admin | Modul hozzáadás |
-| `/api/courses/{id}/modules/{mid}/exercises` | POST | Admin | Feladat hozzáadás |
-| `/api/courses/{id}/enroll` | POST | Bearer | Beiratkozás |
-| `/api/courses/{id}/unenroll` | POST | Bearer | Leiratkozás |
-| `/api/courses/{id}/students` | GET | Mentor+ | Diáklista |
-| `/api/me/courses` | GET | Bearer | Beiratkozott kurzusok |
-| `/api/me/dashboard` | GET | Bearer | Dashboard |
-| `/api/me/courses/{id}/progress` | GET | Bearer | Haladás |
-| `/api/me/courses/{id}/progress` | POST | Bearer | Feladat jelölés |
-| `/api/me/sync-progress` | POST | Bearer | GitHub szinkron |
-| `/api/me/certificates` | GET | Bearer | Tanúsítványok |
-| `/api/me/courses/{id}/certificate` | POST | Bearer | Cert igénylés |
-| `/api/me/certificates/{id}/pdf` | GET | Bearer | PDF letöltés |
-| `/api/verify/{cert_id}` | GET | — | Verifikáció |
-| `/api/admin/stats` | GET | Admin | Statisztikák |
-| `/api/admin/users` | GET | Admin | Felhasználók |
-| `/api/admin/users/{id}/role` | PATCH | Admin | Szerepkör |
-| `/api/admin/courses/{id}` | DELETE | Admin | Kurzus törlés |
-| `/api/admin/modules/{id}` | DELETE | Admin | Modul törlés |
-| `/api/admin/exercises/{id}` | DELETE | Admin | Feladat törlés |
-| `/api/admin/promotion-rules` | GET | Admin | Szabályok |
-| `/api/admin/promotion-rules` | POST | Admin | Szabály létrehozás |
-| `/api/admin/promotion-rules/{id}` | GET | Admin | Szabály részletek |
-| `/api/admin/promotion-rules/{id}` | PATCH | Admin | Szabály módosítás |
-| `/api/admin/promotion-rules/{id}` | DELETE | Admin | Szabály törlés |
-| `/api/admin/promotion-log` | GET | Admin | Előléptetési napló |
-| `/api/webhooks/github` | POST | HMAC | GitHub webhook |

@@ -107,20 +107,7 @@ erDiagram
   PromotionRule ||--o{ PromotionLog : "napló"
 ```
 
-| Tábla | Kulcs mezők |
-|-------|-------------|
-| `users` | github_id, username, email, avatar_url, role, discord_id |
-| `courses` | name, description |
-| `modules` | course_id, name, order |
-| `exercises` | module_id, name, repo_prefix, order, required, classroom_url |
-| `enrollments` | user_id, course_id, enrolled_at |
-| `progress` | user_id, exercise_id, status, github_repo |
-| `certificates` | cert_id (UUID), user_id, course_id, issued_at, pdf_path |
-| `promotion_rules` | name, description, target_role, is_active |
-| `promotion_rule_requirements` | rule_id, course_id |
-| `promotion_log` | user_id, rule_id, previous_role, new_role, promoted_at |
-
-Részletes séma: [database.md](database.md)
+Részletes tábladefiníciók: [database.md](database.md)
 
 ## Frontend (React + TypeScript + Vite)
 
