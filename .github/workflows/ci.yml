@@ -77,8 +77,15 @@ jobs:
           DISCORD_WEBHOOK_CI: ${{ secrets.DISCORD_WEBHOOK_CI }}
           CI_TITLE: "CI: ${{ github.event.head_commit.message || github.event.pull_request.title || 'PR check' }}"
         run: |
+          if [[ "${{ needs.backend-test.result }}" == "success" && "${{ needs.frontend-test.result }}" == "success" ]]; then
+            STATUS="success"
+          elif [[ "${{ needs.backend-test.result }}" == "cancelled" || "${{ needs.frontend-test.result }}" == "cancelled" ]]; then
+            STATUS="cancelled"
+          else
+            STATUS="failure"
+          fi
           ./scripts/discord-notify.sh \
-            --status "${{ job.status }}" \
+            --status "$STATUS" \
             --title "$CI_TITLE" \
             --repo "${{ github.repository }}" \
             --commit "${{ github.sha }}" \
