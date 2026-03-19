@@ -45,7 +45,7 @@ Az előléptetés automatizálható: tanúsítvány-kombináció → szerepkörv
 - Let's Encrypt SSL + Cloudflare kompatibilitás
 
 ### Minőségbiztosítás
-- 156 teszt (118 backend pytest + 38 frontend Vitest)
+- 160 teszt (118 backend pytest + 42 frontend Vitest)
 - Ruff linter + ESLint + Prettier
 - Dependabot (heti pip, havi Actions)
 - pip-audit, security-check.sh
