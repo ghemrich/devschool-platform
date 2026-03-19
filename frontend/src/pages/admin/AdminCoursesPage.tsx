@@ -805,9 +805,7 @@ function ModuleBlock({
                 className="btn btn-primary"
                 style={{ marginTop: 10, padding: '6px 16px', fontSize: '0.85rem' }}
               >
-                {importLoading
-                  ? 'Importálás...'
-                  : `Kijelöltek importálása (${selectedSlugs.size})`}
+                {importLoading ? 'Importálás...' : `Kijelöltek importálása (${selectedSlugs.size})`}
               </button>
             </div>
           )}

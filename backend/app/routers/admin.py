@@ -129,7 +129,9 @@ def delete_course(
     db.query(Module).filter(Module.course_id == course_id).delete(synchronize_session=False)
     db.query(Enrollment).filter(Enrollment.course_id == course_id).delete(synchronize_session=False)
     db.query(Certificate).filter(Certificate.course_id == course_id).delete(synchronize_session=False)
-    db.query(PromotionRuleRequirement).filter(PromotionRuleRequirement.course_id == course_id).delete(synchronize_session=False)
+    db.query(PromotionRuleRequirement).filter(PromotionRuleRequirement.course_id == course_id).delete(
+        synchronize_session=False
+    )
     db.delete(course)
     db.commit()
     return {"detail": "Course deleted"}

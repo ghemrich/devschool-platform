@@ -242,8 +242,16 @@ MOCK_CLASSROOMS = [
 ]
 
 MOCK_ASSIGNMENTS = [
-    AssignmentInfo(id=10, title="Hello World", slug="het01-hello", invite_link="https://classroom.github.com/a/abc123", classroom_id=1),
-    AssignmentInfo(id=11, title="Loops", slug="het03-loops", invite_link="https://classroom.github.com/a/def456", classroom_id=1),
+    AssignmentInfo(
+        id=10,
+        title="Hello World",
+        slug="het01-hello",
+        invite_link="https://classroom.github.com/a/abc123",
+        classroom_id=1,
+    ),
+    AssignmentInfo(
+        id=11, title="Loops", slug="het03-loops", invite_link="https://classroom.github.com/a/def456", classroom_id=1
+    ),
 ]
 
 
@@ -269,7 +277,9 @@ def test_list_classrooms(mock_lc, client, admin, monkeypatch):
 def test_list_assignments_marks_imported(mock_la, client, admin, db_session, course_with_exercises, monkeypatch):
     monkeypatch.setattr("app.config.settings.github_org_admin_token", "test-token")
     token = create_access_token(admin.id)
-    response = client.get("/api/courses/classroom/classrooms/1/assignments", headers={"Authorization": f"Bearer {token}"})
+    response = client.get(
+        "/api/courses/classroom/classrooms/1/assignments", headers={"Authorization": f"Bearer {token}"}
+    )
     assert response.status_code == 200
     data = response.json()["data"]
     assert len(data) == 2
@@ -317,7 +327,11 @@ def test_import_skips_duplicates(client, admin, db_session, course_with_exercise
         f"/api/courses/{course_with_exercises.id}/modules/{module.id}/import-classroom",
         json={
             "exercises": [
-                {"title": "Hello World Again", "slug": "het01-hello", "invite_link": "https://classroom.github.com/a/dup"},
+                {
+                    "title": "Hello World Again",
+                    "slug": "het01-hello",
+                    "invite_link": "https://classroom.github.com/a/dup",
+                },
                 {"title": "New Exercise", "slug": "het05-new", "invite_link": "https://classroom.github.com/a/new123"},
             ]
         },
