@@ -29,9 +29,10 @@ Az előléptetés automatizálható: tanúsítvány-kombináció → szerepkörv
 - Haladáskövetés (manuális + automatikus)
 - Tanúsítvány generálás (PDF + QR kód + publikus verifikáció)
 - Előléptetési szabályok (automatikus szerepkörváltás tanúsítványok alapján)
+- Mentor dashboard (diákok haladásának áttekintése kurzusonként)
 
 ### Integrációk
-- GitHub Classroom — feladat összekötés (`repo_prefix`), webhook haladásfrissítés, sync-progress
+- GitHub Classroom — feladat összekötés (`repo_prefix`), webhook haladásfrissítés, sync-progress, assignment import (Classroom API)
 - GitHub Organization — automatikus org meghívás bejelentkezéskor
 - Discord webhook értesítések (beiratkozás, tanúsítvány, előléptetés)
 - Discord szerepkör szinkronizáció (Bot API)
@@ -44,7 +45,7 @@ Az előléptetés automatizálható: tanúsítvány-kombináció → szerepkörv
 - Let's Encrypt SSL + Cloudflare kompatibilitás
 
 ### Minőségbiztosítás
-- 103 teszt (64 backend pytest + 39 frontend Vitest)
+- 156 teszt (118 backend pytest + 38 frontend Vitest)
 - Ruff linter + ESLint + Prettier
 - Dependabot (heti pip, havi Actions)
 - pip-audit, security-check.sh
@@ -54,8 +55,6 @@ Az előléptetés automatizálható: tanúsítvány-kombináció → szerepkörv
 > Ezek irányok, nem ígéretek. A prioritásokat a közösség igényei határozzák meg.
 
 ### Rövid táv
-- [ ] Mentor dashboard — diákok haladásának áttekintése kurzusonként
-- [ ] Kurzus import/export — JSON formátumban, GitHub-ról betölthető
 - [ ] E-mail értesítések (opcionális, a Discord mellé)
 - [ ] Rate limiting finomhangolás (végpontonként konfigurálható)
 

@@ -9,6 +9,7 @@ import AdminPage from './pages/admin/AdminPage';
 import AdminCoursesPage from './pages/admin/AdminCoursesPage';
 import AdminUsersPage from './pages/admin/AdminUsersPage';
 import AdminPromotionPage from './pages/admin/AdminPromotionPage';
+import MentorDashboardPage from './pages/MentorDashboardPage';
 import VerifyPage from './pages/VerifyPage';
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/admin/courses" element={<AdminCoursesPage />} />
         <Route path="/admin/users" element={<AdminUsersPage />} />
         <Route path="/admin/promotion" element={<AdminPromotionPage />} />
+        <Route path="/mentor" element={<MentorDashboardPage />} />
         <Route path="/verify/:id" element={<VerifyPage />} />
       </Route>
     </Routes>

@@ -68,6 +68,11 @@ export default function Layout() {
             </a>
             {authChecked && (
               <>
+                {(user?.role === 'mentor' || user?.role === 'admin') && (
+                  <Link to="/mentor" onClick={() => setMenuOpen(false)}>
+                    Mentor
+                  </Link>
+                )}
                 {user?.role === 'admin' && (
                   <Link to="/admin" onClick={() => setMenuOpen(false)}>
                     Admin
