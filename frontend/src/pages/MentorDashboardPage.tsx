@@ -215,7 +215,12 @@ export default function MentorDashboardPage() {
                                     >
                                       {s.username}
                                     </a>
-                                    <span style={{ fontSize: '0.75rem', color: 'var(--color-text-light)' }}>
+                                    <span
+                                      style={{
+                                        fontSize: '0.75rem',
+                                        color: 'var(--color-text-light)',
+                                      }}
+                                    >
                                       {isExpanded ? '▲' : '▼'}
                                     </span>
                                   </div>
@@ -223,7 +228,9 @@ export default function MentorDashboardPage() {
                                 <div style={{ minWidth: 150, padding: '0 12px' }}>
                                   <ProgressBar percent={s.progress_percent} />
                                 </div>
-                                <div style={{ minWidth: 80, textAlign: 'center', padding: '0 12px' }}>
+                                <div
+                                  style={{ minWidth: 80, textAlign: 'center', padding: '0 12px' }}
+                                >
                                   {s.completed_exercises}/{s.total_exercises}
                                 </div>
                                 <div
@@ -249,10 +256,15 @@ export default function MentorDashboardPage() {
                                 >
                                   {studentExercises[key].modules.map((mod) => (
                                     <div key={mod.module_id} style={{ marginBottom: 12 }}>
-                                      <strong style={{ fontSize: '0.85rem' }}>{mod.module_name}</strong>
-                                      <ul style={{ listStyle: 'none', padding: 0, margin: '4px 0 0' }}>
+                                      <strong style={{ fontSize: '0.85rem' }}>
+                                        {mod.module_name}
+                                      </strong>
+                                      <ul
+                                        style={{ listStyle: 'none', padding: 0, margin: '4px 0 0' }}
+                                      >
                                         {mod.exercises.map((ex) => {
-                                          const st = STATUS_LABEL[ex.status] ?? STATUS_LABEL.not_started;
+                                          const st =
+                                            STATUS_LABEL[ex.status] ?? STATUS_LABEL.not_started;
                                           return (
                                             <li
                                               key={ex.exercise_id}
@@ -264,7 +276,9 @@ export default function MentorDashboardPage() {
                                                 fontSize: '0.85rem',
                                               }}
                                             >
-                                              <span style={{ color: st.color, minWidth: 130 }}>{st.text}</span>
+                                              <span style={{ color: st.color, minWidth: 130 }}>
+                                                {st.text}
+                                              </span>
                                               <span>{ex.name}</span>
                                               {ex.classroom_url && (
                                                 <a
@@ -290,7 +304,13 @@ export default function MentorDashboardPage() {
                                 </div>
                               )}
                               {isExpanded && !studentExercises[key] && (
-                                <div style={{ padding: '8px 12px 16px 48px', fontSize: '0.85rem', color: 'var(--color-text-light)' }}>
+                                <div
+                                  style={{
+                                    padding: '8px 12px 16px 48px',
+                                    fontSize: '0.85rem',
+                                    color: 'var(--color-text-light)',
+                                  }}
+                                >
                                   Betöltés...
                                 </div>
                               )}

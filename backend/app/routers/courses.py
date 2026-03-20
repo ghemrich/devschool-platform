@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session, joinedload
 from app.auth.dependencies import get_current_user, require_role
 from app.config import settings
 from app.database import get_db
-from app.models.course import Course, Enrollment, Exercise, Module, Progress, ProgressStatus
+from app.models.course import Course, Enrollment, Exercise, Module, Progress
 from app.models.user import User, UserRole
 from app.services.classroom import list_assignments, list_classrooms
 from app.services.discord import notify_enrollment
