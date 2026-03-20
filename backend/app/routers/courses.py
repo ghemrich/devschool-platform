@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session, joinedload
 from app.auth.dependencies import get_current_user, require_role
 from app.config import settings
 from app.database import get_db
-from app.models.course import Course, Enrollment, Exercise, Module
+from app.models.course import Course, Enrollment, Exercise, Module, Progress, ProgressStatus
 from app.models.user import User, UserRole
 from app.services.classroom import list_assignments, list_classrooms
 from app.services.discord import notify_enrollment
@@ -335,3 +335,60 @@ def course_students(
         )
 
     return {"course_name": course.name, "students": result}
+
+
+@router.get("/{course_id}/students/{user_id}/exercises")
+def student_exercise_details(
+    course_id: int,
+    user_id: int,
+    db: Session = Depends(get_db),
+    _teacher: User = Depends(require_role(UserRole.mentor)),
+):
+    """Per-exercise progress for a student with GitHub Classroom links (mentor/admin only)."""
+    course = db.query(Course).filter(Course.id == course_id).first()
+    if not course:
+        raise HTTPException(status_code=404, detail="Course not found")
+
+    student = db.query(User).filter(User.id == user_id).first()
+    if not student:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    modules = (
+        db.query(Module)
+        .filter(Module.course_id == course_id)
+        .order_by(Module.order)
+        .all()
+    )
+
+    module_list = []
+    for mod in modules:
+        exercises = (
+            db.query(Exercise)
+            .filter(Exercise.module_id == mod.id)
+            .order_by(Exercise.order)
+            .all()
+        )
+        ex_list = []
+        for ex in exercises:
+            progress = (
+                db.query(Progress)
+                .filter(Progress.user_id == user_id, Progress.exercise_id == ex.id)
+                .first()
+            )
+            ex_list.append({
+                "exercise_id": ex.id,
+                "name": ex.name,
+                "status": progress.status.value if progress else "not_started",
+                "classroom_url": ex.classroom_url,
+            })
+        module_list.append({
+            "module_id": mod.id,
+            "module_name": mod.name,
+            "exercises": ex_list,
+        })
+
+    return {
+        "course_name": course.name,
+        "username": student.username,
+        "modules": module_list,
+    }

@@ -98,6 +98,7 @@ Az OAuth callback cseréli a GitHub kódot access tokenre, lekérdezi a profilt,
 | `/api/courses/{id}/enroll` | POST | user | Beiratkozás |
 | `/api/courses/{id}/unenroll` | POST | user | Leiratkozás |
 | `/api/courses/{id}/students` | GET | mentor | Tanulók haladással |
+| `/api/courses/{id}/students/{uid}/exercises` | GET | mentor | Diák feladatrészletei Classroom linkekkel |
 
 ### `dashboard.py` — Haladás
 

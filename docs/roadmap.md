@@ -29,7 +29,7 @@ Az előléptetés automatizálható: tanúsítvány-kombináció → szerepkörv
 - Haladáskövetés (manuális + automatikus)
 - Tanúsítvány generálás (PDF + QR kód + publikus verifikáció)
 - Előléptetési szabályok (automatikus szerepkörváltás tanúsítványok alapján)
-- Mentor dashboard (diákok haladásának áttekintése kurzusonként)
+- Mentor dashboard (diákok haladásának áttekintése kurzusonként, feladatonkénti részletek GitHub Classroom linkekkel)
 
 ### Integrációk
 - GitHub Classroom — feladat összekötés (`repo_prefix`), webhook haladásfrissítés, sync-progress, assignment import (Classroom API)

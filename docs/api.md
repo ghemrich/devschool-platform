@@ -207,6 +207,24 @@ Diáklista haladással.
 }
 ```
 
+### `GET /api/courses/{course_id}/students/{user_id}/exercises` *(mentor/admin)*
+
+Diák feladatonkénti haladása GitHub Classroom linkekkel.
+
+```json
+{
+  "course_name": "Python Alapok",
+  "username": "diak1",
+  "modules": [{
+    "module_id": 1, "module_name": "Változók és típusok",
+    "exercises": [
+      {"exercise_id": 1, "name": "Hello World", "status": "completed", "classroom_url": "https://classroom.github.com/a/abc123"},
+      {"exercise_id": 2, "name": "Típuskonverzió", "status": "not_started", "classroom_url": null}
+    ]
+  }]
+}
+```
+
 ---
 
 ## 4. Dashboard / Haladás (`/api/me`)

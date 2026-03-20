@@ -186,6 +186,7 @@ Webhook nélkül: a tanuló a dashboardon a **„Haladás szinkronizálása"** g
 | Assignment elfogadás | Tanuló | GitHub Classroom |
 | CI futtatás | Automatikus | GitHub Actions |
 | Haladás frissítés | Automatikus (webhook) / manuális (sync) | OpenSchool |
+| Mentor haladás áttekintés | Mentor | OpenSchool (Classroom linkek feladatonként) |
 
 ### Classroom Import funkció
 

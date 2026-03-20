@@ -116,6 +116,12 @@ Reszponzív: `@media (max-width: 767px)` töréspont.
 | Felhasználók (`AdminUsersPage.tsx`) | `GET /api/admin/users`, `PATCH .../role` | Táblázat, szerepkör módosítás |
 | Kurzusok (`AdminCoursesPage.tsx`) | CRUD végpontok | Kurzus/modul/feladat létrehozás, törlés |
 
+## Mentor dashboard
+
+| Oldal | API | Funkciók |
+|-------|-----|----------|
+| Mentor (`MentorDashboardPage.tsx`) | `GET /api/courses/{id}/students`, `GET /api/courses/{id}/students/{uid}/exercises` | Diákok haladása, feladatonkénti részletek, GitHub Classroom linkek |
+
 ## Linting és formázás
 
 ```bash

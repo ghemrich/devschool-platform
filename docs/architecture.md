@@ -120,6 +120,7 @@ Részletes tábladefiníciók: [database.md](database.md)
 | `/courses/:id` | Nem | Kurzus részletei modulokkal, beiratkozás |
 | `/login` | Nem | GitHub OAuth bejelentkezés |
 | `/dashboard` | Igen | Beiratkozott kurzusok, haladás, tanúsítványok |
+| `/mentor` | Igen (mentor/admin) | Mentor dashboard — diákok haladása, GitHub Classroom linkek |
 | `/verify/[id]` | Nem | Nyilvános tanúsítvány hitelesítés |
 | `/admin` | Igen (admin) | Admin dashboard — statisztikák |
 | `/admin/users` | Igen (admin) | Felhasználók kezelése |

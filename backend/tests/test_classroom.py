@@ -169,6 +169,73 @@ def test_students_shows_progress(client, mentor, student, db_session, course_wit
     assert data["students"][0]["progress_percent"] == 50.0
 
 
+# --- Student exercise details with Classroom links ---
+
+
+def test_student_exercises_requires_mentor(client, student, course_with_exercises):
+    token = create_access_token(student.id)
+    response = client.get(
+        f"/api/courses/{course_with_exercises.id}/students/{student.id}/exercises",
+        headers={"Authorization": f"Bearer {token}"},
+    )
+    assert response.status_code == 403
+
+
+def test_student_exercises_not_found_course(client, mentor):
+    token = create_access_token(mentor.id)
+    response = client.get(
+        "/api/courses/999/students/1/exercises",
+        headers={"Authorization": f"Bearer {token}"},
+    )
+    assert response.status_code == 404
+
+
+def test_student_exercises_not_found_user(client, mentor, course_with_exercises):
+    token = create_access_token(mentor.id)
+    response = client.get(
+        f"/api/courses/{course_with_exercises.id}/students/999/exercises",
+        headers={"Authorization": f"Bearer {token}"},
+    )
+    assert response.status_code == 404
+
+
+def test_student_exercises_returns_classroom_urls(client, mentor, student, db_session, course_with_exercises):
+    enrollment = Enrollment(user_id=student.id, course_id=course_with_exercises.id)
+    db_session.add(enrollment)
+
+    ex = db_session.query(Exercise).filter(Exercise.name == "Hello World").first()
+    progress = Progress(user_id=student.id, exercise_id=ex.id, status=ProgressStatus.completed)
+    db_session.add(progress)
+    db_session.commit()
+
+    token = create_access_token(mentor.id)
+    response = client.get(
+        f"/api/courses/{course_with_exercises.id}/students/{student.id}/exercises",
+        headers={"Authorization": f"Bearer {token}"},
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert data["course_name"] == "Python 101"
+    assert data["username"] == "student1"
+    assert len(data["modules"]) == 1
+
+    mod = data["modules"][0]
+    assert mod["module_name"] == "Module 1"
+    assert len(mod["exercises"]) == 2
+
+    # First exercise has classroom_url and is completed
+    ex1 = mod["exercises"][0]
+    assert ex1["name"] == "Hello World"
+    assert ex1["status"] == "completed"
+    assert ex1["classroom_url"] == "https://classroom.github.com/a/abc123"
+
+    # Second exercise has no classroom_url and is not started
+    ex2 = mod["exercises"][1]
+    assert ex2["name"] == "Variables"
+    assert ex2["status"] == "not_started"
+    assert ex2["classroom_url"] is None
+
+
 # --- GitHub webhook ---
 
 

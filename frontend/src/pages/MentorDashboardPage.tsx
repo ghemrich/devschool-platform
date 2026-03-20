@@ -18,11 +18,38 @@ interface CourseStudents {
   students: StudentProgress[];
 }
 
+interface ExerciseDetail {
+  exercise_id: number;
+  name: string;
+  status: 'not_started' | 'in_progress' | 'completed';
+  classroom_url: string | null;
+}
+
+interface ModuleDetail {
+  module_id: number;
+  module_name: string;
+  exercises: ExerciseDetail[];
+}
+
+interface StudentExercises {
+  course_name: string;
+  username: string;
+  modules: ModuleDetail[];
+}
+
+const STATUS_LABEL: Record<string, { text: string; color: string }> = {
+  completed: { text: '✅ Kész', color: 'var(--color-success, #22c55e)' },
+  in_progress: { text: '🔄 Folyamatban', color: 'var(--color-warning, #f59e0b)' },
+  not_started: { text: '⬜ Nem kezdte', color: 'var(--color-text-light)' },
+};
+
 export default function MentorDashboardPage() {
   const navigate = useNavigate();
   const [courses, setCourses] = useState<CourseListItem[]>([]);
   const [expandedCourse, setExpandedCourse] = useState<number | null>(null);
   const [studentData, setStudentData] = useState<Record<number, CourseStudents>>({});
+  const [expandedStudent, setExpandedStudent] = useState<string | null>(null); // "courseId-userId"
+  const [studentExercises, setStudentExercises] = useState<Record<string, StudentExercises>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -71,6 +98,27 @@ export default function MentorDashboardPage() {
       }
     },
     [expandedCourse, studentData],
+  );
+
+  const toggleStudent = useCallback(
+    async (courseId: number, userId: number) => {
+      const key = `${courseId}-${userId}`;
+      if (expandedStudent === key) {
+        setExpandedStudent(null);
+        return;
+      }
+      setExpandedStudent(key);
+      if (!studentExercises[key]) {
+        const res = await fetch(`/api/courses/${courseId}/students/${userId}/exercises`, {
+          credentials: 'same-origin',
+        });
+        if (res.ok) {
+          const data: StudentExercises = await res.json();
+          setStudentExercises((prev) => ({ ...prev, [key]: data }));
+        }
+      }
+    },
+    [expandedStudent, studentExercises],
   );
 
   if (loading)
@@ -136,49 +184,120 @@ export default function MentorDashboardPage() {
                   <tbody>
                     {studentData[c.id].students
                       .sort((a, b) => b.progress_percent - a.progress_percent)
-                      .map((s) => (
-                        <tr
-                          key={s.user_id}
-                          style={{ borderBottom: '1px solid var(--color-border)' }}
-                        >
-                          <td style={{ padding: '8px 12px' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                              {s.avatar_url && (
-                                <img
-                                  src={s.avatar_url}
-                                  alt=""
-                                  style={{ width: 28, height: 28, borderRadius: '50%' }}
-                                />
-                              )}
-                              <a
-                                href={`https://github.com/${s.username}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{ color: 'var(--color-primary)' }}
-                              >
-                                {s.username}
-                              </a>
-                            </div>
-                          </td>
-                          <td style={{ padding: '8px 12px', minWidth: 150 }}>
-                            <ProgressBar percent={s.progress_percent} />
-                          </td>
-                          <td style={{ padding: '8px 12px', textAlign: 'center' }}>
-                            {s.completed_exercises}/{s.total_exercises}
-                          </td>
-                          <td
-                            style={{
-                              padding: '8px 12px',
-                              fontSize: '0.8rem',
-                              color: 'var(--color-text-light)',
-                            }}
+                      .map((s) => {
+                        const key = `${c.id}-${s.user_id}`;
+                        const isExpanded = expandedStudent === key;
+                        return (
+                          <tr
+                            key={s.user_id}
+                            style={{ borderBottom: '1px solid var(--color-border)' }}
                           >
-                            {s.enrolled_at
-                              ? new Date(s.enrolled_at).toLocaleDateString('hu-HU')
-                              : '—'}
-                          </td>
-                        </tr>
-                      ))}
+                            <td colSpan={4} style={{ padding: 0 }}>
+                              <div
+                                style={{ display: 'flex', cursor: 'pointer', padding: '8px 12px' }}
+                                onClick={() => toggleStudent(c.id, s.user_id)}
+                              >
+                                <div style={{ flex: 1 }}>
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                    {s.avatar_url && (
+                                      <img
+                                        src={s.avatar_url}
+                                        alt=""
+                                        style={{ width: 28, height: 28, borderRadius: '50%' }}
+                                      />
+                                    )}
+                                    <a
+                                      href={`https://github.com/${s.username}`}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      style={{ color: 'var(--color-primary)' }}
+                                      onClick={(e) => e.stopPropagation()}
+                                    >
+                                      {s.username}
+                                    </a>
+                                    <span style={{ fontSize: '0.75rem', color: 'var(--color-text-light)' }}>
+                                      {isExpanded ? '▲' : '▼'}
+                                    </span>
+                                  </div>
+                                </div>
+                                <div style={{ minWidth: 150, padding: '0 12px' }}>
+                                  <ProgressBar percent={s.progress_percent} />
+                                </div>
+                                <div style={{ minWidth: 80, textAlign: 'center', padding: '0 12px' }}>
+                                  {s.completed_exercises}/{s.total_exercises}
+                                </div>
+                                <div
+                                  style={{
+                                    minWidth: 100,
+                                    fontSize: '0.8rem',
+                                    color: 'var(--color-text-light)',
+                                    padding: '0 12px',
+                                  }}
+                                >
+                                  {s.enrolled_at
+                                    ? new Date(s.enrolled_at).toLocaleDateString('hu-HU')
+                                    : '—'}
+                                </div>
+                              </div>
+
+                              {isExpanded && studentExercises[key] && (
+                                <div
+                                  style={{
+                                    padding: '8px 12px 16px 48px',
+                                    background: 'var(--color-bg-light, rgba(0,0,0,0.02))',
+                                  }}
+                                >
+                                  {studentExercises[key].modules.map((mod) => (
+                                    <div key={mod.module_id} style={{ marginBottom: 12 }}>
+                                      <strong style={{ fontSize: '0.85rem' }}>{mod.module_name}</strong>
+                                      <ul style={{ listStyle: 'none', padding: 0, margin: '4px 0 0' }}>
+                                        {mod.exercises.map((ex) => {
+                                          const st = STATUS_LABEL[ex.status] ?? STATUS_LABEL.not_started;
+                                          return (
+                                            <li
+                                              key={ex.exercise_id}
+                                              style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: 8,
+                                                padding: '3px 0',
+                                                fontSize: '0.85rem',
+                                              }}
+                                            >
+                                              <span style={{ color: st.color, minWidth: 130 }}>{st.text}</span>
+                                              <span>{ex.name}</span>
+                                              {ex.classroom_url && (
+                                                <a
+                                                  href={ex.classroom_url}
+                                                  target="_blank"
+                                                  rel="noopener noreferrer"
+                                                  style={{
+                                                    marginLeft: 'auto',
+                                                    fontSize: '0.8rem',
+                                                    color: 'var(--color-primary)',
+                                                  }}
+                                                  onClick={(e) => e.stopPropagation()}
+                                                >
+                                                  GitHub Classroom ↗
+                                                </a>
+                                              )}
+                                            </li>
+                                          );
+                                        })}
+                                      </ul>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                              {isExpanded && !studentExercises[key] && (
+                                <div style={{ padding: '8px 12px 16px 48px', fontSize: '0.85rem', color: 'var(--color-text-light)' }}>
+                                  Betöltés...
+                                </div>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
                   </tbody>
                 </table>
               )}
