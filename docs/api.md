@@ -184,6 +184,58 @@ Feladat hozzáadása. `201`.
 | `order` | int | nem | ≥ 0, default: 0 |
 | `required` | bool | nem | default: `true` |
 
+### `GET /api/courses/classroom/classrooms` *(admin)*
+
+Elérhető GitHub Classroom-ok listázása.
+
+```json
+[{"id": 12345, "name": "Python 2026"}]
+```
+
+### `GET /api/courses/classroom/classrooms/{classroom_id}/assignments` *(admin)*
+
+Assignment-ek listázása (már importált jelölésével).
+
+```json
+[{"id": 101, "title": "Hello World", "slug": "het01-hello", "invite_link": "https://classroom.github.com/a/abc123", "already_imported": false}]
+```
+
+### `POST /api/courses/{course_id}/modules/{module_id}/import-classroom` *(admin)*
+
+GitHub Classroom assignment-ek importálása. `201`.
+
+```json
+{
+  "exercises": [
+    {
+      "title": "Hello World",
+      "slug": "het01-hello",
+      "invite_link": "https://classroom.github.com/a/abc123",
+      "assignment_id": 101,
+      "classroom_id": 12345
+    }
+  ]
+}
+```
+
+| Mező | Típus | Kötelező | Leírás |
+|------|-------|----------|--------|
+| `title` | string | igen | Assignment neve |
+| `slug` | string | igen | Repo prefix |
+| `invite_link` | string | igen | Tanulói meghívó link |
+| `assignment_id` | int | nem | GitHub assignment ID (teacher URL-hez) |
+| `classroom_id` | int | nem | GitHub classroom ID (teacher URL-hez) |
+
+Válasz:
+
+```json
+{"imported": ["Hello World"], "skipped": ["Variables"], "updated": ["Loops"]}
+```
+
+- `imported`: újonnan létrehozott feladatok
+- `skipped`: már létező, változatlan feladatok
+- `updated`: meglévő feladatok, amelyeknél a `classroom_teacher_url` kitöltésre került (backfill)
+
 ### `POST /api/courses/{course_id}/enroll`
 
 Beiratkozás. Hitelesítés: Bearer / cookie. `201`. Hiba: `404`, `409` (már beiratkozott).
@@ -218,7 +270,7 @@ Diák feladatonkénti haladása GitHub Classroom linkekkel.
   "modules": [{
     "module_id": 1, "module_name": "Változók és típusok",
     "exercises": [
-      {"exercise_id": 1, "name": "Hello World", "status": "completed", "classroom_url": "https://classroom.github.com/a/abc123"},
+      {"exercise_id": 1, "name": "Hello World", "status": "completed", "classroom_url": "https://classroom.github.com/classrooms/12345/assignments/101"},
       {"exercise_id": 2, "name": "Típuskonverzió", "status": "not_started", "classroom_url": null}
     ]
   }]

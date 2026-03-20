@@ -32,7 +32,7 @@ Az előléptetés automatizálható: tanúsítvány-kombináció → szerepkörv
 - Mentor dashboard (diákok haladásának áttekintése kurzusonként, feladatonkénti részletek GitHub Classroom linkekkel)
 
 ### Integrációk
-- GitHub Classroom — feladat összekötés (`repo_prefix`), webhook haladásfrissítés, sync-progress, assignment import (Classroom API)
+- GitHub Classroom — feladat összekötés (`repo_prefix`), webhook haladásfrissítés, sync-progress, assignment import (Classroom API), teacher dashboard URL (`classroom_teacher_url`), re-import backfill
 - GitHub Organization — automatikus org meghívás bejelentkezéskor
 - Discord webhook értesítések (beiratkozás, tanúsítvány, előléptetés)
 - Discord szerepkör szinkronizáció (Bot API)

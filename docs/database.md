@@ -51,6 +51,7 @@ erDiagram
         string name
         string repo_prefix
         string classroom_url
+        string classroom_teacher_url
         int order
         bool required
     }
@@ -151,7 +152,8 @@ GitHub OAuth-tal regisztrált felhasználók.
 | `module_id` | Integer (FK) | Nem | — | → `modules.id` |
 | `name` | String | Nem | — | Feladat neve |
 | `repo_prefix` | String | Igen | — | GitHub Classroom prefix. Tanulók repója: `{prefix}-{username}` |
-| `classroom_url` | String | Igen | — | Classroom assignment link |
+| `classroom_url` | String | Igen | — | Classroom assignment meghívó link (tanulóknak) |
+| `classroom_teacher_url` | String | Igen | — | Teacher dashboard URL (GitHub Classroom, mentoroknak) |
 | `order` | Integer | Igen | `0` | Sorrend a modulon belül |
 | `required` | Boolean | Nem | `true` | Szükséges-e a tanúsítványhoz |
 
@@ -264,3 +266,4 @@ alembic downgrade -1                          # visszagörgetés
 | `cefa39428d67` | `certificates` + `required` oszlop |
 | `d1e2f3a4b5c6` | `promotion_rules`, `promotion_rule_requirements`, `promotion_log` |
 | `e2f3a4b5c6d7` | `discord_id` (`users`, unique) |
+| `f4a5b6c7d8e9` | `classroom_teacher_url` (`exercises`) |

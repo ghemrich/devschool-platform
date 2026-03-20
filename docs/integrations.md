@@ -142,7 +142,8 @@ A `GITHUB_ORG_ADMIN_TOKEN` kötelező: ezt használja a rendszer a CI státusz l
 | Mező | Leírás | Példa |
 |------|--------|-------|
 | `repo_prefix` | **Pontosan** a Classroom assignment prefix | `python-hello-world` |
-| `classroom_url` | Assignment meghívó link | `https://classroom.github.com/a/xYz123` |
+| `classroom_url` | Assignment meghívó link (tanulóknak) | `https://classroom.github.com/a/xYz123` |
+| `classroom_teacher_url` | Teacher dashboard URL (importkor automatikus) | `https://classroom.github.com/classrooms/{id}/assignments/{id}` |
 
 ### A `repo_prefix` a kulcs
 
@@ -186,7 +187,7 @@ Webhook nélkül: a tanuló a dashboardon a **„Haladás szinkronizálása"** g
 | Assignment elfogadás | Tanuló | GitHub Classroom |
 | CI futtatás | Automatikus | GitHub Actions |
 | Haladás frissítés | Automatikus (webhook) / manuális (sync) | OpenSchool |
-| Mentor haladás áttekintés | Mentor | OpenSchool (Classroom linkek feladatonként) |
+| Mentor haladás áttekintés | Mentor | OpenSchool (Classroom teacher dashboard linkek feladatonként) |
 
 ### Classroom Import funkció
 
@@ -195,8 +196,9 @@ Az admin panelen a moduloknál elérhető a **„📥 Import from Classroom"** g
 1. Admin a modul mellett kattint az **Import from Classroom** gombra
 2. A rendszer lekérdezi az elérhető GitHub Classroom-okat (`GET /classrooms`)
 3. Admin kiválasztja a Classroom-ot, majd a listából kijelöli az importálandó assignment-eket
-4. Az import automatikusan beállítja a `repo_prefix` (assignment slug) és `classroom_url` (invite link) mezőket
+4. Az import automatikusan beállítja a `repo_prefix` (assignment slug), `classroom_url` (invite link) és `classroom_teacher_url` (teacher dashboard URL) mezőket
 5. Már importált assignment-ek szürkén jelennek meg
+6. Re-import esetén a korábban importált feladatok `classroom_teacher_url` mezője automatikusan kitöltődik (backfill). Az endpoint válasza: `{"imported": [...], "skipped": [...], "updated": [...]}` — az `updated` lista a backfill-elt feladatokat tartalmazza
 
 > **Megjegyzés:** A Classroom API csak olvasási jogot biztosít — assignment létrehozás továbbra is a GitHub Classroom webes felületén történik.
 

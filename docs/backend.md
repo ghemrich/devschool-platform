@@ -95,6 +95,9 @@ Az OAuth callback cseréli a GitHub kódot access tokenre, lekérdezi a profilt,
 | `/api/courses/{id}` | PUT | admin | Kurzus szerkesztése |
 | `/api/courses/{id}/modules` | POST | admin | Modul hozzáadása |
 | `/api/courses/{id}/modules/{mid}/exercises` | POST | admin | Feladat hozzáadása |
+| `/api/courses/classroom/classrooms` | GET | admin | GitHub Classroom-ok listázása |
+| `/api/courses/classroom/classrooms/{cid}/assignments` | GET | admin | Assignment-ek listázása |
+| `/api/courses/{id}/modules/{mid}/import-classroom` | POST | admin | Classroom assignment-ek importálása (backfill támogatással) |
 | `/api/courses/{id}/enroll` | POST | user | Beiratkozás |
 | `/api/courses/{id}/unenroll` | POST | user | Leiratkozás |
 | `/api/courses/{id}/students` | GET | mentor | Tanulók haladással |
@@ -190,7 +193,7 @@ backend/tests/
 ├── test_admin.py         # Admin panel (11 teszt)
 ├── test_auth.py          # OAuth, JWT (8 teszt)
 ├── test_certificates.py  # Tanúsítványok, PDF, QR (12 teszt)
-├── test_classroom.py     # GitHub Classroom webhook (9 teszt)
+├── test_classroom.py     # GitHub Classroom webhook + import + mentor (19 teszt)
 ├── test_courses.py       # Kurzus CRUD, beiratkozás (14 teszt)
 ├── test_discord.py       # Discord webhook értesítések (8 teszt)
 ├── test_discord_sync.py  # Discord szerepkör szinkronizáció (20 teszt)

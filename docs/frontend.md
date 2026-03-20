@@ -120,7 +120,7 @@ Reszponzív: `@media (max-width: 767px)` töréspont.
 
 | Oldal | API | Funkciók |
 |-------|-----|----------|
-| Mentor (`MentorDashboardPage.tsx`) | `GET /api/courses/{id}/students`, `GET /api/courses/{id}/students/{uid}/exercises` | Diákok haladása, feladatonkénti részletek, GitHub Classroom linkek |
+| Mentor (`MentorDashboardPage.tsx`) | `GET /api/courses/{id}/students`, `GET /api/courses/{id}/students/{uid}/exercises` | Diákok haladása, feladatonkénti részletek, GitHub Classroom teacher dashboard linkek |
 
 ## Linting és formázás
 
