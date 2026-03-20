@@ -27,6 +27,7 @@ class AssignmentInfo:
     slug: str
     invite_link: str
     classroom_id: int
+    classroom_url: str = ""
 
 
 async def list_classrooms(admin_token: str) -> list[ClassroomInfo]:
@@ -85,6 +86,7 @@ async def list_assignments(admin_token: str, classroom_id: int) -> list[Assignme
             if not data:
                 break
             for a in data:
+                cr = a.get("classroom", {})
                 results.append(
                     AssignmentInfo(
                         id=a["id"],
@@ -92,6 +94,7 @@ async def list_assignments(admin_token: str, classroom_id: int) -> list[Assignme
                         slug=a["slug"],
                         invite_link=a.get("invite_link", ""),
                         classroom_id=classroom_id,
+                        classroom_url=cr.get("url", ""),
                     )
                 )
             if len(data) < 100:

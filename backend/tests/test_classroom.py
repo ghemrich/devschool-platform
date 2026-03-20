@@ -373,15 +373,13 @@ def test_import_exercises(client, admin, db_session):
                     "title": "Loops",
                     "slug": "het03-loops",
                     "invite_link": "https://classroom.github.com/a/def456",
-                    "assignment_id": 11,
-                    "classroom_id": 1,
+                    "classroom_url": "https://classroom.github.com/classrooms/123-test",
                 },
                 {
                     "title": "Functions",
                     "slug": "het04-funcs",
                     "invite_link": "https://classroom.github.com/a/ghi789",
-                    "assignment_id": 12,
-                    "classroom_id": 1,
+                    "classroom_url": "https://classroom.github.com/classrooms/123-test",
                 },
             ]
         },
@@ -397,9 +395,13 @@ def test_import_exercises(client, admin, db_session):
     assert exercises[0].name == "Loops"
     assert exercises[0].repo_prefix == "het03-loops"
     assert exercises[0].classroom_url == "https://classroom.github.com/a/def456"
-    assert exercises[0].classroom_teacher_url == "https://classroom.github.com/classrooms/1/assignments/11"
+    assert (
+        exercises[0].classroom_teacher_url == "https://classroom.github.com/classrooms/123-test/assignments/het03-loops"
+    )
     assert exercises[1].classroom_url == "https://classroom.github.com/a/ghi789"
-    assert exercises[1].classroom_teacher_url == "https://classroom.github.com/classrooms/1/assignments/12"
+    assert (
+        exercises[1].classroom_teacher_url == "https://classroom.github.com/classrooms/123-test/assignments/het04-funcs"
+    )
 
 
 def test_import_skips_duplicates(client, admin, db_session, course_with_exercises):
@@ -427,7 +429,7 @@ def test_import_skips_duplicates(client, admin, db_session, course_with_exercise
 
 
 def test_reimport_backfills_teacher_url(client, admin, db_session, course_with_exercises):
-    """Re-importing with assignment_id/classroom_id backfills classroom_teacher_url."""
+    """Re-importing with classroom_url backfills classroom_teacher_url."""
     module = db_session.query(Module).filter(Module.course_id == course_with_exercises.id).first()
     # Verify existing exercises have no teacher URL
     ex = db_session.query(Exercise).filter(Exercise.repo_prefix == "het01-hello").first()
@@ -442,8 +444,7 @@ def test_reimport_backfills_teacher_url(client, admin, db_session, course_with_e
                     "title": "Hello World",
                     "slug": "het01-hello",
                     "invite_link": "https://classroom.github.com/a/abc123",
-                    "assignment_id": 10,
-                    "classroom_id": 1,
+                    "classroom_url": "https://classroom.github.com/classrooms/123-test",
                 },
             ]
         },
@@ -456,4 +457,4 @@ def test_reimport_backfills_teacher_url(client, admin, db_session, course_with_e
     assert result["skipped"] == []
 
     db_session.refresh(ex)
-    assert ex.classroom_teacher_url == "https://classroom.github.com/classrooms/1/assignments/10"
+    assert ex.classroom_teacher_url == "https://classroom.github.com/classrooms/123-test/assignments/het01-hello"

@@ -12,6 +12,7 @@ interface AssignmentItem {
   title: string;
   slug: string;
   invite_link: string;
+  classroom_url: string;
   already_imported: boolean;
 }
 
@@ -538,8 +539,7 @@ function ModuleBlock({
           title: a.title,
           slug: a.slug,
           invite_link: a.invite_link,
-          assignment_id: a.id,
-          classroom_id: selectedClassroom ?? 0,
+          classroom_url: a.classroom_url || '',
         })),
       }),
     });

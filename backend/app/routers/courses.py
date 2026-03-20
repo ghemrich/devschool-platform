@@ -173,8 +173,7 @@ class ImportExercise(BaseModel):
     title: str
     slug: str
     invite_link: str
-    assignment_id: int = 0
-    classroom_id: int = 0
+    classroom_url: str = ""
 
 
 class ImportRequest(BaseModel):
@@ -215,6 +214,7 @@ async def get_classroom_assignments(
                 "title": a.title,
                 "slug": a.slug,
                 "invite_link": a.invite_link,
+                "classroom_url": a.classroom_url,
                 "already_imported": a.slug in existing_prefixes,
             }
             for a in assignments
@@ -242,10 +242,10 @@ def import_classroom_exercises(
     skipped = []
     updated = []
     for ex in data.exercises:
-        # Build teacher-facing URL if assignment/classroom IDs are provided
+        # Build teacher-facing URL from classroom web URL + assignment ID
         teacher_url = None
-        if ex.assignment_id and ex.classroom_id:
-            teacher_url = f"https://classroom.github.com/classrooms/{ex.classroom_id}/assignments/{ex.assignment_id}"
+        if ex.classroom_url:
+            teacher_url = f"{ex.classroom_url}/assignments/{ex.slug}"
 
         # If exercise already exists, backfill teacher URL if missing
         existing = db.query(Exercise).filter(Exercise.repo_prefix == ex.slug).first()
