@@ -48,7 +48,7 @@ function mockFetch(overrides: Record<string, unknown> = {}) {
                         exercise_id: 1,
                         name: 'Hello World',
                         status: 'completed',
-                        classroom_url: 'https://classroom.github.com/a/abc123',
+                        classroom_url: 'https://classroom.github.com/classrooms/1/assignments/10',
                       },
                       {
                         exercise_id: 2,
@@ -172,7 +172,7 @@ describe('MentorDashboardPage', () => {
     expect(classroomLinks.length).toBe(1);
     expect(classroomLinks[0].closest('a')).toHaveAttribute(
       'href',
-      'https://classroom.github.com/a/abc123',
+      'https://classroom.github.com/classrooms/1/assignments/10',
     );
   });
 });

@@ -223,7 +223,8 @@ def test_student_exercises_returns_classroom_urls(client, mentor, student, db_se
     assert mod["module_name"] == "Module 1"
     assert len(mod["exercises"]) == 2
 
-    # First exercise has classroom_url and is completed
+    # First exercise has classroom_url (invite link) and is completed
+    # Mentor endpoint returns teacher URL (classroom_teacher_url) if available, otherwise invite link
     ex1 = mod["exercises"][0]
     assert ex1["name"] == "Hello World"
     assert ex1["status"] == "completed"
@@ -368,8 +369,20 @@ def test_import_exercises(client, admin, db_session):
         f"/api/courses/{course.id}/modules/{module.id}/import-classroom",
         json={
             "exercises": [
-                {"title": "Loops", "slug": "het03-loops", "invite_link": "https://classroom.github.com/a/def456"},
-                {"title": "Functions", "slug": "het04-funcs", "invite_link": "https://classroom.github.com/a/ghi789"},
+                {
+                    "title": "Loops",
+                    "slug": "het03-loops",
+                    "invite_link": "https://classroom.github.com/a/def456",
+                    "assignment_id": 11,
+                    "classroom_id": 1,
+                },
+                {
+                    "title": "Functions",
+                    "slug": "het04-funcs",
+                    "invite_link": "https://classroom.github.com/a/ghi789",
+                    "assignment_id": 12,
+                    "classroom_id": 1,
+                },
             ]
         },
         headers={"Authorization": f"Bearer {token}"},
@@ -384,7 +397,9 @@ def test_import_exercises(client, admin, db_session):
     assert exercises[0].name == "Loops"
     assert exercises[0].repo_prefix == "het03-loops"
     assert exercises[0].classroom_url == "https://classroom.github.com/a/def456"
-    assert exercises[1].name == "Functions"
+    assert exercises[0].classroom_teacher_url == "https://classroom.github.com/classrooms/1/assignments/11"
+    assert exercises[1].classroom_url == "https://classroom.github.com/a/ghi789"
+    assert exercises[1].classroom_teacher_url == "https://classroom.github.com/classrooms/1/assignments/12"
 
 
 def test_import_skips_duplicates(client, admin, db_session, course_with_exercises):

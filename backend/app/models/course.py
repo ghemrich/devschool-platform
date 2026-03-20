@@ -39,6 +39,7 @@ class Exercise(Base):
     name = Column(String, nullable=False)
     repo_prefix = Column(String)
     classroom_url = Column(String)
+    classroom_teacher_url = Column(String)
     order = Column(Integer, default=0)
     required = Column(Boolean, default=True, nullable=False)
 

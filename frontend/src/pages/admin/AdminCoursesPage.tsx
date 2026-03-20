@@ -538,6 +538,8 @@ function ModuleBlock({
           title: a.title,
           slug: a.slug,
           invite_link: a.invite_link,
+          assignment_id: a.id,
+          classroom_id: selectedClassroom ?? 0,
         })),
       }),
     });

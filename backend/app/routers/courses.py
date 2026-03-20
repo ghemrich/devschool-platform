@@ -173,6 +173,8 @@ class ImportExercise(BaseModel):
     title: str
     slug: str
     invite_link: str
+    assignment_id: int = 0
+    classroom_id: int = 0
 
 
 class ImportRequest(BaseModel):
@@ -246,11 +248,17 @@ def import_classroom_exercises(
             continue
 
         max_order += 1
+        # Build teacher-facing URL if assignment/classroom IDs are provided
+        teacher_url = None
+        if ex.assignment_id and ex.classroom_id:
+            teacher_url = f"https://classroom.github.com/classrooms/{ex.classroom_id}/assignments/{ex.assignment_id}"
+
         exercise = Exercise(
             module_id=module_id,
             name=ex.title,
             repo_prefix=ex.slug,
             classroom_url=ex.invite_link,
+            classroom_teacher_url=teacher_url,
             order=max_order,
             required=True,
         )
@@ -353,39 +361,29 @@ def student_exercise_details(
     if not student:
         raise HTTPException(status_code=404, detail="User not found")
 
-    modules = (
-        db.query(Module)
-        .filter(Module.course_id == course_id)
-        .order_by(Module.order)
-        .all()
-    )
+    modules = db.query(Module).filter(Module.course_id == course_id).order_by(Module.order).all()
 
     module_list = []
     for mod in modules:
-        exercises = (
-            db.query(Exercise)
-            .filter(Exercise.module_id == mod.id)
-            .order_by(Exercise.order)
-            .all()
-        )
+        exercises = db.query(Exercise).filter(Exercise.module_id == mod.id).order_by(Exercise.order).all()
         ex_list = []
         for ex in exercises:
-            progress = (
-                db.query(Progress)
-                .filter(Progress.user_id == user_id, Progress.exercise_id == ex.id)
-                .first()
+            progress = db.query(Progress).filter(Progress.user_id == user_id, Progress.exercise_id == ex.id).first()
+            ex_list.append(
+                {
+                    "exercise_id": ex.id,
+                    "name": ex.name,
+                    "status": progress.status.value if progress else "not_started",
+                    "classroom_url": ex.classroom_teacher_url or ex.classroom_url,
+                }
             )
-            ex_list.append({
-                "exercise_id": ex.id,
-                "name": ex.name,
-                "status": progress.status.value if progress else "not_started",
-                "classroom_url": ex.classroom_url,
-            })
-        module_list.append({
-            "module_id": mod.id,
-            "module_name": mod.name,
-            "exercises": ex_list,
-        })
+        module_list.append(
+            {
+                "module_id": mod.id,
+                "module_name": mod.name,
+                "exercises": ex_list,
+            }
+        )
 
     return {
         "course_name": course.name,
